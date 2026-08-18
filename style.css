@@ -25,17 +25,18 @@
     
 }
 .pag-login{
+  
     color: white;
     height: 300px;
     width: 400px;
     background-color: transparent;
     border:solid 2px rgba(255,255, 255, .2); /* borda levemente cinza com transparencia */
-    border-radius: 5px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:10px;
+    gap:0px;
     padding: 20px 30px;/* espaçamento interno, que nao permite que o itens da aba do login cheguem proximos */
     box-shadow: -2px 6px 20px 11px rgba(0, 0, 0, 0.71);-webkit-box-shadow: -2px 6px 20px 11px rgba(0, 0, 0, 0.71);
     /* box-shadow: sombreamento na borda*/
@@ -48,8 +49,11 @@
       font-size: 40px;
     }
    .type-usuario{
+    display: flex;
+     flex-direction: row;
+     align-items: center;
      height: 40px;
-     width: 100%;
+     width: 85%;
      margin: 30px 0;  /* margen fica apenas em cima e em baixo */
    }
 
@@ -60,11 +64,41 @@
     border: solid 2px rgba(255, 255,255, .2);
     border-radius: 40px;
     border:none;
-    color: aliceblue;
+    color: white;
     font-size:15px;
     outline: none; /* tira marcação da borda que se parece como uma linha */
      padding: 20px 35px 20px 20px;
     
   }
+  .type-usuario input::placeholder{
+    color: white;
+  }
+.type-usuario i{
+  font-size: 20px;
+  
+    
+}
+.type-senha{
+  justify-content: center;
+  display: flex;
+  height: 40px;
+  width: 100%;
+  margin:30px 0;
+  margin-top: -20px;
+  
+
+
+}
+.type-senha input{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 20px 35px 20px 20px ;
+  font-size: 15px;
+  border: solid 2px rgba(255, 255,255, .2);
+  padding: 20px 35px 20px 20px;
+  color: white;
+}
 
 
