@@ -1,24 +1,42 @@
+
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
 .container{
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: midnightblue;
+    background: url(https://images.unsplash.com/photo-1712397943847-e104395a1a8b?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
     flex-direction: column;
+    background-size: cover; /* mantem que a imagem sempre permaneça esticada */
+    background-position: center; /* mantem a image sempre centralizada */
+    
 }
 .pag-login{
+    color: white;
     height: 300px;
     width: 400px;
-    background-color: rgb(0, 0, 0,0.1);
+    background-color: transparent;
+    border:solid 2px rgba(255,255, 255, .2); /* borda levemente cinza com transparencia */
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   gap:10px;
- 
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    padding: 20px 30px;/* espaçamento interno, que nao permite que o itens da aba do login cheguem proximos */
+    box-shadow: -2px 6px 20px 11px rgba(0, 0, 0, 0.71);-webkit-box-shadow: -2px 6px 20px 11px rgba(0, 0, 0, 0.71);
+    /* box-shadow: sombreamento na borda*/
 }
 
 h1{
-    color: aliceblue;
+    font-family: "Sofia", sans-serif; 
+  
 }
