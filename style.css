@@ -1,4 +1,9 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+
+
+
 *{
     margin:0;
     padding: 0;
@@ -35,8 +40,13 @@
     box-shadow: -2px 6px 20px 11px rgba(0, 0, 0, 0.71);-webkit-box-shadow: -2px 6px 20px 11px rgba(0, 0, 0, 0.71);
     /* box-shadow: sombreamento na borda*/
 }
-
-h1{
-    font-family: "Sofia", sans-serif; 
-  
+ h1{
+     font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
 }
+
+ 
+
+
