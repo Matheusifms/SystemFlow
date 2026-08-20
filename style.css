@@ -18,7 +18,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url(https://images.unsplash.com/photo-1712397943847-e104395a1a8b?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+    background-image: url("IMG-20260817-WA0000(1).jpg");
+    /* background: url(https://images.unsplash.com/photo-1712397943847-e104395a1a8b?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); */
     flex-direction: column;
     background-size: cover; /* mantem que a imagem sempre permaneça esticada */
     background-position: center; /* mantem a image sempre centralizada */
@@ -53,7 +54,7 @@
      flex-direction: row;
      align-items: center;
      height: 40px;
-     width: 85%;
+     width: 100%;
      margin: 30px 0;  /* margen fica apenas em cima e em baixo */
    }
 
@@ -91,14 +92,34 @@
 }
 .type-senha input{
   background-color: transparent;
+  height: 100%;
+  width: 100%;
   border: none;
   outline: none;
   border-radius: 10px;
   padding: 20px 35px 20px 20px ;
   font-size: 15px;
-  border: solid 2px rgba(255, 255,255, .2);
+  /* border: solid 2px rgba(255, 255,255, .2); */
   padding: 20px 35px 20px 20px;
   color: white;
+}
+.type-senha ::placeholder{
+  color: white;
+}
+.type-senha i{
+  font-size: 20px;
+  margin-top: 10px;
+}
+.lembrar-senha{
+  width: 100%;
+  height: 100%;
+  display: flex;
+ 
+
+}
+.lembrar-senha input{
+  display: flex;
+
 }
 
 
