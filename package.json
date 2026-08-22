@@ -1,0 +1,30 @@
+{
+  "name": "index.js",
+  "version": "1.0.0",
+  "description": "Projeto junin festas mySQL",
+  "keywords": [
+    "login",
+    "senha",
+    "cadaastramento",
+    "mySQL",
+    "sistema",
+    "banco",
+    "de",
+    "dados"
+  ],
+  "homepage": "https://github.com/Matheusifms/Junin-festas#readme",
+  "bugs": {
+    "url": "https://github.com/Matheusifms/Junin-festas/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matheusifms/Junin-festas.git"
+  },
+  "license": "ISC",
+  "author": "Generoso, Arthur e Matheus",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
