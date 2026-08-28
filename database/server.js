@@ -14,15 +14,24 @@ const app = express();
 // deixa o navegador encontrar os arquivos da pasta public 
 app.use(express.static(path.join(__dirname, "../public")));
 
-// cria uma rota GET para o caminho /teste, que envia uma resposta "Servidor funcionando" quando acessada. 
+// cria uma rota GET para o caminho /produtos, que envia uma resposta "Servidor funcionando" quando acessada. 
 // GET é usado para conseguir informções do servidor, como por exemplo, acessar uma página da web. 
-app.get("/teste", (req, res) => {
+app.get("/produtos", (req, res) => {
 
     // req (request) é o pedido do navegador/usuario 
     // res (response) é a resposta que o servidor envia de volta para o navegador/usuário.
 
-    // mensagem de resposta
-    res.send("Servidor funcionando");
+    // prepara o comando para buscar os produtos
+    // select = busca, * = todas as colunas e from produtos = da tabela produtos
+    const buscarProdutos = db.prepare(`
+        SELECT FROM * produtos
+    `)
+
+    // executa e pega as linhas encontradas
+    const produtos = buscarProdutos.all();
+
+    // envia produtos no formato json
+    res.json(produtos);
 
 });
 
