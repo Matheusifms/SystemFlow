@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #030013;
+  color: rgba(255, 255, 255, 0.912);
+  font-family: "Poppins";
+}
+header {
+  width: 100%;
+  display: flex;
+  padding: 4%;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  /* o position fixed permite que esse componete se permaneca
+   fixo na pagina idenpendetemente se minizarmos a pagina */
+}
+button{
+  display:flex;
+  justify-content: center;  
+  align-items: center;
+  border-radius: 40px;
+  
+}
+.logo {
+  width: 40px;
+}
+.menu {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+section{
+  display: flex;
+  flex-direction:column;
+}
+.intro{
+  background-image:url('imgs/section1.png');
+  background-size:cover;
+  background-position:center;
+   height:100vh;
+   justify-content:center;
+   align-items:center;
+   display:flex;
+    h2{
+      font-size: 11vw;
+      mix-blend-mode: color-dodge;
+      /* propiedade usa para fazer a meslagem com o plano de fundo, para funcionar
+      quanto mais acizentado,maior sera a mesclagem, quanto mais branco,
+       menor sera a mesclagem */
+      color:rgb(171, 169, 169);
+      margin-bottom: 50px;
+      border:none;
+
+    }
+}
+.titulo{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+  .buttons-header{
+    display:flex;
+  
+  }
+.btn-orçamento{
+  display: flex;
+  padding:6px;
+}
