@@ -191,7 +191,7 @@ app.delete("/produtos/:id", (req, res) => {
     // informa que o produto foi deletado com sucesso
     res.json({
         mensagem: "Produto excluído com sucesso."
-    }); 
+    });
 });
 
 // inicia o servidor na porta 3000
