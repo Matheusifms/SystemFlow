@@ -49,7 +49,7 @@ app.post("/produtos", (req, res) => {
     // verifica se algum dos campos obrigatórios não foi informado
     if (!nome || quantidade === undefined || preco === undefined) {
 
-         // informa que a quantidade não pode ser negativa
+         // informa que todos os campos são obrigatórios
         return res.status(400).json({ 
             mensagem: "Todos os campos são obrigatórios." });
     }
@@ -90,8 +90,114 @@ res.status(201).json({
 
 });
 
-// inicia o servidor na porta 3k 
+// put é usado para atualizar informações no servidor, como por exemplo, atualizar dados de um produto.
+// cria uma rota PUT para atualizar um produto existente
+app.put("/produtos/:id", (req, res) => {
+
+    // pega o id do produto que veio da URL
+    const id = req.params.id;
+
+    // pega os novos dados enviados pelo navegador
+    const { nome, quantidade, preco } = req.body;
+
+    // verifica se algum dos campos obrigatórios não foi informado
+    if (!nome || quantidade === undefined || preco === undefined) {
+        
+        // informa que todos os campos são obrigatórios
+        return res.status(400).json({ 
+            mensagem: "Todos os campos são obrigatórios." 
+        });
+    }
+
+    // verifica se a quantidade é menor que zero
+    if (quantidade < 0) {
+
+        // informa que a quantidade não pode ser negativa
+        return res.status(400).json({
+            erro: "A quantidade não pode ser negativa." 
+        });
+    }
+
+     // verifica se o preço é menor que zero
+    if (preco < 0) {
+
+        // informa que o preço não pode ser negativo
+        return res.status(400).json({
+            erro: "O preço não pode ser negativo." 
+        });
+    }
+
+    // prepara o comando e atualiza o produto
+    const atualizarProduto = db.prepare(`
+        UPDATE produtos
+        SET nome = @nome, 
+        quantidade = @quantidade,
+        preco = @preco
+        WHERE id = @id
+    `);
+    
+    // executa e atualiza o produto no db
+    const resultado = atualizarProduto.run({
+        id: id,
+        nome: nome,
+        quantidade: quantidade,
+        preco: preco
+    });
+
+   // verifica se algum produto foi atualizado
+    if (resultado.changes === 0) {
+
+        // informa que o produto não foi encontrado
+        return res.status(404).json({
+            mensagem: "Produto não encontrado."
+        });
+    }
+
+    // informa que o produto foi atualizado com sucesso
+    res.json({
+        mensagem: "Produto atualizado com sucesso."
+    });
+
+});
+
+
+// DELETE é usado para deletar informações do servidor, como por exemplo, deletar um produto.
+// cria uma rota DELETE para deletar um produto existente
+app.delete("/produtos/:id", (req, res) => {
+
+    // pega o id do produto que veio da URL
+    const id = req.params.id;
+
+    // prepara o comando para deletar o produto
+    const excluirProduto = db.prepare(`
+        DELETE FROM produtos
+        WHERE id = @id
+    `);
+    
+    // executa e deleta o produto do db
+    const resultado = excluirProduto.run({
+        id: id 
+    });
+
+    // verifica se algum produto foi deletado
+    if (resultado.changes === 0) {
+
+        // informa que o produto não foi encontrado
+        return res.status(404).json({
+            mensagem: "Produto não encontrado."
+        });
+    }
+
+    // informa que o produto foi deletado com sucesso
+    res.json({
+        mensagem: "Produto excluído com sucesso."
+    }); 
+});
+
+// inicia o servidor na porta 3000
 app.listen(3000, () => {
-    // mensagem simbolica 
+
+    // mensagem simbólica
     console.log("Servidor funcionando em http://localhost:3000");
+
 });
