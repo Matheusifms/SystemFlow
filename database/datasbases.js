@@ -16,18 +16,18 @@ db.exec(`
     )
 `);
 
-// prepara o comando do sql para inserir o produto
-const inserirProduto = db.prepare(`
-    INSERT INTO produtos (nome, quantidade, preco)
-    VALUES (@nome, @quantidade, @preco)
-`);
+// comentario: prepara o comando do sql para inserir o produto
+// códiog: const inserirProduto = db.prepare(`
+//     INSERT INTO produtos (nome, quantidade, preco)
+//     VALUES (@nome, @quantidade, @preco)
+// `);
 
-// .run = executa o comando inserirProduto 
-inserirProduto.run({
-    nome: "arroz",
-    quantidade: 20,
-    preco: 19.60
-});
+// // comentario: .run = executa o comando inserirProduto 
+// código: inserirProduto.run({
+//     nome: "arroz",
+//     quantidade: 20,
+//     preco: 19.60
+// });
 
 // deixa disponivel para os outros arquivos usarem
 module.exports = db;
