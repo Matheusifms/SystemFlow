@@ -1,5 +1,5 @@
 {
-  "name": "index.js",
+  "name": "index",
   "version": "1.0.0",
   "description": "Projeto junin festas mySQL",
   "keywords": [
@@ -25,15 +25,18 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js" 
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "express-handlebars": "^9.0.1",
     "handlebars": "^4.7.9",
     "mysql2": "^3.23.4",
     "nodemo": "^1.0.0",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "sqlite3": "^6.0.1"
   }
 }
