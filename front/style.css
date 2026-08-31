@@ -8,6 +8,39 @@ body {
   color: rgba(255, 255, 255, 0.912);
   font-family: "Poppins";
 }
+p{
+  display:flex;
+  font-size: 1.2vw;
+  text-align: center;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  &:hover{
+    transform: scale(1.05);
+  }
+}
+h1{
+  display:flex;
+  font-size: 3vw;
+  text-align: center;
+    color:rgb(171, 169, 169);
+   transition: all 0.3s ease;
+   transform: scale(1);
+   mix-blend-mode: color-dodge;
+   &:hover{
+    transform: scale(1.05);
+    color: rgba(255, 255, 255,0.8);
+  }
+}
+a{
+  display:flex;
+  text-decoration:none;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  &:hover{
+    color:rgba(255, 255, 255, 0.912);
+    transform: scale(1.10);
+  }
+}
 header {
   width: 100%;
   display: flex;
@@ -17,16 +50,26 @@ header {
   position: fixed;
   /* o position fixed permite que esse componete se permaneca
    fixo na pagina idenpendetemente se minizarmos a pagina */
+
 }
 button{
   display:flex;
   justify-content: center;  
   align-items: center;
   border-radius: 40px;
+  border:none;
+  outline:none;
+  font-family: "Poppins";
   
 }
 .logo {
   width: 40px;
+  display: flex;
+  transition: all 0.3s ease;
+  transform: scale(1);
+   &:hover{
+    transform: scale(1.10);
+   }
 }
 .menu {
   display: flex;
@@ -36,6 +79,14 @@ button{
   padding: 15px 20px;
   border-radius: 10px;
   backdrop-filter: blur(10px);
+  z-index: 99;
+  transition: all.3s ease;
+  transform: scale(1);
+  color: rgba(255, 255, 255, 0.6);
+  &:hover {
+    transform: scale(1.05);
+    color: rgba(255, 255, 255, 0.912);
+  }
 }
 section{
   display: flex;
@@ -58,6 +109,10 @@ section{
       color:rgb(171, 169, 169);
       margin-bottom: 50px;
       border:none;
+      transition: all 0.3s ease;
+      transform: scale(1);
+      &:hover{
+        transform: scale(1.05);
 
     }
 }
@@ -66,12 +121,50 @@ section{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  gap:10px;
+  margin-bottom: 20px;
 }
   .buttons-header{
     display:flex;
-  
+    gap:10px;
+    margin-top: 20px;
+
   }
 .btn-orçamento{
   display: flex;
-  padding:6px;
+  padding: 10px 20px;
+  gap: 10px;
+  justify-content :center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  /* o transition é usado para fazer uma transição suave entre o estado
+   normal e o estado hover do botão, ele sómente funciona se houver uma certa 
+   transparência*/
+  transform: scale(1);
+    /* o transform na tag normal, é usado para definir o tamanho 
+    inicial do botão.*/
+    &:hover{
+       background-color: rgba(255, 255, 255, 0.8);
+       transform: scale(1.05);
+       /* background-color: rgba(255, 255, 255, 0.9);7 */
+  /* ja no hover,que éa parte de interação do mouse, o transform é usado 
+  para aumentar o botão  */
+    }
 }
+
+ .btn-contato{
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-family: "Poppins";
+  padding:16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform:scale(1);
+  transition:all 0.3s ease;
+    &:hover{
+      background-color: rgba(255, 255, 255, 0.6);
+      transform:scale(1.05);
+    }
+ }
