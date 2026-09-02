@@ -1,48 +1,58 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+
 * {
   margin: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: #030013;
   color: rgba(255, 255, 255, 0.912);
   font-family: "Poppins";
-  
 }
-p{
-  display:flex;
+
+p {
+  display: flex;
   font-size: 1.2vw;
   text-align: center;
   transition: all 0.3s ease;
   transform: scale(1);
-  &:hover{
-    transform: scale(1.05);
-  }
 }
-h1{
-  display:flex;
+
+p:hover {
+  transform: scale(1.05);
+}
+
+h1 {
+  display: flex;
   font-size: 3vw;
   text-align: center;
-    color:rgb(171, 169, 169);
-   transition: all 0.3s ease;
-   transform: scale(1);
-   mix-blend-mode: color-dodge;
-   &:hover{
-    transform: scale(1.05);
-    color: rgba(255, 255, 255,0.8);
-  }
+  color: rgb(171, 169, 169);
+  transition: all 0.3s ease;
+  transform: scale(1);
+  mix-blend-mode: color-dodge;
 }
-a{
-  display:flex;
-  text-decoration:none;
+
+h1:hover {
+  transform: scale(1.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+a {
+  display: flex;
+  text-decoration: none;
   transition: all 0.3s ease;
   transform: scale(1);
   color: white;
-  &:hover{
-    color:rgba(255, 255, 255, 0.912);
-    transform: scale(1.10);
-  }
 }
+h2{
+  animation: moverEixo 2s forwards;
+}
+a:hover {
+  color: rgba(255, 255, 255, 0.912);
+  transform: scale(1.10);
+}
+
 header {
   width: 100%;
   display: flex;
@@ -52,27 +62,32 @@ header {
   position: fixed;
   /* o position fixed permite que esse componete se permaneca
    fixo na pagina idenpendetemente se minizarmos a pagina */
-
 }
-button{
-  display:flex;
-  justify-content: center;  
+
+button {
+  display: flex;
+  justify-content: center;
   align-items: center;
   border-radius: 40px;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
   font-family: "Poppins";
-  
 }
+
 .logo {
   width: 40px;
   display: flex;
   transition: all 0.3s ease;
   transform: scale(1);
-   &:hover{
-    transform: scale(1.10);
-   }
+
 }
+
+.logo:hover {
+  transform: rotate(1turn);
+  scale: 1.5;
+
+}
+
 .menu {
   display: flex;
   gap: 20px;
@@ -82,62 +97,94 @@ button{
   border-radius: 10px;
   backdrop-filter: blur(10px);
   z-index: 99;
-  transition: all.3s ease;
+  transition: all 0.3s ease;
   transform: scale(1);
-  color:white;
-  &:hover {
-    transform: scale(1.05);
-    
-  }
+  color: white;
+  animation: movermenu 2s forwards;
 }
-section{
+@keyframes movermenu{
+   from{
+     translate: 100px;
+   }
+   to{
+    translate: 0 0;
+   }
+}
+.menu:hover {
+  transform: scale(1.05);
+}
+
+section {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
+}
+
+.intro {
+  background-image: url('imgs/section1.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.intro h2 {
+  font-size: 11vw;
+  mix-blend-mode: color-dodge;
+  /* propiedade usa para fazer a meslagem com o plano de fundo, para funcionar
+  quanto mais acizentado, maior sera a mesclagem, quanto mais branco,
+  menor sera a mesclagem */
+  color: rgb(171, 169, 169);
+  margin-bottom: 50px;
+  border: none;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  translate: 0 0;
   
 }
-.intro{
-  background-image:url('imgs/section1.png');
-  background-size:cover;
-  background-position:center;
-   height:100vh;
-   justify-content:center;
-   align-items:center;
-   display:flex;
-    h2{
-      font-size: 11vw;
-      mix-blend-mode: color-dodge;
-      /* propiedade usa para fazer a meslagem com o plano de fundo, para funcionar
-      quanto mais acizentado,maior sera a mesclagem, quanto mais branco,
-       menor sera a mesclagem */
-      color:rgb(171, 169, 169);
-      margin-bottom: 50px;
-      border:none;
-      transition: all 0.3s ease;
-      transform: scale(1);
-      &:hover{
-        transform: scale(1.05);
-
-    }
+@keyframes moverEixo{
+   from{
+     translate: 0 -100px;
+   }
+   to{
+    translate: 0 0;
+   }
 }
-.titulo{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
+.intro h2:hover {
+  transform: scale(1.05);
+ 
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 20px;
 }
-  .buttons-header{
-    display:flex;
-    gap:10px;
-    margin-top: 20px;
 
-  }
-.btn-orçamento{
+.buttons-header {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+@keyframes moverBtn{
+   from{
+     translate: 200px;
+   }
+   to{
+    translate: 0 0;
+   }
+}
+
+.btn-orçamento {
+  animation:  moverBtn 3s forwards;
   display: flex;
   padding: 10px 20px;
   gap: 10px;
-  justify-content :center;
+  justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.6);
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -146,28 +193,40 @@ section{
    normal e o estado hover do botão, ele sómente funciona se houver uma certa 
    transparência*/
   transform: scale(1);
-    /* o transform na tag normal, é usado para definir o tamanho 
-    inicial do botão.*/
-    &:hover{
-       background-color: rgba(255, 255, 255, 0.8);
-       transform: scale(1.05);
-       /* background-color: rgba(255, 255, 255, 0.9);7 */
-  /* ja no hover,que éa parte de interação do mouse, o transform é usado 
-  para aumentar o botão  */
-    }
+  /* o transform na tag normal, é usado para definir o tamanho 
+  inicial do botão.*/
 }
 
- .btn-contato{
-   align-items: center;
-   justify-content: center;
-   font-size: 16px;
-   font-family: "Poppins";
-   padding:16px;
-   background-color: rgba(255, 255, 255, 0.6);
-   transform:scale(1);
-   transition:all 0.3s ease;
-    &:hover{
-      background-color: rgba(255, 255, 255, 0.8);
-      transform:scale(1.05);
-    }
-  }
+.btn-orçamento:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+  /* background-color: rgba(255, 255, 255, 0.9);7 */
+  /* ja no hover, que é a parte de interação do mouse, o transform é usado 
+  para aumentar o botão */
+}
+
+@keyframes Moverbtn-contato{
+   from{
+     translate: -100px;
+   }
+   to{
+    translate: 0 0;
+   }
+}
+
+.btn-contato {
+  align-items: center;
+   animation: Moverbtn-contato 3s forwards;
+  justify-content: center;
+  font-size: 16px;
+  font-family: "Poppins";
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+.btn-contato:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+}
