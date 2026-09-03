@@ -31,11 +31,21 @@ h1 {
   transition: all 0.3s ease;
   transform: scale(1);
   mix-blend-mode: color-dodge;
+  animation: moverh1 4s forwards;
 }
+
 
 h1:hover {
   transform: scale(1.05);
   color: rgba(255, 255, 255, 0.8);
+ }
+@keyframes moverh1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 a {
@@ -79,12 +89,20 @@ button {
   display: flex;
   transition: all 0.3s ease;
   transform: scale(1);
+  animation: moverlogo 3s forwards;
 
+} @keyframes moverlogo{
+   from{
+     translate: -100px;
+   }
+   to{
+    translate: 0 0;
+   }
 }
 
 .logo:hover {
-  transform: rotate(1turn);
-  scale: 1.5;
+  transform: rotate(130deg);
+  scale: 1.03;
 
 }
 
@@ -163,8 +181,18 @@ section {
   align-items: center;
   gap: 10px;
   margin-bottom: 20px;
+  p{
+    animation: moverp 4s forwards;
+  }
 }
-
+@keyframes moverp{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
 .buttons-header {
   display: flex;
   gap: 20px;
@@ -172,7 +200,7 @@ section {
 }
 @keyframes moverBtn{
    from{
-     translate: 200px;
+     translate: 0  100px;
    }
    to{
     translate: 0 0;
@@ -207,7 +235,7 @@ section {
 
 @keyframes Moverbtn-contato{
    from{
-     translate: -100px;
+     translate: 0 100px;
    }
    to{
     translate: 0 0;
