@@ -41,9 +41,11 @@ h1:hover {
  }
 @keyframes moverh1 {
   from {
+    translate: 0 -100px;
     opacity: 0;
   }
   to {
+    translate: 0 0 ;
     opacity: 1;
   }
 }
@@ -138,7 +140,11 @@ section {
 }
 
 .intro {
-  background-image: url('imgs/section1.png');
+  /* background-image:url('imgs/image_d8f30934.jpg'); */
+  /* background-image:url('imgs/image_5786011e.jpg'); */
+  /* background-image: url('imgs/image_59af809f.jpeg'); */
+  /* background-image: url('imgs/bg-anim3.png'); */
+  background-image:url('imgs/section1.png');
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -187,9 +193,11 @@ section {
 }
 @keyframes moverp{
   from{
+    translate: 0 100px;
     opacity: 0;
   }
   to{
+    translate: 0 0;
     opacity: 1;
   }
 }
@@ -258,3 +266,4 @@ section {
   background-color: rgba(255, 255, 255, 0.8);
   transform: scale(1.05);
 }
+
