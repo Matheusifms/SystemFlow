@@ -14,3 +14,4 @@ const navClicked = (nav) => {
     content.classList.add('active');
   }
 };
+//  aba de transicao entre as diferentes telas do site, como home, login e cadastro.

@@ -18,9 +18,9 @@
       <nav>
         <ul class="menu">
           <li><button class="btn-nav" content-id="inicio">Inicio</button></li>
-          <li><button class="btn-nav" content-id="contato">contato</button></li>
-          <li><button class="btn-nav" content-id="login">login</button></li>
-           <li><button class="btn-nav" content-id="sobre">sobre</button></li>
+          <li><button class="btn-nav" content-id="contato">Contato</button></li>
+          <li><button class="btn-nav" content-id="login">Login</button></li>
+           <li><button class="btn-nav" content-id="cadrasto">Cadastro</button></li>
         </ul>
       </nav>
     </header>
@@ -41,9 +41,52 @@
       </div>
       </section>
         <section class="content" id="login">
+          <main class="main-login">
+            <div class="container-login-cadrasto">
+              <div class="container-saudacoes">
+                <h4>Bem vindo</h4>
+                <h4>de volta</h4>
+                <p>“Organizar é o primeiro passo para a liberdade mental.” </p>
+                 <div class="imgs-acesso">
+                  <a href="#"><img src="imgs/image copy 2.png" alt="logo-insta"></a>
+                  <a href="#"><img src="imgs/image copy 5.png" alt="youtube-logo"></a>
+                  <a href="#"><img src="imgs/image copy 6.png" alt="whatsapp-logo"></a>
+                  <a href="#"><img src="imgs/image copy.png" alt="gmail-logo"></a>
+                 </div>
+              </div> 
               <div class="container-login">
-                <p>kkkkk</p>
+                  <h3>Login</h3>
+                 <form id="form-login" class="form-login">
+                  <div class="input-usuario">
+                    <img src = "imgs/image copy 7.png" alt="icone-usuario">
+                    <input type="email" placeholder="Email" required />
+                  </div>
+                     <div class="input-senha">
+                      <img src = "imgs/image copy 8.png" alt="icone-senha">
+                       <input type="password" placeholder="Senha" required />
+                     </div>
+                     <!-- 1. O label torna toda a área do checkbox clicável e aponta para o input pelo id. -->
+                     <label class="checkbox-lembrar" for="lembrar">
+                       <!-- 2. O input continua controlando o estado marcado, mas fica visualmente escondido pelo CSS. -->
+                       <input type="checkbox" id="lembrar" />
+                       <!-- 3. O span substitui a aparência nativa e recebe o quadrado arredondado e o "v". -->
+                       <span aria-hidden="true"></span>
+                       Lembrar-senha
+                     </label>
+                     <button type="submit" class="entrar">Acessar
+                      <img src="imgs/Frame 16.svg" alt="" class="btn-seta1">
+                     </button> 
+                      <p class="cad">
+                        não tem uma conta? <button id="btn-cadastro">Cadastre-se</button>
+                      </p>
+                 </form>
               </div>
+              
+              </div>
+              </main>
+        </section>
+        <section class="content" id="cadrasto">
+
         </section>
        <script src="script.js"></script>
   </body>
