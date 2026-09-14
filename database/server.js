@@ -43,7 +43,8 @@ app.get("/produtos", (req, res) => {
 // cria uma rota POST para cadastrar um novo produto
 app.post("/produtos", (req, res) => {
 
-    // pega os dados enviados pelo navegador
+    // pega os dados enviad
+    // os pelo navegador
     const { nome, quantidade, preco } = req.body;
 
     // verifica se algum dos campos obrigatórios não foi informado
