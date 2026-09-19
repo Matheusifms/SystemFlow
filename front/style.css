@@ -135,6 +135,7 @@ button {
 }
 .menu:hover {
   transform: scale(1.05);
+  box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.6);
 }
 
 section {
@@ -225,6 +226,8 @@ section {
   align-items: center;
   background-color: rgba(255, 255, 255, 0.6);
   border: 2px solid rgba(255, 255, 255, 0.3);
+  /* box-shadow: 0 0 8px 2px rgba(255, 253, 253, 0.6); */
+  border-radius: 40px;
   transition: all 0.3s ease;
   /* o transition é usado para fazer uma transição suave entre o estado
    normal e o estado hover do botão, ele sómente funciona se houver uma certa 
@@ -241,6 +244,7 @@ section {
   /* background-color: rgba(255, 255, 255, 0.9);7 */
   /* ja no hover, que é a parte de interação do mouse, o transform é usado 
   para aumentar o botão */
+  box-shadow: 0 0 12px 4px rgba(255, 253, 253, 0.6);
 }
 
 @keyframes Moverbtn-contato {
@@ -268,18 +272,90 @@ section {
 .btn-contato:hover {
   background-color: rgba(255, 255, 255, 0.8);
   transform: scale(1.05);
+  box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.6);
 }
 
 .content {
-  display: none;
+  display: flex;
   position: fixed;
   inset: 0;
   z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(24px) scale(0.98);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease,
+    visibility 0.45s ease;
 }
 .content.active {
-  display: flex;
-  /* animation: moversection 1s ease ; */
-  transition: all 4s ease;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.content.active > * {
+  animation: contentEnter 0.65s ease both;
+}
+
+.content.active h3,
+.content.active h4,
+.content.active h5,
+.content.active h6,
+.content.active h7,
+.content.active p,
+.content.active form,
+.content.active .checkbox-lembrar,
+.content.active .imgs-acesso img,
+.content.active .area-complemento > * {
+  animation: itemEnter 0.6s ease both;
+}
+
+.content.active h3,
+.content.active h5,
+.content.active h7 {
+  animation-delay: 0.12s;
+}
+
+.content.active h4,
+.content.active h6 {
+  animation-delay: 0.2s;
+}
+
+.content.active p {
+  animation-delay: 0.28s;
+}
+
+.content.active form {
+  animation-delay: 0.36s;
+}
+
+.content.active .imgs-acesso img {
+  animation-delay: 0.42s;
+}
+
+@keyframes itemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes contentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes moversection {
   from {
@@ -322,7 +398,7 @@ section {
   border-radius: 10px;
 
   h3 {
-    font-size: 2rem;
+    font-size: 4rem;
     color: rgba(224, 220, 220, 0.71);
     font-family: "Poppins";
     transition: all 0.5s ease;
@@ -344,16 +420,20 @@ section {
     width: 20px;
   }
   input {
-    width: 300px;
-    height: 25px;
+    width: 16vw;
+    height: 3vh;
     padding: 10px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.31);
     border: none;
     outline: none;
+    box-shadow: 0px 0px 8px 2px rgba(255, 253, 253, 0.07);
+    color: rgba(255, 255, 255, 0.912);
     transition: all 0.3s ease;
   }
   input:hover {
+    box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.75);
+    transform: scale(1.05);
     background-color: rgba(255, 255, 255, 0.9);
   }
 
@@ -436,7 +516,7 @@ section {
   }
   @keyframes moverh4 {
     from {
-      translate: 0 -100px;
+      translate:0 0 ;
       
     }
     to {
@@ -447,6 +527,7 @@ section {
    h4:hover{
     color: rgba(255, 255, 255, 0.9);
     transform: scale(1.05);
+   
    }
   img {
     width: 30px;
@@ -461,11 +542,19 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease;
+}
+.input-usuario:hover {
+  transform: scale(1.05);
 }
 .input-senha {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease;
+}
+.input-senha:hover {
+  transform: scale(1.05);
 }
 .entrar {
   font-size: 1rem;
@@ -477,10 +566,12 @@ section {
   gap: 10px;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
+  box-shadow: 0 0 8px 2px rgba(255, 253, 253, 0.6);
+  transition: all 0.5s ease;
 }
 .entrar:hover {
   background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 12px 4px rgba(255, 253, 253, 0.75);
   transform: scale(1.08);
 }
 .imgs-acesso{
@@ -508,4 +599,170 @@ section {
    text-decoration: underline;
   }
 }
- 
+.main-cadrasto{
+    background-image: url("imgs/section2.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-color: black;
+  font-family: 'Poppins';
+  color: white;
+}
+  .conteiner-cadrasto-complemento{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    height: 80%;
+    width:80%;
+  }
+   .area-cadrasto{
+    margin-right: 60px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 50%;
+    width: 50%;
+    h5{
+      font-size: 4rem;
+      color: rgba(221, 217, 217, 0.863);
+      transition: all 0.3s ease;
+    } 
+    h5:hover{
+      color: white;
+      transform: scale(1.05);
+    }
+   }
+   .form-cadrasto{
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+
+     input{
+      width: 22vw;
+      height: 4vh;
+      color: rgba(255, 255, 255, 0.912);
+      padding: 10px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.062);
+      border: none;
+      outline: none;
+      transition: all 0.3s ease;
+      transform: scale(1);
+      box-shadow: 0px 0px 8px 2px rgba(255, 253, 253, 0.6);
+      
+     }
+     input:hover{
+      transform: scale(1.05);
+      box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.27);
+      background-color: rgba(255, 255, 255, 0.9);
+     }
+   }
+   .area-complemento{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    align-items: center;
+    h7{
+      font-family: "Poppins";
+      font-size: 4rem;
+      color: rgba(255, 255, 255, 0.912);
+      transition: all 0.3s ease;
+    }
+    h7:hover{
+      color: white;
+      transform: scale(1.05);
+    }
+    h6{
+      margin-top: -20px;
+      font-size: 3rem;
+      color: rgba(255, 255, 255, 0.912);
+      transition: all 0.3s ease;
+    }
+    h6:hover{
+      color: white;
+      transform: scale(1.05);
+    }
+    p{
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.912);
+      transition: all 0.3s ease;
+    }
+   }
+   .div-email{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    img{
+      width: 15px;
+    }
+   }
+   .div-email:hover{
+    transform: scale(1.05);
+   }
+   .div-name{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    img{
+      width: 15px;
+     
+    }
+   }
+   .div-name:hover{
+    transform: scale(1.05);
+   }
+   .div-senha{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    img{
+      width: 15px;
+    }
+   }
+   .div-senha:hover{
+    transform: scale(1.05);
+   }
+   .cadrastar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 40px;
+    gap: 10px;
+    padding: 4px 6px;
+    color:#030013;
+    font-family: "Poppins";
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: scale(1);
+    margin-left: 35px;
+   }
+   .cadrastar:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+    color: rgba(0, 0, 0, 0.912);
+    /* box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.6); */
+   }
+   .main-sobre{
+    background-image: url("imgs/section2.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+    background-color: black;
+   }
