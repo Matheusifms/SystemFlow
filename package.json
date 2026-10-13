@@ -23,7 +23,7 @@
   "license": "ISC",
   "author": "Generoso, Arthur e Matheus",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "login.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js" 

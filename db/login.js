@@ -9,8 +9,8 @@ const cors = require('cors');
 const server = express();
 
 // Configura o Express para entender dados enviados em formato JSON e libera o acesso CORS
-app.use(express.json());
-app.use(cors());
+server.use(express.json());
+server.use(cors());
 
 // 3: CONEXÃO COM O BANCO DE DADOS SQLITE
 // O SQLite cria o arquivo 'banco.db' dentro da pasta 'db' se ele não existir, caso exista ele faz a conexão normamlente
@@ -31,8 +31,8 @@ const db = new sqlite3.Database('./db/banco.db', (err) => {
 //id: É a coluna que identifica cada usuário de forma única.
 //INTEGER: O tipo do dado é um número inteiro.
 //PRIMARY KEY: Define esta coluna como a chave primária (a "identidade" principal da linha).
-
 //AUTOINCREMENT: O SQLite gera o número 1, 2, 3... automaticamente a cada novo cadastro, sem você precisar passar esse valor.
+
 //nome: Armazena o nome completo do usuário.
 //TEXT: Tipo de dado para texto/caracteres.
 //NOT NULL: Regra que impede salvar o registro se o campo nome estiver vazio.
@@ -54,10 +54,10 @@ db.run(`
 
 // 5: ROTA DE REGISTRO DE USUÁRIO (Criação de Contas)
 // Define uma rota do tipo POST na URL '/api/registrar'.
-//Post: É p mecanismo para enviar ou criar dados ao servidor
+//Post: É o mecanismo para enviar ou criar dados ao servidor
 // 'req' (request) traz os dados que vêm do cliente/frontend.
 // 'res' (response) é a ferramenta que você usa para responder ao cliente..
-app.post('/api/registrar', (req, res) => {
+server.post('/api/registrar', (req, res) => {
 
   // Ele vai pegar as propriedades nome, email e senha de dentro do req.body (dados enviados em JSON)
   const { nome, email, senha } = req.body;
@@ -75,6 +75,7 @@ app.post('/api/registrar', (req, res) => {
 
   // Prepara o comando SQL para inserir um novo registro na tabela 'usuarios'
   // Os pontos de interrogação (?) são placeholders (espaços reservados) para evitar ataques de SQL Injection
+  // Esse comando é muito importante para a seguança, pois se uma pessoa maloiciosa que tem a noção minima de como uma API funciona ele inserir na senha "OR 1=1", o Banco de Dados ignoa a senha é quandio ele coloca no login novamente vai conceder a ele o total acesso no Banbco e Dados
   const sql = `INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)`;
 
   // db.run(): Executa a instrução SQL no banco SQLite.
@@ -101,4 +102,41 @@ app.post('/api/registrar', (req, res) => {
       id: this.lastID
     });
   });
+});
+
+// 6: ROTA DE LOGIN E USUÁRIO
+
+app.post('/api/login', (req, res) => {
+  const { email, senha } = req.body;
+
+  if (!email || !senha) {
+    return res.status(400).json({ sucesso: false, mensagem: "Informe e-mail e senha." });
+  }
+
+  const sql = `SELECT id, nome, email FROM usuarios WHERE email = ? AND senha = ?`;
+
+  db.get(sql, [email, senha], (err, usuario) => {
+    if (err) {
+      return res.status(500).json({ sucesso: false, mensagem: "Erro interno no servidor." });
+    }
+
+    if (usuario) {
+      // Se encontrou o usuário com aquele e-mail e senha exatos
+      return res.status(200).json({
+        sucesso: true,
+        mensagem: "Login realizado com sucesso!",
+        usuario: usuario
+      });
+    } else {
+      // Se não encontrou nenhuma linha correspondente no banco
+      return res.status(401).json({ sucesso: false, mensagem: "E-mail ou senha incorretos." });
+    }
+  });
+});
+
+
+// 7: INICIALIZAÇÃO DO SERVIDOR
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
