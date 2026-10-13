@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>System flow</title>
+    <title>System Flow</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,19 +13,22 @@
     />
   </head>
   <body>
+    <!-- CABEÇALHO COM NAVEGAÇÃO -->
     <header>
-      <img class="logo" src="imgs/Frame.svg" alt="Logo do site " />
+      <img class="logo" src="imgs/Frame.svg" alt="Logo do site" />
       <nav>
         <ul class="menu">
           <li><button class="btn-nav" content-id="inicio">Inicio</button></li>
           <li><button class="btn-nav" content-id="sobre">Sobre</button></li>
           <li><button class="btn-nav" content-id="login">Login</button></li>
-           <li><button class="btn-nav" content-id="cadrasto">Cadastro</button></li>
+          <li><button class="btn-nav" content-id="cadrasto">Cadastro</button></li>
         </ul>
       </nav>
     </header>
+
+    <!-- SEÇÃO INTRO / HOME -->
     <section class="intro">
-      <h2>Sistema flow</h2>
+      <h2>Sistema Flow</h2>
       <div class="titulo">
         <h1>Controle de estoque</h1>
         <p>
@@ -36,101 +39,119 @@
         <button class="btn-orçamento" id="orcamento">Orçamento gratuito 
           <img src="imgs/Frame 16.svg" alt="" class="btn-seta">
         </button> 
-      </a>
         <button class="btn-contato" id="contato">Contato</button>
       </div>
-      </section>
-        <section class="content" id="login">
-          <main class="main-login">
-            <div class="container-login-cadrasto">
-              <div class="container-saudacoes">
-                <h4>Bem vindo</h4>
-                <h4>de volta</h4>
-                <p>“Organizar é o primeiro passo para a liberdade mental.” </p>
-                 <div class="imgs-acesso">
-                  <a href="https://www.instagram.com/theus_tl/"><img src="imgs/image copy 2.png" alt="logo-insta"></a>
-                  <a href="#"><img src="imgs/image copy 5.png" alt="youtube-logo"></a>
-                  <a href="#"><img src="imgs/image copy 6.png" alt="whatsapp-logo"></a>
-                  <a href="#"><img src="imgs/image copy.png" alt="gmail-logo"></a>
-                 </div>
-              </div> 
-              <div class="container-login">
-                  <h3>Login</h3>
-                 <form id="form-login" class="form-login">
-                  <div class="input-usuario">
-                    <img src = "imgs/image copy 7.png" alt="icone-usuario">
-                    <input type="email" placeholder="Email" />
-                  </div>
-                     <div class="input-senha">
-                      <img src = "imgs/image copy 8.png" alt="icone-senha">
-                       <input type="password" placeholder="Senha"  />
-                     </div>
-                     <!-- 1. O label torna toda a área do checkbox clicável e aponta para o input pelo id. -->
-                     <label class="checkbox-lembrar" for="lembrar">
-                       <!-- 2. O input continua controlando o estado marcado, mas fica visualmente escondido pelo CSS. -->
-                       <input type="checkbox" id="lembrar" />
-                       <!-- 3. O span substitui a aparência nativa e recebe o quadrado arredondado e o "v". -->
-                       <span aria-hidden="true"></span>
-                       Lembrar-senha
-                     </label>
-                     <button type="submit" class="entrar">Acessar
-                      <img src="imgs/Frame 16.svg" alt="" class="btn-seta1">
-                     </button> 
-                      <p class="cad">
-                        não tem uma conta? <button id="btn-cadastro">Cadastre-se</button>
-                      </p>
-                 </form>
+    </section>
+
+    <!-- SEÇÃO DE LOGIN -->
+    <section class="content" id="login">
+      <main class="main-login">
+        <div class="container-login-cadrasto">
+          <div class="container-saudacoes">
+            <h4>Bem vindo</h4>
+            <h4>de volta</h4>
+            <p>“Organizar é o primeiro passo para a liberdade mental.”</p>
+            <div class="imgs-acesso">
+              <a href="https://www.instagram.com/theus_tl/" target="_blank"><img src="imgs/image copy 2.png" alt="logo-insta"></a>
+              <a href="#"><img src="imgs/image copy 5.png" alt="youtube-logo"></a>
+              <a href="#"><img src="imgs/image copy 6.png" alt="whatsapp-logo"></a>
+              <a href="#"><img src="imgs/image copy.png" alt="gmail-logo"></a>
+            </div>
+          </div> 
+          
+          <div class="container-login">
+            <h3>Login</h3>
+            <form id="form-login" class="form-login">
+              <div class="input-usuario">
+                <img src="imgs/image copy 7.png" alt="icone-usuario">
+                <input type="email" id="login-email" placeholder="Email" required />
               </div>
               
+              <div class="input-senha">
+                <img src="imgs/image copy 8.png" alt="icone-senha">
+                <input type="password" id="login-senha" placeholder="Senha" required />
               </div>
-              </main>
-        </section>
-        <section class="content" id="cadrasto">
-             <main class="main-cadrasto">
-                <div class="conteiner-cadrasto-complemento">
-                    <div class="area-cadrasto">
-                        <h5>Cadrasto</h5>
-                        <form id="form-cadrasto" class="form-cadrasto">
-                          <div class="div-name">
-                            <img src = "imgs/image copy 7.png" alt="icone-usuario">
-                            <input type="text" placeholder="Nome"></div>
-                          <div class="div-email">
-                            <img src = "imgs/image copy 10.png" alt="icone-usuario">
-                            <input type="email" placeholder="email">
-                          </div>
-                         <div class="div-senha">
-                            <img src = "imgs/image copy 8.png" alt="icone-usuario">
-                            <input type="password" placeholder="senha">
-                         </div>
-                         <div class="div-senha">
-                            <img src = "imgs/image copy 8.png" alt="icone-usuario">
-                            <input type="password" placeholder="confirme-senha">
-                         </div>
-                          <button class="cadrastar">
-                            cadastrar-se
-                            <img src="imgs/Frame 16.svg" alt="">
-                          </button>
-                        </form>
-                    </div>
-                    <div class="area-complemento">
-                      <h7>Seja</h7>
-                       <h6>
-                           bem vindo 
-                       </h6>
-                       <p>"Quem organiza o tempo constrói pontes entre o agora e o futuro; quem o desperdiça, cava abismos no presente."</p>
-                    </div>
-                </div>
-             </main>
-        </section>
-        <section class="content" id="sobre">
-          <main class="main-sobre">
-            <div class="container-sobre">
-              <h5>Sobre</h5>
-              <p>Bem-vindo à nossa plataforma! Somos uma equipe dedicada a fornecer as melhores soluções para sua organização e produtividade.</p>
-            </div>
-          </main>
-        </section>
-       <script src="script.js"></script>
+
+              <label class="checkbox-lembrar" for="lembrar">
+                <input type="checkbox" id="lembrar" />
+                <span aria-hidden="true"></span>
+                Lembrar-senha
+              </label>
+
+              <!-- Mensagem de erro/sucesso do Login -->
+              <p id="msg-login"></p>
+
+              <button type="submit" class="entrar">Acessar
+                <img src="imgs/Frame 16.svg" alt="" class="btn-seta1">
+              </button> 
+              
+              <p class="cad">
+                não tem uma conta? <button type="button" id="btn-cadastro">Cadastre-se</button>
+              </p>
+            </form>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- SEÇÃO DE CADASTRO -->
+    <section class="content" id="cadrasto">
+      <main class="main-cadrasto">
+        <div class="conteiner-cadrasto-complemento">
+          <div class="area-cadrasto">
+            <h5>Cadastro</h5>
+            <form id="form-cadrasto" class="form-cadrasto">
+              <div class="div-name">
+                <img src="imgs/image copy 7.png" alt="icone-usuario">
+                <input type="text" id="cad-nome" placeholder="Nome" required />
+              </div>
+              
+              <div class="div-email">
+                <img src="imgs/image copy 10.png" alt="icone-email">
+                <input type="email" id="cad-email" placeholder="Email" required />
+              </div>
+              
+              <div class="div-senha">
+                <img src="imgs/image copy 8.png" alt="icone-senha">
+                <input type="password" id="cad-senha" placeholder="Senha" required />
+              </div>
+              
+              <div class="div-senha">
+                <img src="imgs/image copy 8.png" alt="icone-senha">
+                <input type="password" id="cad-confirma-senha" placeholder="Confirme a senha" required />
+              </div>
+
+              <!-- Mensagem de erro/sucesso do Cadastro -->
+              <p id="msg-cadastro"></p>
+
+              <button type="submit" class="cadrastar">
+                cadastrar-se
+                <img src="imgs/Frame 16.svg" alt="">
+              </button>
+            </form>
+          </div>
+          
+          <div class="area-complemento">
+            <h7>Seja</h7>
+            <h6>bem vindo</h6>
+            <p>"Quem organiza o tempo constrói pontes entre o agora e o futuro; quem o desperdiça, cava abismos no presente."</p>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <!-- SEÇÃO SOBRE -->
+    <section class="content" id="sobre">
+      <main class="main-sobre">
+        <div class="container-sobre">
+          <h5>Sobre</h5>
+          <p>Bem-vindo à nossa plataforma! Somos uma equipe dedicada a fornecer as melhores soluções para sua organização e produtividade.</p>
+        </div>
+      </main>
+    </section>
+
+    <!-- ARQUIVO JAVASCRIPT PRINCIPAL -->
+    <script src="script.js"></script>
   </body>
 </html>
   
