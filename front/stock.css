@@ -1,0 +1,1918 @@
+/* TOKENS VISUAIS: cores, tipografia e sombra reutilizadas em toda a página. */
+:root {
+    color-scheme: light;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    color: #1f2937;
+    background: #f4f6f9;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    --navy: #263e54;
+    --navy-dark: #1c3044;
+    --teal: #14b8a6;
+    --blue: #52789a;
+    --muted: #758296;
+    --line: #e4e9ef;
+    --surface: #ffffff;
+    --shadow: 0 10px 30px rgb(25 42 62 / 7%);
+}
+
+/* BASE GLOBAL: inclui bordas no cálculo de tamanho e remove margens padrão do navegador. */
+* {
+    box-sizing: border-box;
+}
+
+/* ESTRUTURA DA PÁGINA: ocupa a tela inteira e define a cor de fundo principal. */
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background: #f4f6f9;
+}
+
+/* TIPOGRAFIA DE CONTROLES: mantém botões e campos coerentes com o restante do site. */
+/* Aplicação da fonte herdada nos campos e botões. */
+button,
+input {
+    font: inherit;
+}
+
+/* CURSOR DE AÇÃO: indica que botões podem ser acionados. */
+button {
+    cursor: pointer;
+}
+
+/* ACESSIBILIDADE: destaca os controles quando recebem foco pelo teclado. */
+/* Contorno de foco visível para navegação acessível por teclado. */
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid rgb(20 184 166 / 35%);
+    outline-offset: 2px;
+}
+
+/* MENU LATERAL: fixa a navegação à esquerda e permite deslizá-la em telas pequenas. */
+.sidebar {
+    position: fixed;
+    z-index: 20;
+    inset: 0 auto 0 0;
+    display: flex;
+    width: 248px;
+    flex-direction: column;
+    color: #fff;
+    background: var(--navy);
+    transition: transform 180ms ease;
+}
+
+/* MARCA DO SISTEMA: organiza o símbolo e o nome no topo do menu. */
+.brand {
+    display: flex;
+    min-height: 84px;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgb(255 255 255 / 9%);
+}
+
+/* SÍMBOLO DA MARCA: cria o quadrado colorido com as iniciais do sistema. */
+.brand-mark {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 13px;
+    color: #fff;
+    background: var(--teal);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .04em;
+}
+
+/* TEXTO DA MARCA: separa o título e o subtítulo em linhas próprias. */
+.brand strong,
+/* Espaço entre o subtítulo da marca e o nome do sistema. */
+.brand small {
+    display: block;
+}
+
+/* NOME DA MARCA: define tamanho e espaçamento do título. */
+.brand strong {
+    font-size: 16px;
+    letter-spacing: .01em;
+}
+
+/* SUBTÍTULO DA MARCA: apresenta a descrição abaixo do nome. */
+.brand small {
+    margin-top: 4px;
+    color: #bdcbd7;
+    font-size: 11px;
+}
+
+/* RÓTULO DO MENU: identifica o grupo de opções da navegação. */
+.nav-caption {
+    margin: 31px 22px 12px;
+    color: #aebdca;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+}
+
+/* LISTA DE NAVEGAÇÃO: empilha as opções com espaço regular. */
+.side-nav {
+    display: grid;
+    gap: 5px;
+}
+
+/* OPÇÕES DO MENU: alinha ícone e texto e prepara o estado de seleção. */
+.side-link {
+    display: flex;
+    min-height: 46px;
+    align-items: center;
+    gap: 13px;
+    padding: 0 22px;
+    border: 0;
+    border-left: 3px solid transparent;
+    color: #d4dee7;
+    background: transparent;
+    text-align: left;
+    transition: background 150ms ease, color 150ms ease;
+}
+
+/* ÍCONES DO MENU: padroniza largura e alinhamento dos símbolos. */
+.side-link>span {
+    width: 19px;
+    color: #b8c7d4;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* INTERAÇÃO DO MENU: realça a opção sob o ponteiro ou atualmente selecionada. */
+.side-link:hover,
+/* Realce de fundo do item atualmente selecionado no menu. */
+.side-link.active {
+    color: #fff;
+    background: rgb(255 255 255 / 9%);
+}
+
+/* ESTADO ATIVO: mostra uma faixa colorida ao lado da página aberta. */
+.side-link.active {
+    border-left-color: var(--teal);
+}
+
+/* RODAPÉ DO MENU: posiciona o indicador de estado na parte inferior da barra lateral. */
+.sidebar-bottom {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: auto 22px 23px;
+    color: #bdcbd7;
+    font-size: 12px;
+}
+
+/* INDICADOR DE ESTADO: representa visualmente que o painel está disponível. */
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #48d3a3;
+    box-shadow: 0 0 0 4px rgb(72 211 163 / 13%);
+}
+
+/* ÁREA DO APLICATIVO: reserva espaço para o menu lateral fixo. */
+.app-shell {
+    min-height: 100vh;
+    margin-left: 248px;
+}
+
+/* BARRA SUPERIOR: fixa o cabeçalho durante a rolagem e alinha seus controles. */
+.topbar {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    display: flex;
+    height: 64px;
+    align-items: center;
+    gap: 18px;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--line);
+    background: rgb(255 255 255 / 95%);
+    backdrop-filter: blur(12px);
+}
+
+/* BOTÕES DE ÍCONE: área clicável quadrada usada, por exemplo, pelo menu móvel. */
+.icon-button {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: #526579;
+    background: #fff;
+    font-size: 19px;
+}
+
+/* HOVER DOS BOTÕES DE ÍCONE: sinaliza a interação ao passar o ponteiro. */
+.icon-button:hover {
+    border-color: #cbd6df;
+    background: #f7f9fb;
+}
+
+/* MENU MÓVEL: oculto em telas largas; aparece nas regras responsivas abaixo. */
+.menu-toggle {
+    display: none;
+}
+
+/* CAMINHO DE NAVEGAÇÃO: organiza nome do sistema e página atual no cabeçalho. */
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #97a2af;
+    font-size: 13px;
+}
+
+/* PÁGINA ATUAL: diferencia o último item do caminho de navegação. */
+.breadcrumbs strong {
+    color: #3a4b5f;
+    font-weight: 600;
+}
+
+/* ATALHO DO PERFIL: alinha avatar, nome e indicador no lado direito do cabeçalho. */
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    padding: 5px 0 5px 10px;
+    border: 0;
+    color: #506174;
+    background: transparent;
+    font-size: 13px;
+}
+
+/* AVATAR: exibe as iniciais do usuário em um círculo. */
+.avatar {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(140deg, #52789a, #263e54);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* CONTEÚDO PRINCIPAL: centraliza as telas e define margens internas responsivas. */
+.main-content {
+    width: min(100%, 1440px);
+    min-height: calc(100vh - 112px);
+    margin: 0 auto;
+    padding: 34px 38px 54px;
+}
+
+/* TELAS INATIVAS: oculta painéis e estados vazios marcados como escondidos no HTML. */
+/* Oculta as telas, subabas e mensagens vazias que não devem aparecer. */
+.view-panel[hidden],
+.management-section[hidden],
+.empty-state[hidden] {
+    display: none !important;
+}
+
+/* TRANSIÇÃO ENTRE TELAS: aplica uma entrada discreta ao painel que fica visível. */
+.view-panel {
+    animation: appear 180ms ease-out;
+}
+
+/* ANIMAÇÃO DE ENTRADA: move o painel levemente para cima enquanto ele aparece. */
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(7px) scale(.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Anima a subaba de gerência que acabou de ficar visível. */
+.management-section:not([hidden]) {
+    animation: tab-appear 220ms ease-out both;
+}
+
+@keyframes tab-appear {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* DESTAQUE INICIAL: banner da página principal com título, texto e ilustração. */
+.welcome-banner {
+    position: relative;
+    display: flex;
+    min-height: 208px;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 34px 42px;
+    border-radius: 18px;
+    color: #fff;
+    background: linear-gradient(112deg, #263e54, #3d6480 72%, #4c8290);
+    box-shadow: var(--shadow);
+}
+
+/* TEXTO AUXILIAR: padrão para pequenos títulos de seção em caixa alta. */
+.eyebrow {
+    margin: 0 0 9px;
+    color: #6c8296;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: .12em;
+}
+
+/* TEXTO DO BANNER: ajusta o rótulo para contrastar no fundo escuro. */
+.welcome-banner .eyebrow {
+    color: #a9dcd8;
+}
+
+/* TÍTULOS PRINCIPAIS: controla escala e peso dos títulos do banner e das páginas. */
+/* Tamanho responsivo compartilhado entre título de boas-vindas e título de tela. */
+.welcome-banner h1,
+.page-heading h1 {
+    margin: 0;
+    font-size: clamp(26px, 3vw, 35px);
+    font-weight: 650;
+    letter-spacing: -.035em;
+}
+
+/* DESCRIÇÃO INICIAL: formata a frase de boas-vindas abaixo do título. */
+.welcome-copy {
+    margin: 10px 0 0;
+    color: #d5e0e7;
+    font-size: 14px;
+}
+
+/* ILUSTRAÇÃO DO BANNER: cria o cartão decorativo ao lado da mensagem inicial. */
+.banner-art {
+    position: relative;
+    display: grid;
+    width: 132px;
+    height: 120px;
+    place-items: center;
+    margin-right: 35px;
+    border: 1px solid rgb(255 255 255 / 19%);
+    border-radius: 27px;
+    color: #d5f6ee;
+    background: rgb(255 255 255 / 9%);
+    transform: rotate(-8deg);
+}
+
+/* SÍMBOLO DA ILUSTRAÇÃO: dimensiona o ícone central do banner. */
+.banner-art span {
+    font-size: 62px;
+    line-height: 1;
+}
+
+/* DETALHES DA ILUSTRAÇÃO: posiciona os círculos decorativos sobre o cartão. */
+.banner-art i,
+/* Cor e posição do detalhe decorativo inferior da ilustração. */
+.banner-art b {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    background: #46d2b6;
+}
+
+/* DETALHE SUPERIOR: posiciona o círculo menor no canto do cartão ilustrado. */
+.banner-art i {
+    width: 17px;
+    height: 17px;
+    top: -8px;
+    right: 5px;
+}
+
+/* DETALHE INFERIOR: posiciona o segundo círculo decorativo do banner. */
+.banner-art b {
+    width: 9px;
+    height: 9px;
+    bottom: 9px;
+    left: -7px;
+    background: #f5c56b;
+}
+
+/* TÍTULO DAS OPÇÕES: alinha a chamada que antecede os cartões da tela inicial. */
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin: 35px 0 17px;
+}
+
+/* TÍTULOS DE SEÇÃO E TABELA: padroniza a aparência dos cabeçalhos internos. */
+/* Aparência comum ao título da seção inicial e ao título da tabela. */
+.section-heading h2,
+.table-toolbar h2 {
+    margin: 0;
+    color: #27394b;
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -.02em;
+}
+
+/* ESPAÇO DO RÓTULO: separa o pequeno título do título principal da seção. */
+.section-heading .eyebrow {
+    margin-bottom: 6px;
+}
+
+/* CARTÕES INICIAIS: distribui Perfil, Gerência e Configurações em colunas. */
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+/* CARTÃO DE OPÇÃO: transforma cada atalho inicial em um botão vertical. */
+.option-card {
+    display: flex;
+    min-height: 205px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    color: inherit;
+    background: var(--surface);
+    box-shadow: 0 4px 16px rgb(25 42 62 / 3%);
+    text-align: left;
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+/* HOVER DOS CARTÕES: eleva e destaca levemente o cartão acionável. */
+.option-card:hover {
+    transform: translateY(-3px);
+    border-color: #c7d8df;
+    box-shadow: var(--shadow);
+}
+
+/* ÍCONE DAS OPÇÕES: cria a caixa colorida que identifica cada atalho. */
+.option-icon {
+    display: grid;
+    width: 43px;
+    height: 43px;
+    place-items: center;
+    border-radius: 13px;
+    color: #526dc0;
+    background: #eef0ff;
+    font-size: 21px;
+}
+
+/* ÍCONE DE GERÊNCIA: diferencia visualmente o atalho de estoque. */
+.management-option .option-icon {
+    color: #168878;
+    background: #e6f7f2;
+}
+
+/* ÍCONE DE CONFIGURAÇÕES: diferencia o atalho de preferências. */
+.settings-option .option-icon {
+    color: #bc8532;
+    background: #fff4df;
+}
+
+/* NOME DA OPÇÃO: destaca o título de cada cartão inicial. */
+.option-title {
+    margin-top: 16px;
+    color: #293b4c;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* DESCRIÇÃO DA OPÇÃO: apresenta detalhes em texto menor dentro do cartão. */
+.option-description {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+/* AÇÃO DA OPÇÃO: fixa o texto de chamada na base do cartão. */
+.option-action {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: auto;
+    padding-top: 17px;
+    color: #277c77;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* RESUMO INICIAL: organiza os indicadores de estoque em três colunas. */
+.quick-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+}
+
+/* CARTÃO DE RESUMO: alinha ícone e indicador em um bloco compacto. */
+.quick-summary>div {
+    display: flex;
+    min-height: 83px;
+    align-items: center;
+    gap: 13px;
+    padding: 14px 17px;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: #fff;
+}
+
+/* ÍCONE DO RESUMO: padroniza os símbolos dos indicadores do estoque. */
+.summary-icon {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 11px;
+    font-weight: 800;
+}
+
+/* VARIAÇÕES DE COR DOS INDICADORES: distinguem os tipos de resumo visualmente. */
+.summary-icon.purple {
+    color: #6e69ca;
+    background: #f0efff;
+}
+
+/* Cor de identificação do indicador de unidades em estoque. */
+.summary-icon.green {
+    color: #168878;
+    background: #e6f7f2;
+}
+
+/* Cor de identificação do indicador de estoque baixo. */
+.summary-icon.orange {
+    color: #bd8531;
+    background: #fff4df;
+}
+
+/* TEXTO DO RESUMO: mantém rótulo e valor em linhas separadas. */
+.quick-summary small,
+/* Estilo dos valores dos indicadores na tela inicial. */
+.quick-summary strong {
+    display: block;
+}
+
+/* RÓTULO DO RESUMO: mostra o nome do indicador em texto secundário. */
+.quick-summary small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* VALOR DO RESUMO: dá destaque ao número principal de cada indicador. */
+.quick-summary strong {
+    margin-top: 4px;
+    color: #2f4153;
+    font-size: 19px;
+}
+
+/* CABEÇALHO DAS TELAS: alinha título, descrição e eventual ação da página. */
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 27px;
+}
+
+/* TÍTULO DA TELA: define cor e tamanho dos títulos internos. */
+.page-heading h1 {
+    color: #293b4c;
+    font-size: 30px;
+}
+
+/* DESCRIÇÃO DA TELA: formata a frase abaixo do título. */
+.page-heading>div>p:last-child {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* BOTÕES: dimensões, alinhamento e transição compartilhados pelas ações. */
+.button {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 650;
+    transition: background 150ms ease, transform 150ms ease;
+}
+
+/* HOVER DOS BOTÕES: adiciona resposta visual ao passar o ponteiro. */
+.button:hover {
+    transform: translateY(-1px);
+}
+
+/* BOTÃO PRINCIPAL: destaca a ação prioritária da página. */
+.button-primary {
+    color: #fff;
+    background: #267d75;
+}
+
+/* HOVER PRINCIPAL: escurece o botão prioritário quando acionado. */
+.button-primary:hover {
+    background: #1d6b64;
+}
+
+/* BOTÃO SECUNDÁRIO: aparência neutra para ações auxiliares. */
+.button-secondary {
+    border-color: #dce3e9;
+    color: #506174;
+    background: #fff;
+}
+
+/* HOVER SECUNDÁRIO: realça o botão auxiliar sem competir com a ação principal. */
+.button-secondary:hover {
+    background: #f7f9fb;
+}
+
+/* ABAS DA GERÊNCIA: organiza os seletores de Produtos, Movimentações e Relatórios. */
+.management-tabs {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+/* ABA: estilo base das opções internas da gerência. */
+.management-tab {
+    position: relative;
+    padding: 0 1px 13px;
+    border: 0;
+    color: #7b8794;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ABA ATIVA OU SOB O PONTEIRO: destaca a seção selecionada. */
+.management-tab:hover,
+.management-tab.active {
+    color: #22776f;
+}
+
+/* INDICADOR DA ABA ATIVA: linha inferior que mostra qual seção está aberta. */
+.management-tab.active::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    background: var(--teal);
+    content: "";
+}
+
+/* INDICADORES DA GERÊNCIA: divide as métricas em quatro colunas. */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+    margin-bottom: 18px;
+}
+
+/* CARTÃO DE MÉTRICA: apresenta um indicador resumido do estoque. */
+.stat-card {
+    min-height: 111px;
+    padding: 16px 17px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+}
+
+/* RÓTULO E RODAPÉ DA MÉTRICA: aparecem em linhas independentes. */
+.stat-label,
+/* Cor auxiliar usada no complemento abaixo da métrica. */
+.stat-foot {
+    display: block;
+}
+
+/* RÓTULO DA MÉTRICA: descreve o número apresentado no cartão. */
+.stat-label {
+    color: #6c7b8b;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* VALOR DA MÉTRICA: destaca a contagem ou valor financeiro. */
+.stat-card strong {
+    display: block;
+    margin: 9px 0 4px;
+    color: #2b3e50;
+    font-size: 23px;
+}
+
+/* COMPLEMENTO DA MÉTRICA: explica o contexto do número em texto menor. */
+.stat-foot {
+    color: #9aa5b0;
+    font-size: 10px;
+}
+
+/* ALERTA DE ESTOQUE: dá destaque ao valor da métrica de atenção. */
+.warning-stat strong {
+    color: #c48834;
+}
+
+/* CARTÃO DA TABELA: agrupa título, cabeçalho e linhas de produtos. */
+.table-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgb(25 42 62 / 3%);
+}
+
+/* BARRA DA TABELA: alinha título e controles auxiliares, como uma busca. */
+.table-toolbar {
+    display: flex;
+    min-height: 82px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 19px;
+}
+
+/* TÍTULO DA TABELA: reduz a escala do título dentro do cartão. */
+.table-toolbar h2 {
+    font-size: 16px;
+}
+
+/* DESCRIÇÃO DA TABELA: texto auxiliar abaixo do título da listagem. */
+.table-toolbar p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* BUSCA: organiza o ícone e o campo de pesquisa da listagem, se utilizado. */
+.search-box {
+    display: flex;
+    width: min(260px, 48%);
+    min-height: 38px;
+    align-items: center;
+    gap: 8px;
+    padding: 0 11px;
+    border: 1px solid #e0e6eb;
+    border-radius: 8px;
+    color: #84919f;
+}
+
+/* CAMPO DE BUSCA: ocupa o espaço disponível sem borda própria. */
+.search-box input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    color: #34475a;
+    background: transparent;
+    font-size: 12px;
+}
+
+/* ROLAGEM DA TABELA: permite rolagem horizontal em telas estreitas. */
+.table-scroll {
+    overflow-x: auto;
+}
+
+/* TABELAS: usa toda a largura e une as bordas entre as células. */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* CABEÇALHO DA TABELA: diferencia os nomes das colunas das linhas de dados. */
+th {
+    padding: 12px 15px;
+    color: #617184;
+    background: #f7f9fb;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* CÉLULAS DA TABELA: define espaçamento, divisória e tipografia dos dados. */
+td {
+    padding: 13px 15px;
+    border-top: 1px solid #edf0f3;
+    color: #33475a;
+    font-size: 12px;
+}
+
+/* LINHAS ALTERNADAS: facilita acompanhar os dados ao longo de cada linha. */
+tbody tr:nth-child(even) {
+    background: #fafbfd;
+}
+
+/* LINHA SOB O PONTEIRO: realça temporariamente a linha da tabela. */
+tbody tr:hover {
+    background: #f2f8f7;
+}
+
+/* NOME DO PRODUTO: mantém espaço para nomes compridos e os destaca. */
+.product-name-cell {
+    min-width: 190px;
+    font-weight: 650;
+}
+
+/* QUANTIDADE: apresenta unidades como uma etiqueta arredondada. */
+.quantity-pill {
+    display: inline-flex;
+    min-width: 29px;
+    justify-content: center;
+    padding: 4px 7px;
+    border-radius: 20px;
+    color: #267b70;
+    background: #e6f7f2;
+    font-weight: 700;
+}
+
+/* QUANTIDADE BAIXA: sinaliza visualmente produtos que exigem atenção. */
+.quantity-pill.low {
+    color: #a96f20;
+    background: #fff1d9;
+}
+
+/* AÇÕES DA LINHA: alinha eventuais controles ao lado do produto. */
+.row-actions {
+    display: flex;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+/* BOTÕES DA LINHA: padroniza dimensões para as ações de produto. */
+.row-actions button {
+    min-height: 30px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+/* EDIÇÃO: aparência de destaque para a ação de editar produto, se integrada. */
+.edit-button {
+    color: #8a621b;
+    background: #fff0c2;
+}
+
+/* EXCLUSÃO: aparência de alerta para a ação de remover produto, se integrada. */
+.delete-button {
+    color: #fff;
+    background: #e74b58;
+}
+
+/* HOVER DE EDIÇÃO: reforça a cor ao apontar para o controle. */
+.edit-button:hover {
+    background: #ffe7a0;
+}
+
+/* HOVER DE EXCLUSÃO: escurece a ação de alerta ao apontar. */
+.delete-button:hover {
+    background: #ce3542;
+}
+
+/* ESTADO VAZIO: centraliza a mensagem exibida quando não há linhas de dados. */
+.empty-state {
+    display: grid;
+    min-height: 168px;
+    place-content: center;
+    justify-items: center;
+    gap: 7px;
+    color: #8190a0;
+    text-align: center;
+}
+
+/* ÍCONE VAZIO: aumenta o símbolo ilustrativo da mensagem. */
+.empty-state>span {
+    font-size: 24px;
+}
+
+/* TÍTULO VAZIO: dá contraste ao cabeçalho da mensagem sem dados. */
+.empty-state strong {
+    color: #405367;
+    font-size: 13px;
+}
+
+/* DESCRIÇÃO VAZIA: formata a orientação abaixo do título. */
+.empty-state p {
+    margin: 0;
+    font-size: 11px;
+}
+
+/* CARTÕES DE RELATÓRIO: organiza os resumos em três colunas. */
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    margin: 5px 0 18px;
+}
+
+/* CARTÃO DE RELATÓRIO: delimita cada bloco de resumo financeiro ou operacional. */
+.report-card {
+    min-height: 155px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+}
+
+/* VALOR DO RELATÓRIO: destaca o dado principal de cada cartão. */
+.report-card h2 {
+    margin: 8px 0;
+    color: #30465a;
+    font-size: 24px;
+}
+
+/* DESCRIÇÃO DO RELATÓRIO: apresenta explicação curta para cada indicador. */
+.report-card>p:last-child {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* SUPERFÍCIES DE FORMULÁRIO: estilo compartilhado entre perfil e configurações. */
+.form-card,
+/* Layout do cartão de preferência e sua descrição de apoio. */
+.settings-card {
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgb(25 42 62 / 3%);
+}
+
+/* FORMULÁRIO DE PERFIL: posiciona avatar, campos e botão em duas colunas. */
+.profile-form {
+    display: grid;
+    max-width: 620px;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 19px;
+    padding: 25px;
+}
+
+/* AVATAR DO PERFIL: amplia o avatar e ocupa a largura do formulário. */
+.profile-avatar {
+    width: 58px;
+    height: 58px;
+    grid-column: 1 / -1;
+    font-size: 17px;
+}
+
+/* RÓTULOS DOS CAMPOS: agrupa cada legenda com seu campo de entrada. */
+.profile-form label,
+.product-fields label {
+    display: grid;
+    gap: 7px;
+    color: #4d6072;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+/* CAMPOS DE TEXTO: dimensões e cores dos campos de perfil e dos estilos reservados a produto. */
+.profile-form input,
+.product-fields input {
+    width: 100%;
+    min-height: 40px;
+    padding: 0 11px;
+    border: 1px solid #dfe5ea;
+    border-radius: 8px;
+    color: #2c4053;
+    background: #fff;
+    font-size: 12px;
+}
+
+/* BOTÃO DO PERFIL: alinha a ação de salvar no início da coluna. */
+.profile-form .button {
+    justify-self: start;
+}
+
+/* FEEDBACK DO FORMULÁRIO: reserva espaço para mensagens de sucesso ou validação. */
+.form-feedback {
+    min-height: 16px;
+    margin: 0;
+    color: #27786b;
+    font-size: 11px;
+}
+
+/* FEEDBACK DO PERFIL: alinha a mensagem junto aos campos do formulário. */
+.profile-form .form-feedback {
+    align-self: center;
+}
+
+/* CARTÃO DE CONFIGURAÇÃO: alinha o texto e o controle da preferência. */
+.settings-card {
+    display: flex;
+    max-width: 760px;
+    min-height: 82px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 12px;
+    padding: 17px 20px;
+}
+
+/* TEXTO DE CONFIGURAÇÃO: separa o título da descrição. */
+.setting-copy strong,
+/* Aparência da descrição que acompanha cada configuração. */
+.setting-copy span {
+    display: block;
+}
+
+/* TÍTULO DA CONFIGURAÇÃO: destaca o nome da preferência. */
+.setting-copy strong {
+    color: #34485b;
+    font-size: 13px;
+}
+
+/* DESCRIÇÃO DA CONFIGURAÇÃO: explica a finalidade da preferência. */
+.setting-copy span {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* INTERRUPTOR: posiciona e dimensiona o controle liga/desliga personalizado. */
+.switch {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    cursor: pointer;
+}
+
+/* CAMPO DO INTERRUPTOR: mantém o input acessível sem exibi-lo visualmente. */
+.switch input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+/* TRILHO DO INTERRUPTOR: representa visualmente o fundo do controle. */
+.switch-track {
+    width: 42px;
+    height: 24px;
+    border-radius: 20px;
+    background: #cbd4dc;
+    transition: background 150ms ease;
+}
+
+/* BOTÃO DO INTERRUPTOR: desenha a esfera que se desloca ao ligar/desligar. */
+.switch-track::after {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 18%);
+    transition: transform 150ms ease;
+    content: "";
+}
+
+/* INTERRUPTOR ATIVO: muda a cor do trilho quando a caixa está marcada. */
+.switch input:checked+.switch-track {
+    background: #28a995;
+}
+
+/* INTERRUPTOR ATIVO: desloca a esfera para indicar a posição ligada. */
+.switch input:checked+.switch-track::after {
+    transform: translateX(18px);
+}
+
+/* FOCO DO INTERRUPTOR: mantém um indicador visível para navegação por teclado. */
+.switch input:focus-visible+.switch-track {
+    outline: 3px solid rgb(20 184 166 / 35%);
+    outline-offset: 2px;
+}
+
+/* TEXTO ACESSÍVEL: esconde a legenda visualmente sem removê-la de leitores de tela. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+/* MODAL DE PRODUTO: estilos reservados para um formulário de cadastro futuro; não ativam cadastro sozinhos. */
+.product-dialog {
+    width: min(560px, calc(100% - 28px));
+    max-height: calc(100% - 32px);
+    padding: 0;
+    overflow: auto;
+    border: 0;
+    border-radius: 16px;
+    color: inherit;
+    background: #fff;
+    box-shadow: 0 22px 80px rgb(17 29 43 / 28%);
+}
+
+/* FUNDO DO MODAL: escurece a página atrás do diálogo nativo. */
+.product-dialog::backdrop {
+    background: rgb(16 28 41 / 52%);
+    backdrop-filter: blur(2px);
+}
+
+/* FORMULÁRIO DO MODAL: adiciona espaço interno ao conteúdo de cadastro futuro. */
+.product-dialog form {
+    padding: 23px;
+}
+
+/* CABEÇALHO DO MODAL: alinha título e botão de fechar. */
+.dialog-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* TÍTULO DO MODAL: define a aparência do nome da ação de cadastro/edição. */
+.dialog-heading h2 {
+    margin: 0;
+    color: #2b4054;
+    font-size: 21px;
+}
+
+/* RÓTULO DO MODAL: aproxima o pequeno identificador do título. */
+.dialog-heading .eyebrow {
+    margin-bottom: 5px;
+}
+
+/* FECHAR MODAL: aumenta o símbolo de fechamento para facilitar o clique. */
+.close-dialog {
+    font-size: 23px;
+}
+
+/* CAMPOS DO PRODUTO: organiza os campos do formulário futuro em duas colunas. */
+.product-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* CAMPO LARGO: permite que o nome do produto ocupe as duas colunas. */
+.product-fields .full-field {
+    grid-column: 1 / -1;
+}
+
+/* FEEDBACK DO MODAL: separa avisos de validação dos campos. */
+.product-dialog .form-feedback {
+    margin-top: 13px;
+}
+
+/* AÇÕES DO MODAL: alinha cancelar e salvar no lado direito do diálogo. */
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 16px;
+}
+
+/* RODAPÉ DA PÁGINA: centraliza o crédito no fim do conteúdo. */
+.footer {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-top: 1px solid var(--line);
+    color: #8b98a5;
+    background: #fff;
+    font-size: 10px;
+}
+
+/* RESPONSIVO - TABLETS E NOTEBOOKS: reduz margens e colunas antes de estreitar o conteúdo. */
+@media (max-width: 1100px) {
+    /* Mantém espaçamento lateral confortável em janelas médias. */
+    .main-content {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+
+    /* Reduz de quatro para duas métricas por linha. */
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* Evita que a ilustração empurre o texto do banner. */
+    .banner-art {
+        margin-right: 8px;
+    }
+}
+
+/* RESPONSIVO - CELULARES: transforma a navegação lateral em menu deslizante e empilha cartões. */
+@media (max-width: 760px) {
+    /* Esconde o menu fora da tela até o botão móvel abri-lo. */
+    .sidebar {
+        box-shadow: 12px 0 35px rgb(17 29 43 / 16%);
+        transform: translateX(-105%);
+    }
+
+    /* Libera a largura completa da tela para o conteúdo. */
+    .app-shell {
+        margin-left: 0;
+    }
+
+    /* Torna visível o controle que abre e fecha a navegação. */
+    .menu-toggle {
+        display: grid;
+    }
+
+    /* Compacta o cabeçalho para caber em dispositivos estreitos. */
+    .topbar {
+        height: 58px;
+        gap: 12px;
+        padding: 0 16px;
+    }
+
+    /* Reduz o espaçamento da área principal no celular. */
+    .main-content {
+        min-height: calc(100vh - 106px);
+        padding: 22px 16px 35px;
+    }
+
+    /* Diminui o banner de boas-vindas para telas menores. */
+    .welcome-banner {
+        min-height: 185px;
+        padding: 26px 23px;
+    }
+
+    /* Compacta o cartão ilustrado do banner. */
+    .banner-art {
+        width: 84px;
+        height: 84px;
+        margin-right: 0;
+        border-radius: 20px;
+    }
+
+    /* Reduz o ícone decorativo do banner. */
+    .banner-art span {
+        font-size: 43px;
+    }
+
+    /* Empilha os três cartões de acesso inicial. */
+    .option-grid {
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+
+    /* Ajusta a altura dos cartões na disposição em coluna. */
+    .option-card {
+        min-height: 170px;
+    }
+
+    /* Empilha os indicadores do resumo inicial. */
+    .quick-summary {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    /* Diminui a altura dos indicadores empilhados. */
+    .quick-summary>div {
+        min-height: 70px;
+    }
+
+    /* Empilha cartões de relatórios em uma única coluna. */
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* RESPONSIVO - CELULARES PEQUENOS: compacta controles e adapta formulários a uma coluna. */
+@media (max-width: 520px) {
+    /* Reduz o caminho de navegação para economizar largura. */
+    .breadcrumbs {
+        gap: 6px;
+        font-size: 11px;
+    }
+
+    /* Oculta o nome do usuário, preservando o avatar no cabeçalho. */
+    .user-chip {
+        gap: 6px;
+        font-size: 0;
+    }
+
+    /* Mantém as iniciais legíveis mesmo com o nome oculto. */
+    .user-chip .avatar {
+        font-size: 10px;
+    }
+
+    /* Empilha título e ação do cabeçalho da tela. */
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    /* Mantém espaçamento entre o título da gerência e eventual ação. */
+    .management-heading {
+        gap: 15px;
+    }
+
+    /* Aproxima as abas internas para caberem no celular. */
+    .management-tabs {
+        gap: 17px;
+    }
+
+    /* Diminui a tipografia das abas. */
+    .management-tab {
+        font-size: 12px;
+    }
+
+    /* Aproxima os cartões de métricas em telas muito estreitas. */
+    .stats-grid {
+        gap: 9px;
+    }
+
+    /* Reduz o preenchimento dos cartões de métrica. */
+    .stat-card {
+        min-height: 102px;
+        padding: 13px;
+    }
+
+    /* Ajusta o tamanho do valor para não transbordar. */
+    .stat-card strong {
+        font-size: 20px;
+    }
+
+    /* Empilha título e busca na barra da tabela. */
+    .table-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    /* Faz a busca ocupar a largura completa quando estiver presente. */
+    .search-box {
+        width: 100%;
+    }
+
+    /* Mostra campos de perfil e campos reservados de produto em uma coluna. */
+    .profile-form,
+    .product-fields {
+        grid-template-columns: 1fr;
+    }
+
+    /* Remove a ocupação de duas colunas em formulários empilhados. */
+    .profile-avatar,
+    .product-fields .full-field {
+        grid-column: auto;
+    }
+
+    /* Mantém a mensagem do formulário alinhada na coluna única. */
+    .profile-form .form-feedback {
+        grid-column: auto;
+    }
+
+    /* Alinha o texto do cartão de configurações no topo em telas pequenas. */
+    .settings-card {
+        align-items: flex-start;
+    }
+}
+
+/* ACESSIBILIDADE DE MOVIMENTO: reduz animações para quem prefere menos movimento na interface. */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* TEMA AZUL NEON E BRANCO: substitui as cores-base definidas no início do arquivo. */
+:root {
+    color: #183153;
+    background: #f5f9ff;
+    --navy: #102b52;
+    --navy-dark: #081d3c;
+    --teal: #1682ff;
+    --blue: #1478f8;
+    --muted: #687b94;
+    --line: #e1eaf5;
+    --surface: #fff;
+    --shadow: 0 10px 30px rgb(19 72 145 / 8%);
+}
+
+/* FUNDO DO TEMA: mantém a área geral em branco azulado suave. */
+body {
+    background: #f5f9ff;
+}
+
+/* FOCO AZUL: combina o destaque de teclado com a cor do tema atual. */
+/* Contorno de teclado recebe o azul da paleta neon. */
+button:focus-visible,
+input:focus-visible {
+    outline-color: rgb(22 130 255 / 35%);
+}
+
+/* MENU AZUL: aplica o degradê escuro à navegação lateral. */
+.sidebar {
+    background: linear-gradient(180deg, #102b52, #0b2144);
+}
+
+/* MARCA NEON: ilumina o símbolo da marca com azul vivo. */
+.brand-mark {
+    background: #1682ff;
+    box-shadow: 0 0 20px rgb(22 130 255 / 35%);
+}
+
+/* ITEM SELECIONADO: realça a navegação atual com faixa e fundo azuis. */
+.side-link.active {
+    border-left-color: #43a0ff;
+    background: rgb(22 130 255 / 17%);
+}
+
+/* HOVER DO MENU: fornece retorno visual azul ao apontar para uma opção. */
+.side-link:hover {
+    background: rgb(22 130 255 / 12%);
+}
+
+/* INDICADOR AZUL: adapta o ponto de estado do menu à paleta neon. */
+.status-dot {
+    background: #5ca9ff;
+    box-shadow: 0 0 0 4px rgb(92 169 255 / 15%);
+}
+
+/* BANNER AZUL: aplica degradê de azul escuro para azul luminoso. */
+.welcome-banner {
+    background: linear-gradient(112deg, #102b52 0%, #155cba 70%, #1682ff 120%);
+}
+
+/* CONTRASTE DO BANNER: clareia o rótulo pequeno sobre o degradê. */
+.welcome-banner .eyebrow {
+    color: #acd5ff;
+}
+
+/* ILUSTRAÇÃO NEON: combina transparência branca e brilho azul no banner. */
+.banner-art {
+    color: #fff;
+    border-color: rgb(255 255 255 / 28%);
+    background: rgb(255 255 255 / 12%);
+    box-shadow: 0 0 34px rgb(59 154 255 / 23%);
+}
+
+/* PONTO LUMINOSO: adiciona brilho ao detalhe superior da ilustração. */
+.banner-art i {
+    background: #63b2ff;
+    box-shadow: 0 0 15px rgb(99 178 255 / 70%);
+}
+
+/* DETALHE BRANCO: troca a cor do círculo inferior para branco. */
+.banner-art b {
+    background: #fff;
+}
+
+/* CARTÃO DE OPÇÃO: reforça a borda e sombra azuis no hover. */
+.option-card:hover {
+    border-color: #99caff;
+    box-shadow: 0 10px 28px rgb(20 120 248 / 11%);
+}
+
+/* ÍCONES AZUIS: unifica em azul os ícones dos atalhos e indicadores. */
+.option-icon,
+.management-option .option-icon,
+.settings-option .option-icon,
+.summary-icon.purple,
+.summary-icon.green,
+/* Mantém o ícone de estoque baixo na paleta azul, substituindo a cor anterior. */
+.summary-icon.orange {
+    color: #116ddd;
+    background: #eaf3ff;
+}
+
+/* AÇÕES E ABAS: colore de azul os textos interativos selecionados. */
+.option-action,
+.management-tab:hover,
+.management-tab.active {
+    color: #086fe8;
+}
+
+/* AÇÃO PRINCIPAL NEON: aplica azul vibrante e sombra ao botão prioritário. */
+.button-primary {
+    background: #1478f8;
+    box-shadow: 0 4px 12px rgb(20 120 248 / 18%);
+}
+
+/* HOVER PRINCIPAL NEON: escurece ligeiramente o azul ao apontar. */
+.button-primary:hover {
+    background: #0866dc;
+}
+
+/* ABA ATIVA NEON: colore e ilumina o sublinhado da aba selecionada. */
+.management-tab.active::after {
+    background: #1682ff;
+    box-shadow: 0 0 10px rgb(22 130 255 / 45%);
+}
+
+/* QUANTIDADE AZUL: adapta a etiqueta de quantidade ao tema atualizado. */
+.quantity-pill {
+    color: #116ddd;
+    background: #eaf3ff;
+}
+
+/* CARTÕES BRANCOS: reforça superfícies e contornos da paleta clara. */
+.table-card,
+.stat-card,
+.report-card,
+.form-card,
+.settings-card,
+/* Garante fundo branco e borda azul-clara para o resumo do início. */
+.quick-summary > div {
+    border-color: #e1eaf5;
+    background: #fff;
+}
+
+/* CABEÇALHO DA TABELA AZUL-CLARO: diferencia a linha dos nomes das colunas. */
+th {
+    color: #45617f;
+    background: #f1f7ff;
+}
+
+/* LINHA ALTERNADA CLARA: mantém contraste suave entre produtos. */
+tbody tr:nth-child(even) {
+    background: #f9fbff;
+}
+
+/* HOVER DA TABELA AZUL: indica a linha sob o ponteiro sem escurecer o fundo. */
+tbody tr:hover {
+    background: #edf5ff;
+}
+
+/* FOCO DE CAMPOS: destaca campos em uso com borda e halo azul discreto. */
+/* Halo azul para busca e campos quando recebem foco ou interação. */
+.search-box:focus-within,
+.profile-form input:focus,
+.product-fields input:focus {
+    border-color: #62aaff;
+    box-shadow: 0 0 0 3px rgb(22 130 255 / 10%);
+}
+
+/* RODAPÉ BRANCO: harmoniza o encerramento da página com as superfícies claras. */
+.footer {
+    background: #fff;
+}
+
+/* INTERAÇÕES SUAVES: escala e transições curtas dão retorno ao passar o mouse. */
+.side-link,
+.icon-button,
+.user-chip,
+.management-tab,
+.button {
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.side-link {
+    transform-origin: left center;
+}
+
+.icon-button:hover {
+    transform: scale(1.06);
+}
+
+.side-link:hover {
+    transform: scale(1.025);
+}
+
+.user-chip:hover {
+    transform: scale(1.025);
+}
+
+.management-tab:hover {
+    transform: translateY(-1px) scale(1.035);
+}
+
+.button:hover {
+    transform: translateY(-1px) scale(1.025);
+}
+
+.option-card:hover {
+    transform: translateY(-3px) scale(1.015);
+}
+
+/* CONTROLE DO MENU: deixa o botão acessível em computadores, tablets e celulares. */
+.menu-toggle {
+    display: grid;
+}
+
+/* MENU RECOLHIDO: desliza a navegação para fora da tela em qualquer dispositivo. */
+body.sidebar-hidden .sidebar {
+    transform: translateX(-105%);
+}
+
+/* CONTEÚDO EXPANDIDO: usa a largura liberada quando o menu é ocultado. */
+body.sidebar-hidden .app-shell {
+    margin-left: 0;
+}
+
+/* MENU MÓVEL VISÍVEL: a barra fica recolhida por padrão em telas estreitas. */
+@media (max-width: 760px) {
+    body:not(.sidebar-hidden) .sidebar {
+        transform: translateX(0);
+    }
+}
+
+/* Mantém as animações perceptíveis sem redimensionar os alvos sob o cursor. */
+.side-link:hover,
+.icon-button:hover,
+.user-chip:hover,
+.management-tab:hover,
+.button:hover,
+.option-card:hover {
+    transform: translateY(-2px);
+}
+
+.side-link:hover {
+    transform: translateX(3px);
+}
+
+.icon-button:hover {
+    box-shadow: 0 5px 16px rgb(25 42 62 / 10%);
+}
+
+.option-card:hover {
+    transform: translateY(-3px);
+}
+
+.theme-toggle {
+    width: auto;
+    min-width: 38px;
+    padding: 0 10px;
+}
+
+.theme-icon {
+    font-size: 17px;
+    line-height: 1;
+}
+
+/* MODO NOTURNO: aplica preto profundo e azul neon nas duas áreas do painel. */
+body.dark-mode {
+    color-scheme: dark;
+    color: #e7f3ff;
+    background: #000;
+    --navy: #02060b;
+    --navy-dark: #050b13;
+    --teal: #168bff;
+    --blue: #168bff;
+    --muted: #91a8bf;
+    --line: #15283b;
+    --surface: #080d14;
+    --shadow: 0 0 26px rgb(0 115 255 / 13%);
+}
+
+.dark-mode .sidebar {
+    border-right: 1px solid #11243a;
+    background: #020407;
+    box-shadow: 5px 0 28px rgb(0 92 255 / 8%);
+}
+
+.dark-mode .brand-mark,
+.dark-mode .avatar {
+    color: #eaf6ff;
+    background: linear-gradient(140deg, #0874ed, #00aaff);
+    box-shadow: 0 0 18px rgb(0 126 255 / 35%);
+}
+
+.dark-mode .side-link {
+    color: #b7cce0;
+}
+
+.dark-mode .side-link:hover,
+.dark-mode .side-link.active {
+    color: #fff;
+    background: rgb(0 124 255 / 13%);
+    box-shadow: inset 0 0 18px rgb(0 124 255 / 8%);
+}
+
+.dark-mode .side-link.active {
+    border-left-color: #168bff;
+}
+
+.dark-mode .topbar {
+    border-color: #14263a;
+    background: rgb(3 6 10 / 94%);
+}
+
+.dark-mode .breadcrumbs,
+.dark-mode .user-chip,
+.dark-mode .icon-button {
+    color: #b7cce0;
+}
+
+.dark-mode .breadcrumbs strong {
+    color: #f0f7ff;
+}
+
+.dark-mode .icon-button {
+    border-color: #1d3854;
+    background: #070c13;
+}
+
+.dark-mode .icon-button:hover,
+.dark-mode .theme-toggle:hover {
+    border-color: #168bff;
+    color: #fff;
+    background: #07172a;
+    box-shadow: 0 0 18px rgb(0 126 255 / 30%);
+}
+
+.dark-mode .app-shell,
+.dark-mode .main-content,
+.dark-mode .footer {
+    color: #e7f3ff;
+    background: #000;
+}
+
+.dark-mode .welcome-banner {
+    border: 1px solid rgb(22 139 255 / 46%);
+    background: linear-gradient(112deg, #03070d, #061327 72%, #071d34);
+    box-shadow: 0 0 30px rgb(0 104 255 / 16%), inset 0 0 32px rgb(0 104 255 / 7%);
+}
+
+.dark-mode .welcome-banner h1,
+.dark-mode .page-heading h1,
+.dark-mode .section-heading h2,
+.dark-mode .table-toolbar h2,
+.dark-mode .report-card h2,
+.dark-mode .empty-state strong {
+    color: #ecf6ff;
+}
+
+.dark-mode .eyebrow,
+.dark-mode .option-action,
+.dark-mode .management-tab:hover,
+.dark-mode .management-tab.active {
+    color: #55afff;
+}
+
+.dark-mode .welcome-copy,
+.dark-mode .page-heading p,
+.dark-mode .option-description,
+.dark-mode .quick-summary small,
+.dark-mode .stat-label,
+.dark-mode .stat-foot,
+.dark-mode .table-toolbar p,
+.dark-mode .report-card > p:last-child,
+.dark-mode .empty-state,
+.dark-mode .form-feedback,
+.dark-mode .setting-copy span {
+    color: #9eb4ca;
+}
+
+.dark-mode .option-card,
+.dark-mode .quick-summary > div,
+.dark-mode .stat-card,
+.dark-mode .table-card,
+.dark-mode .report-card,
+.dark-mode .form-card,
+.dark-mode .settings-card {
+    border-color: #172b40;
+    color: #e7f3ff;
+    background: #070b11;
+    box-shadow: 0 6px 22px rgb(0 0 0 / 38%);
+}
+
+.dark-mode .option-card:hover,
+.dark-mode .stat-card:hover,
+.dark-mode .report-card:hover,
+.dark-mode .table-card:hover {
+    border-color: rgb(22 139 255 / 65%);
+    box-shadow: 0 0 24px rgb(0 117 255 / 19%);
+}
+
+.dark-mode .option-title,
+.dark-mode .quick-summary strong,
+.dark-mode .stat-card strong,
+.dark-mode .profile-form label,
+.dark-mode .product-fields label {
+    color: #e7f3ff;
+}
+
+.dark-mode .option-icon,
+.dark-mode .management-option .option-icon,
+.dark-mode .settings-option .option-icon,
+.dark-mode .summary-icon.purple,
+.dark-mode .summary-icon.green,
+.dark-mode .summary-icon.orange,
+.dark-mode .quantity-pill {
+    color: #70bdff;
+    background: #0b2036;
+    box-shadow: inset 0 0 12px rgb(0 115 255 / 10%);
+}
+
+.dark-mode .management-tabs {
+    border-color: #172b40;
+}
+
+.dark-mode .management-tab {
+    color: #91a8bf;
+}
+
+.dark-mode .management-tab.active::after {
+    background: #168bff;
+    box-shadow: 0 0 12px rgb(22 139 255 / 75%);
+}
+
+.dark-mode th {
+    color: #b9d7f2;
+    background: #0a1420;
+}
+
+.dark-mode td {
+    border-color: #142538;
+    color: #d6e7f7;
+}
+
+.dark-mode tbody tr:nth-child(even) {
+    background: #05090e;
+}
+
+.dark-mode tbody tr:hover {
+    background: #09192a;
+}
+
+.dark-mode .profile-form input,
+.dark-mode .product-fields input,
+.dark-mode .search-box {
+    border-color: #1b3856;
+    color: #e7f3ff;
+    background: #03070c;
+}
+
+.dark-mode .profile-form input::placeholder,
+.dark-mode .product-fields input::placeholder,
+.dark-mode .search-box input::placeholder {
+    color: #7892aa;
+}
+
+.dark-mode .profile-form input:focus,
+.dark-mode .product-fields input:focus,
+.dark-mode .search-box:focus-within {
+    border-color: #168bff;
+    box-shadow: 0 0 0 3px rgb(22 139 255 / 17%), 0 0 18px rgb(22 139 255 / 18%);
+}
+
+.dark-mode .button-primary {
+    color: #fff;
+    background: #0878f9;
+    box-shadow: 0 0 16px rgb(0 117 255 / 34%);
+}
+
+.dark-mode .button-primary:hover {
+    background: #168bff;
+    box-shadow: 0 0 24px rgb(0 132 255 / 55%);
+}
+
+.dark-mode .button-secondary {
+    border-color: #1d3854;
+    color: #c6ddf2;
+    background: #080f18;
+}
+
+@keyframes theme-reveal {
+    from {
+        clip-path: circle(0 at var(--theme-transition-x, 50vw) var(--theme-transition-y, 50vh));
+    }
+    to {
+        clip-path: circle(150vmax at var(--theme-transition-x, 50vw) var(--theme-transition-y, 50vh));
+    }
+}
+
+::view-transition-group(root) {
+    animation-duration: 700ms;
+}
+
+::view-transition-old(root) {
+    animation: none;
+}
+
+::view-transition-new(root) {
+    animation: theme-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}

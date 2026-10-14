@@ -782,3 +782,148 @@ section {
   min-height: 20px;
   transition: all 0.3s ease;
 }
+
+.menu:hover {
+  transform: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.btn-nav,
+.btn-orçamento,
+.btn-contato,
+.entrar,
+.cadrastar,
+.cad button,
+.logo,
+.container-saudacoes img {
+  transition:
+    color 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.menu .btn-nav:hover,
+.cad button:hover {
+  transform: translateY(-2px);
+}
+
+.btn-orçamento:hover,
+.btn-contato:hover,
+.entrar:hover,
+.cadrastar:hover {
+  transform: translateY(-2px);
+}
+
+p:hover {
+  transform: none;
+}
+
+.form-login input:hover,
+.form-cadrasto input:hover {
+  transform: none;
+  border-color: rgba(117, 190, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(69, 156, 255, 0.14);
+}
+
+.form-login input:focus,
+.form-cadrasto input:focus {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #030013;
+  box-shadow: 0 0 0 3px rgba(69, 156, 255, 0.28);
+}
+
+:focus-visible {
+  outline: 3px solid #50aaff;
+  outline-offset: 4px;
+}
+
+@media (max-width: 760px) {
+  header {
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  header nav {
+    min-width: 0;
+  }
+
+  .menu {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px 14px;
+    padding: 10px 12px;
+  }
+
+  .menu .btn-nav {
+    font-size: 0.75rem;
+  }
+
+  .intro h2 {
+    font-size: clamp(3.5rem, 16vw, 7rem);
+    text-align: center;
+  }
+
+  .titulo h1 {
+    justify-content: center;
+    font-size: clamp(1.7rem, 7vw, 3rem);
+  }
+
+  .titulo p {
+    max-width: 90vw;
+    font-size: 0.95rem;
+  }
+
+  .container-login-cadrasto,
+  .conteiner-cadrasto-complemento {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    gap: 18px;
+    padding: 90px 20px 24px;
+  }
+
+  .container-saudacoes,
+  .container-login,
+  .area-cadrasto {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .container-saudacoes h4,
+  .container-login h3,
+  .area-cadrasto h5,
+  .area-complemento h7 {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+  }
+
+  .form-login input,
+  .form-cadrasto input {
+    width: min(78vw, 360px);
+    min-height: 44px;
+  }
+
+  .main-login,
+  .main-cadrasto,
+  .main-sobre {
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
