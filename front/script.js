@@ -65,9 +65,14 @@ if (formLogin) {
 
         // Salva as informações básicas do usuário no armazenamento local do navegador
         localStorage.setItem("usuarioLogado", JSON.stringify(dados.usuario));
+        localStorage.setItem("system-flow-stock-profile", JSON.stringify({
+          name: dados.usuario.nome,
+          email: dados.usuario.email
+        }));
 
         // Limpa os campos do formulário após o sucesso
         formLogin.reset();
+        window.location.href = "stock.html";
       } else {
         msgLogin.textContent = dados.mensagem || "E-mail ou senha incorretos.";
         msgLogin.style.color = "#ff4d4d"; // Vermelho
@@ -113,16 +118,11 @@ if (formCadastro) {
       const dados = await resposta.json();
 
       if (resposta.status === 201) {
-        msgCadastro.textContent = "Conta criada com sucesso! Redirecionando para o login...";
+        msgCadastro.textContent = "Conta criada com sucesso! Redirecionando para o estoque...";
         msgCadastro.style.color = "#00ff88";
+        localStorage.setItem("system-flow-stock-profile", JSON.stringify({ name: nome, email }));
         formCadastro.reset();
-
-        // Aguarda 2 segundos e altera automaticamente para a aba de Login
-        setTimeout(() => {
-          const btnLoginNav = document.querySelector('.btn-nav[content-id="login"]');
-          if (btnLoginNav) navClicked(btnLoginNav);
-          msgCadastro.textContent = "";
-        }, 2000);
+        window.location.href = "stock.html";
 
       } else {
         msgCadastro.textContent = dados.erro || "Erro ao realizar cadastro.";

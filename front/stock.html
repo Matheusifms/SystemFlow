@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#182f45" />
+    <title>Estoque | System Flow</title>
+    <link rel="stylesheet" href="stock.css" />
+    <script src="theme.js" defer></script>
+    <script src="stock.js" defer></script>
+  </head>
+  <body>
+    <!-- Menu lateral persistente para navegar entre as áreas. -->
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="index.html" aria-label="Voltar para System Flow">
+        <span class="brand-mark" aria-hidden="true">SF</span>
+        <span><strong>System Flow</strong><small>Controle de estoque</small></span>
+      </a>
+      <p class="nav-caption">ÁREA DE TRABALHO</p>
+      <nav class="side-nav" aria-label="Navegação principal">
+        <button class="side-link active" type="button" data-view="inicio"><span aria-hidden="true">⌂</span> Início</button>
+        <button class="side-link" type="button" data-view="perfil"><span aria-hidden="true">♙</span> Perfil</button>
+        <button class="side-link" type="button" data-view="gerencia"><span aria-hidden="true">▦</span> Gerência</button>
+        <button class="side-link" type="button" data-view="configuracoes"><span aria-hidden="true">⚙</span> Configurações</button>
+      </nav>
+      <div class="sidebar-bottom"><span class="status-dot" aria-hidden="true"></span><span>Estoque organizado</span></div>
+    </aside>
+
+    <!-- O conteúdo das abas é alternado por JavaScript sem recarregar a página. -->
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="icon-button menu-toggle" id="menu-toggle" type="button" aria-label="Fechar menu" aria-controls="sidebar" aria-expanded="true" title="Ocultar menu">☰</button>
+        <div class="breadcrumbs"><span>System Flow</span><span aria-hidden="true">/</span><strong id="breadcrumb-current">Início</strong></div>
+        <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Ativar modo noturno" title="Ativar modo noturno"><span class="theme-icon" aria-hidden="true">☾</span></button>
+        <button class="user-chip" type="button" data-view="perfil"><span class="avatar" id="avatar-initials">SF</span><span id="topbar-name">Meu perfil</span><span aria-hidden="true">⌄</span></button>
+      </header>
+
+      <main class="main-content">
+        <!-- A tela inicial mostra as três opções solicitadas antes da área de produtos. -->
+        <section class="view-panel active" id="view-inicio" aria-labelledby="welcome-title">
+          <div class="welcome-banner">
+            <div><p class="eyebrow">System Flow</p><h1 id="welcome-title">Olá, <span id="welcome-name">bem-vindo(a)</span> 👋</h1><p class="welcome-copy">Escolha uma área para começar a organizar seu negócio.</p></div>
+            <div class="banner-art" aria-hidden="true">
+              <div class="shelf-art"></div>
+              <div class="supply-box"></div>
+            </div>
+          </div>
+          <div class="section-heading"><div><p class="eyebrow">SEU ESPAÇO</p><h2>O que você deseja acessar?</h2></div></div>
+          <div class="option-grid">
+            <button class="option-card profile-option" type="button" data-view="perfil"><span class="option-icon" aria-hidden="true">♙</span><span class="option-title">Perfil</span><span class="option-description">Consulte e atualize seus dados pessoais.</span><span class="option-action">Acessar perfil <span aria-hidden="true">→</span></span></button>
+            <button class="option-card management-option" type="button" data-view="gerencia"><span class="option-icon" aria-hidden="true">▦</span><span class="option-title">Gerência</span><span class="option-description">Gerencie produtos, quantidades e relatórios.</span><span class="option-action">Abrir gerência <span aria-hidden="true">→</span></span></button>
+            <button class="option-card settings-option" type="button" data-view="configuracoes"><span class="option-icon" aria-hidden="true">⚙</span><span class="option-title">Configurações</span><span class="option-description">Personalize as preferências do sistema.</span><span class="option-action">Ver configurações <span aria-hidden="true">→</span></span></button>
+          </div>
+          <section class="quick-summary" aria-label="Resumo do estoque">
+            <!-- BACKEND: preencher estes três indicadores com o resumo retornado pela API de estoque. -->
+            <div><span class="summary-icon purple" aria-hidden="true">▣</span><span><small>Produtos cadastrados</small><strong>—</strong></span></div>
+            <div><span class="summary-icon green" aria-hidden="true">✓</span><span><small>Itens em estoque</small><strong>—</strong></span></div>
+            <div><span class="summary-icon orange" aria-hidden="true">!</span><span><small>Estoque baixo</small><strong>—</strong></span></div>
+          </section>
+        </section>
+
+        <!-- Perfil editável localmente; o nome também atualiza o cabeçalho e a recepção. -->
+        <section class="view-panel" id="view-perfil" aria-labelledby="profile-title" hidden>
+          <div class="page-heading"><div><p class="eyebrow">MINHA CONTA</p><h1 id="profile-title">Perfil</h1><p>Atualize as informações que aparecem no seu painel.</p></div></div>
+          <form class="form-card profile-form" id="profile-form">
+            <div class="profile-avatar avatar" id="profile-avatar">SF</div>
+            <label>Nome de exibição<input id="profile-name" name="name" type="text" maxlength="60" placeholder="Como devemos chamar você?" required /></label>
+            <label>E-mail<input id="profile-email" name="email" type="email" maxlength="120" placeholder="voce@empresa.com" /></label>
+            <button class="button button-primary" type="submit">Salvar perfil</button>
+            <p class="form-feedback" id="profile-feedback" role="status"></p>
+          </form>
+        </section>
+
+        <!-- Abas internas para produtos, movimentações e relatórios da gerência. -->
+        <section class="view-panel" id="view-gerencia" aria-labelledby="management-title" hidden>
+          <div class="page-heading management-heading"><div><p class="eyebrow">PAINEL ADMINISTRATIVO</p><h1 id="management-title">Gerência</h1><p>Acompanhe as informações do seu estoque.</p></div></div>
+          <div class="management-tabs" role="tablist" aria-label="Seções da gerência">
+            <button type="button" class="management-tab active" role="tab" aria-selected="true" data-section="produtos">Produtos</button>
+            <button type="button" class="management-tab" role="tab" aria-selected="false" data-section="movimentacoes">Movimentações</button>
+            <button type="button" class="management-tab" role="tab" aria-selected="false" data-section="relatorios">Relatórios</button>
+          </div>
+          <section class="management-section active" id="section-produtos" role="tabpanel" aria-label="Produtos">
+            <!-- BACKEND: substituir os traços pelas métricas retornadas pela API (produtos, unidades, valor e estoque baixo). -->
+            <div class="stats-grid">
+              <article class="stat-card"><span class="stat-label">Produtos cadastrados</span><strong>—</strong><span class="stat-foot">informação do estoque</span></article>
+              <article class="stat-card"><span class="stat-label">Unidades em estoque</span><strong>—</strong><span class="stat-foot">informação do estoque</span></article>
+              <article class="stat-card"><span class="stat-label">Valor em estoque</span><strong>—</strong><span class="stat-foot">informação do estoque</span></article>
+              <article class="stat-card warning-stat"><span class="stat-label">Atenção ao estoque</span><strong>—</strong><span class="stat-foot">informação do estoque</span></article>
+            </div>
+            <div class="table-card">
+              <!-- BACKEND: este cabeçalho é o local para incluir o botão "Cadastrar produto" e abrir o formulário/modal de cadastro. -->
+              <div class="table-toolbar"><div><h2>Produtos</h2><p>Os produtos do seu estoque serão exibidos aqui.</p></div></div>
+              <div class="table-scroll">
+                <table>
+                  <thead><tr><th scope="col">Nome</th><th scope="col">Quant.</th><th scope="col">Marca</th><th scope="col">Categoria</th><th scope="col">Valor</th></tr></thead>
+                  <!-- BACKEND: inserir aqui as linhas dos produtos retornados pela API; adicione ações de editar/excluir se necessário. -->
+                  <tbody id="product-list"></tbody>
+                </table>
+                <div class="empty-state"><span aria-hidden="true">▤</span><strong>Nenhum produto exibido</strong><p>A integração com o estoque será feita pelo backend.</p></div>
+              </div>
+            </div>
+            <!-- BACKEND: o formulário/modal de cadastro pode ser adicionado nesta área. No envio, validar os campos e chamar POST /api/produtos; depois atualizar #product-list com a resposta. -->
+          </section>
+          <section class="management-section" id="section-movimentacoes" role="tabpanel" aria-label="Movimentações" hidden>
+            <div class="table-card"><div class="table-toolbar"><div><h2>Movimentações recentes</h2><p>Histórico de alterações no estoque.</p></div></div><div class="table-scroll"><table><thead><tr><th scope="col">Ação</th><th scope="col">Produto</th><th scope="col">Data e hora</th></tr></thead>
+              <!-- BACKEND: preencher com o histórico, por exemplo usando GET /api/movimentacoes. -->
+              <tbody id="movement-list"></tbody>
+            </table><div class="empty-state"><span aria-hidden="true">↻</span><strong>Nenhuma movimentação exibida</strong><p>O histórico será conectado ao backend.</p></div></div></div>
+          </section>
+          <section class="management-section" id="section-relatorios" role="tabpanel" aria-label="Relatórios" hidden>
+            <div class="report-grid">
+              <article class="report-card"><p class="eyebrow">VALOR TOTAL</p><h2>—</h2><p>O valor será informado pela integração do estoque.</p></article>
+              <article class="report-card"><p class="eyebrow">ESTOQUE BAIXO</p><h2>—</h2><p>Os alertas serão conectados ao backend.</p></article>
+              <article class="report-card"><p class="eyebrow">CATEGORIAS</p><h2>—</h2><p>As categorias serão exibidas após a integração.</p></article>
+            </div>
+          </section>
+        </section>
+
+        <!-- Espaço para preferências futuras do painel. -->
+        <section class="view-panel" id="view-configuracoes" aria-labelledby="settings-title" hidden>
+          <div class="page-heading"><div><p class="eyebrow">PREFERÊNCIAS</p><h1 id="settings-title">Configurações</h1><p>As preferências do sistema poderão ser ajustadas aqui.</p></div></div>
+          <div class="settings-card"><div class="setting-copy"><strong>Área preparada para integração</strong><span>As configurações de estoque serão conectadas ao backend.</span></div></div>
+        </section>
+      </main>
+      <footer class="footer">System Flow <span aria-hidden="true">•</span> Controle de estoque</footer>
+    </div>
+
+  </body>
+</html>
