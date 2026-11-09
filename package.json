@@ -1,25 +1,35 @@
 {
-  "name": "junin-festas",
+  "name": "index",
   "version": "1.0.0",
-  "description": "",
+  "description": "Projeto junin festas mySQL",
+  "keywords": [
+    "login",
+    "senha",
+    "cadaastramento",
+    "mySQL",
+    "sistema",
+    "banco",
+    "de",
+    "dados"
+  ],
+  "homepage": "https://github.com/Matheusifms/Junin-festas#readme",
+  "bugs": {
+    "url": "https://github.com/Matheusifms/Junin-festas/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matheusifms/Junin-festas.git"
+  },
+  "license": "ISC",
+  "author": "Generoso, Arthur e Matheus",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Matheusifms/SystemFlow.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Matheusifms/SystemFlow/issues"
-  },
-  "homepage": "https://github.com/Matheusifms/SystemFlow#readme",
   "dependencies": {
-    "better-sqlite3": "^13.0.3",
-    "express": "^5.2.1"
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "sqlite3": "^6.0.1"
   }
 }
