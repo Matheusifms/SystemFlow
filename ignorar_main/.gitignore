@@ -1,0 +1,12 @@
+# Dependências do Node.js
+node_modules/
+
+# Banco de dados SQLite (protege dados e evita conflitos)
+db/banco.db
+*.db
+*.sqlite
+*.sqlite3
+
+# Variáveis de ambiente e logs
+.env
+npm-debug.log*
