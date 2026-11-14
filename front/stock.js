@@ -1,11 +1,24 @@
-/* Navegação das telas do estoque; os dados e as operações de produtos serão integrados ao backend. */
+/* Navegação das telas do estoque e integração com o backend unificado (SQLite). */
 "use strict";
 
-// Recupera o perfil salvo para manter o cabeçalho personalizado entre visitas.
+const API_URL = "https://shiny-computing-machine-wv9wj64qq45jf95rp-3000.app.github.dev";
+
+// Recupera o perfil salvo ou os dados do usuário que fez login na página inicial.
 function readProfile() {
   try {
     const savedProfile = localStorage.getItem("system-flow-stock-profile");
-    return savedProfile ? JSON.parse(savedProfile) : { name: "", email: "" };
+    if (savedProfile) {
+      const parsed = JSON.parse(savedProfile);
+      if (parsed.name || parsed.email) return parsed;
+    }
+
+    const loggedUser = localStorage.getItem("usuarioLogado");
+    if (loggedUser) {
+      const user = JSON.parse(loggedUser);
+      return { name: user.nome || "", email: user.email || "" };
+    }
+
+    return { name: "", email: "" };
   } catch (error) {
     console.error("Não foi possível carregar o perfil salvo.", error);
     return { name: "", email: "" };
@@ -17,6 +30,19 @@ let profile = readProfile();
 function setText(id, value) {
   const element = document.getElementById(id);
   if (element) element.textContent = value;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = String(text ?? "");
+  return div.innerHTML;
+}
+
+function formatCurrency(value) {
+  return Number(value || 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 }
 
 // Atualiza o nome e as iniciais nos diferentes pontos da interface.
@@ -67,7 +93,6 @@ function openView(viewName) {
   };
   setText("breadcrumb-current", titles[viewName] || "Início");
 
-  // No celular, recolhe a navegação depois da escolha; no desktop, mantém o menu aberto.
   if (window.matchMedia("(max-width: 760px)").matches) setSidebarVisibility(false);
 }
 
@@ -86,6 +111,121 @@ function openManagementSection(sectionName) {
   });
 }
 
+// ======================================================
+// INTEGRAÇÃO COM O BACKEND DE ESTOQUE (SQLITE)
+// ======================================================
+
+async function carregarEstoque() {
+  try {
+    const resposta = await fetch(`${API_URL}/api/produtos`);
+    if (!resposta.ok) throw new Error("Falha ao buscar produtos");
+
+    const { produtos, resumo } = await resposta.json();
+
+    // 1. Atualiza indicadores da tela Início
+    setText("summary-products", resumo.totalProdutos);
+    setText("summary-units", resumo.totalUnidades);
+    setText("summary-low", resumo.estoqueBaixo);
+
+    // 2. Atualiza cards da aba Gerência -> Produtos
+    setText("stat-products", resumo.totalProdutos);
+    setText("stat-units", resumo.totalUnidades);
+    setText("stat-value", formatCurrency(resumo.valorTotal));
+    setText("stat-low", resumo.estoqueBaixo);
+
+    // 3. Atualiza cards da aba Gerência -> Relatórios
+    setText("report-value", formatCurrency(resumo.valorTotal));
+    setText("report-low", `${resumo.estoqueBaixo} item(ns)`);
+    setText("report-categories", `${resumo.categorias} categoria(s)`);
+
+    // 4. Preenche a tabela de produtos
+    const tbody = document.getElementById("product-list");
+    const emptyState = document.getElementById("products-empty");
+
+    if (!tbody) return;
+    tbody.innerHTML = "";
+
+    if (!produtos || produtos.length === 0) {
+      if (emptyState) emptyState.hidden = false;
+      return;
+    }
+
+    if (emptyState) emptyState.hidden = true;
+
+    produtos.forEach((prod) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escapeHtml(prod.nome)}</td>
+        <td>${Number(prod.quantidade)}</td>
+        <td>${escapeHtml(prod.marca)}</td>
+        <td>${escapeHtml(prod.categoria)}</td>
+        <td>${formatCurrency(prod.valor)}</td>
+        <td>
+          <button type="button" class="button" data-delete-id="${prod.id}" style="padding: 0.35rem 0.7rem; font-size: 0.85rem;">
+            Excluir
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Liga os botões de excluir produto
+    tbody.querySelectorAll("[data-delete-id]").forEach((btn) => {
+      btn.addEventListener("click", () => excluirProduto(btn.dataset.deleteId));
+    });
+  } catch (erro) {
+    console.error("Erro ao carregar estoque:", erro);
+  }
+}
+
+async function carregarMovimentacoes() {
+  try {
+    const resposta = await fetch(`${API_URL}/api/movimentacoes`);
+    if (!resposta.ok) throw new Error("Falha ao buscar movimentações");
+
+    const movimentacoes = await resposta.json();
+    const tbody = document.getElementById("movement-list");
+    const emptyState = document.getElementById("movements-empty");
+
+    if (!tbody) return;
+    tbody.innerHTML = "";
+
+    if (!movimentacoes || movimentacoes.length === 0) {
+      if (emptyState) emptyState.hidden = false;
+      return;
+    }
+
+    if (emptyState) emptyState.hidden = true;
+
+    movimentacoes.forEach((mov) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escapeHtml(mov.acao)}</td>
+        <td>${escapeHtml(mov.produto)}</td>
+        <td>${escapeHtml(mov.data_hora)}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  } catch (erro) {
+    console.error("Erro ao carregar movimentações:", erro);
+  }
+}
+
+async function excluirProduto(id) {
+  try {
+    const resposta = await fetch(`${API_URL}/api/produtos/${id}`, {
+      method: "DELETE",
+    });
+
+    if (resposta.ok) {
+      await carregarEstoque();
+      await carregarMovimentacoes();
+    }
+  } catch (erro) {
+    console.error("Erro ao excluir produto:", erro);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-view]").forEach((control) => {
     control.addEventListener("click", () => openView(control.dataset.view));
@@ -95,19 +235,18 @@ document.addEventListener("DOMContentLoaded", () => {
     tab.addEventListener("click", () => openManagementSection(tab.dataset.section));
   });
 
-  document.getElementById("menu-toggle").addEventListener("click", (event) => {
+  document.getElementById("menu-toggle").addEventListener("click", () => {
     const isVisible = !document.body.classList.contains("sidebar-hidden");
     setSidebarVisibility(!isVisible);
   });
 
-  // Inicia o menu visível no desktop e recolhido em telas móveis.
   setSidebarVisibility(!window.matchMedia("(max-width: 760px)").matches);
 
   document.getElementById("profile-name").value = profile.name;
   document.getElementById("profile-email").value = profile.email;
   updateProfileDisplay();
 
-  // O perfil continua sendo uma preferência visual; produtos ficam sob responsabilidade do backend.
+  // Salvar perfil localmente
   document.getElementById("profile-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const updatedProfile = {
@@ -130,4 +269,70 @@ document.addEventListener("DOMContentLoaded", () => {
       feedback.textContent = "Não foi possível salvar o perfil no navegador.";
     }
   });
+
+  // Abrir / fechar formulário de cadastro de produto
+  const productForm = document.getElementById("product-form");
+  const btnOpenProductForm = document.getElementById("btn-open-product-form");
+  const btnCancelProduct = document.getElementById("btn-cancel-product");
+  const productFeedback = document.getElementById("product-feedback");
+
+  if (btnOpenProductForm && productForm) {
+    btnOpenProductForm.addEventListener("click", () => {
+      productForm.hidden = false;
+      productFeedback.textContent = "";
+      document.getElementById("prod-nome").focus();
+    });
+  }
+
+  if (btnCancelProduct && productForm) {
+    btnCancelProduct.addEventListener("click", () => {
+      productForm.hidden = true;
+      productForm.reset();
+      productFeedback.textContent = "";
+    });
+  }
+
+  // Enviar novo produto para o banco SQLite
+  if (productForm) {
+    productForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const novoProduto = {
+        nome: document.getElementById("prod-nome").value.trim(),
+        quantidade: Number(document.getElementById("prod-quantidade").value),
+        marca: document.getElementById("prod-marca").value.trim(),
+        categoria: document.getElementById("prod-categoria").value.trim(),
+        valor: Number(document.getElementById("prod-valor").value),
+      };
+
+      productFeedback.textContent = "Salvando produto...";
+
+      try {
+        const resposta = await fetch(`${API_URL}/api/produtos`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(novoProduto),
+        });
+
+        const dados = await resposta.json();
+
+        if (resposta.status === 201) {
+          productForm.reset();
+          productForm.hidden = true;
+          productFeedback.textContent = "";
+          await carregarEstoque();
+          await carregarMovimentacoes();
+        } else {
+          productFeedback.textContent = dados.erro || "Erro ao cadastrar produto.";
+        }
+      } catch (erro) {
+        console.error("Erro ao cadastrar produto:", erro);
+        productFeedback.textContent = "Erro ao conectar com o servidor.";
+      }
+    });
+  }
+
+  // Carrega dados iniciais do banco de dados
+  carregarEstoque();
+  carregarMovimentacoes();
 });
