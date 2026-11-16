@@ -1,0 +1,1 @@
+gsap.registerPlugin(DrawSVGPlugin,Observer,ScrollTrigger,ScrollSmoother,ScrollToPlugin);
