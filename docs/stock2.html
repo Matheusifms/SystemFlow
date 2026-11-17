@@ -1,48 +1,83 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>systen</title>
-    <link rel="stylesheet" href="stock2.css" />
+    <title>system</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <nav>
-        <ul class="menu">
+    <header class="stoc2">
+      <nav class="nav-2">
+        <ul class="menu2">
           <li>
-            <button class="home"><span>HOME</span></button>
+            <button class="btn-nav2" type="button" data-content-id="inicio" aria-controls="inicio" aria-current="page">
+              <span>Home</span>
+            </button>
+          </li>
+
+          <li>
+            <button class="btn-nav2" type="button" data-content-id="status" aria-controls="status">
+              <span>Status</span>
+            </button>
           </li>
           <li>
-            <button class="estatis"><span>status</span></button>
+            <button class="btn-nav2" type="button" data-content-id="gerenciar" aria-controls="gerenciar">
+              <span>Gerenciar</span>
+            </button>
           </li>
           <li>
-            <buton class="perfil"><span>perfil</span></buton>
+            <button class="btn-nav2" type="button" data-content-id="configuracoes" aria-controls="configuracoes">
+              <span>Configurações</span>
+            </button>
           </li>
         </ul>
       </nav>
     </header>
-    <section class="sistema-inicial">
-      <div class="container">
+
+    <section id="inicio" class="content2 sistema-inicial active">
+      <div class="container2">
         <div class="card-perfil">
-          <div class="avatar"></div>
-          <div class="nome"><span class="nome">NOme</span></div>
+          <div class="avatar">
+            <!-- Agora o 'for' bate perfeitamente com o 'id' abaixo -->
+            <label
+              for="input-foto"
+              class="avatar-preview"
+              title="Clique para alterar a foto"
+            >
+              <img
+                id="img-avatar"
+                class="avatar-image"
+                src="https://via.placeholder.com/150/1e1b2e/a855f7?text=Perfil"
+                alt="Avatar"
+              />
+              <div class="avatar-overlay">Alterar</div>
+            </label>
+            <!-- Espaço removido do id="input-foto" -->
+            <input type="file" id="input-foto" accept="image/*" hidden />
+          </div>
+          <div class="nome"><span>Nome</span></div>
           <div class="sis-cnct">
-             <span>Sistema conectado</span>
+            <span>Sistema conectado</span>
           </div>
         </div>
-        <div class="cards-">
-          <div class="itens">
-              <h2>Total de itens:</h2>
-          </div>
-          <div class="lotes">
 
-          </div>
-          <div class="dias">Dias de atividade:</div>
-          <div class="valor">Valor em estoque:</div>
+        <div class="cards-">
+          <div class="itens"><h6>Total de itens:</h6></div>
+          <div class="lotes"><h6>Cadastro:</h6></div>
+          <div class="dias"><h6>Dias ativos:</h6></div>
+          <div class="valor"><h6>Valor:</h6></div>
         </div>
       </div>
     </section>
+    <section class="content2 sistema-inicial" id="status">
+
+    </section>
+     <section class="content2 sistema-inicial" id="gerenciar"></section>
+     <section class="content2 sistema-inicial" id="configuracoes"></section>
+
     <script src="stock2.js"></script>
   </body>
 </html>
