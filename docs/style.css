@@ -1,0 +1,1584 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color:black;
+  color: rgba(255, 255, 255, 0.912);
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+p {
+  display: flex;
+  font-size: 1.2vw;
+  text-align: center;
+  transition: all 0.65s ease;
+  transform: scale(1);
+}
+
+p:hover {
+  transform: scale(1.05);
+}
+
+h1 {
+  display: flex;
+  font-size: 3vw;
+  text-align: center;
+  color: rgb(171, 169, 169);
+  transition: all 0.65s ease;
+  transform: scale(1);
+  mix-blend-mode: color-dodge;
+  animation: moverh1 4s forwards;
+}
+
+h1:hover {
+  transform: scale(1.05);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes moverh1 {
+  from {
+    translate: 0 -100px;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+.btn-nav {
+  display: flex;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.65s ease;
+  transform: scale(1);
+  color: white;
+}
+
+h2 {
+  animation: moverEixo 3s forwards;
+}
+
+.btn-nav:hover {
+  color: rgba(255, 255, 255, 0.912);
+  transform: scale(1.1);
+}
+
+header {
+  width: 100%;
+  display: flex;
+  padding: 4%;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 100;
+}
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  border: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+}
+
+.logo {
+  width: 40px;
+  display: flex;
+  transition: all 0.65s ease;
+  transform: scale(1);
+  animation: moverlogo 4s forwards;
+}
+
+@keyframes moverlogo {
+  from {
+    translate: -100px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+.logo:hover {
+  transform: rotate(130deg);
+  scale: 1.03;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  z-index: 99;
+  transition: all 0.65s ease;
+  transform: scale(1);
+  color: white;
+  animation: movermenu 3s forwards;
+}
+
+@keyframes movermenu {
+  from {
+    translate: 100px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+.menu:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.6);
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro {
+  background-image: url("imgs/section1.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.intro h2 {
+  font-size: 11vw;
+  mix-blend-mode: color-dodge;
+  color: rgb(171, 169, 169);
+  margin-bottom: 50px;
+  border: none;
+  transition: all 0.65s ease;
+  transform: scale(1);
+  translate: 0 0;
+}
+
+@keyframes moverEixo {
+  from {
+    translate: 0 -100px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+.intro h2:hover {
+  transform: scale(1.05);
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.titulo p {
+  animation: moverp 4s forwards;
+}
+
+@keyframes moverp {
+  from {
+    translate: 0 100px;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+.buttons-header {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@keyframes moverBtn {
+  from {
+    translate: 0 100px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+.btn-orçamento {
+  animation: moverBtn 4s forwards;
+  display: flex;
+  padding: 10px 20px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 40px;
+  transition: all 0.65s ease;
+  transform: scale(1);
+  cursor: pointer;
+}
+
+.btn-orçamento:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px 4px rgba(255, 253, 253, 0.6);
+}
+
+@keyframes Moverbtn-contato {
+  from {
+    translate: 0 100px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+.btn-contato {
+  align-items: center;
+  animation: Moverbtn-contato 4s forwards;
+  justify-content: center;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1);
+  transition: all 0.65s ease;
+}
+
+.btn-contato:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.6);
+}
+
+/* ESTRUTURA DAS ABAS SPA (.content) */
+.content {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(24px) scale(0.98);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease,
+    visibility 0.8s ease;
+}
+
+.content.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.content.active > * {
+  animation: contentEnter 1.1s ease both;
+}
+
+.content.active h3,
+.content.active h4,
+.content.active h5,
+.content.active h6,
+.content.active h7,
+.content.active p,
+.content.active form,
+.content.active .checkbox-lembrar,
+.content.active .imgs-acesso img,
+.content.active .area-complemento > * {
+  animation: itemEnter 1s ease both;
+}
+
+.content.active h3,
+.content.active h5,
+.content.active h7 {
+  animation-delay: 0.12s;
+}
+
+.content.active h4,
+.content.active h6 {
+  animation-delay: 0.2s;
+}
+
+.content.active p {
+  animation-delay: 0.28s;
+}
+
+.content.active form {
+  animation-delay: 0.36s;
+}
+
+.content.active .imgs-acesso img {
+  animation-delay: 0.42s;
+}
+
+@keyframes itemEnter {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes contentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SEÇÃO DE LOGIN */
+.main-login {
+  background-image: url("imgs/section2.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-color: black;
+}
+
+.container-login-cadrasto {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.container-login {
+  gap: 20px;
+  font-family: "Poppins", sans-serif;
+  height: 40vh;
+  width: 40vw;
+  flex-direction: column;
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 10px;
+}
+
+.container-login h3 {
+  font-size: 4rem;
+  color: rgba(224, 220, 220, 0.71);
+  font-family: "Poppins", sans-serif;
+  transition: all 0.75s ease;
+  animation: moverh3 3s forwards;
+}
+
+.container-login h3:hover {
+  color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.05);
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border-radius: 10px;
+}
+
+.form-login img {
+  display: flex;
+  width: 20px;
+}
+
+.form-login input {
+  width: 16vw;
+  height: 3.5vh;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.31);
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 8px 2px rgba(255, 253, 253, 0.07);
+  color: rgba(255, 255, 255, 0.912);
+  transition: all 0.65s ease;
+}
+
+.form-login input:hover {
+  box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.75);
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #030013; /* Texto escuro ao passar o mouse */
+}
+
+/* CHECKBOX CUSTOMIZADO */
+.checkbox-lembrar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.65s ease;
+}
+
+.checkbox-lembrar:hover {
+  transform: scale(1.05);
+}
+
+.checkbox-lembrar input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkbox-lembrar span {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 5px;
+  transition:
+    background-color 0.5s ease,
+    border-color 0.5s ease;
+}
+
+.checkbox-lembrar span::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 9px;
+  left: 5px;
+  top: 1px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.5s ease;
+}
+
+.checkbox-lembrar input:checked + span {
+  background-color: #6f4bff;
+  border-color: #6f4bff;
+}
+
+.checkbox-lembrar input:checked + span::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.checkbox-lembrar input:focus-visible + span {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.container-saudacoes {
+  gap: 20px;
+  height: 40%;
+  width: 60%;
+}
+
+.container-saudacoes h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.826);
+  transition: all 0.65s ease;
+}
+
+.container-saudacoes h4:hover {
+  color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.05);
+}
+
+.container-saudacoes img {
+  width: 30px;
+  transition: all 0.65s ease;
+}
+
+.container-saudacoes img:hover {
+  transform: scale(1.05);
+}
+
+.input-usuario,
+.input-senha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.65s ease;
+}
+
+.input-usuario:hover,
+.input-senha:hover {
+  transform: scale(1.05);
+}
+
+.entrar {
+  font-size: 1rem;
+  padding: 10px 20px;
+  width: 120px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 8px 2px rgba(255, 253, 253, 0.6);
+  transition: all 0.75s ease;
+}
+
+.entrar:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 12px 4px rgba(255, 253, 253, 0.75);
+  transform: scale(1.08);
+}
+
+.imgs-acesso {
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.65s ease;
+  transform: scale(1.08);
+}
+
+.cad {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.cad button {
+  background-color: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.65s ease;
+  text-decoration: underline;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+}
+
+/* SEÇÃO DE CADASTRO */
+.main-cadrasto {
+  background-image: url("imgs/section2.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-color: black;
+  font-family: "Poppins", sans-serif;
+  color: white;
+}
+
+.conteiner-cadrasto-complemento {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  height: 80%;
+  width: 80%;
+}
+
+.area-cadrasto {
+  margin-right: 60px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 50%;
+  width: 50%;
+}
+
+.area-cadrasto h5 {
+  font-size: 4rem;
+  color: rgba(221, 217, 217, 0.863);
+  transition: all 0.65s ease;
+}
+
+.area-cadrasto h5:hover {
+  color: white;
+  transform: scale(1.05);
+}
+
+.form-cadrasto {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-cadrasto input {
+  width: 22vw;
+  height: 4vh;
+  color: rgba(255, 255, 255, 0.912);
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.062);
+  border: none;
+  outline: none;
+  transition: all 0.65s ease;
+  transform: scale(1);
+  box-shadow: 0px 0px 8px 2px rgba(255, 253, 253, 0.6);
+}
+
+.form-cadrasto input:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 12px 4px rgba(255, 253, 253, 0.27);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #030013; /* Texto escuro ao passar o mouse */
+}
+
+.area-complemento {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.area-complemento h7 {
+  font-family: "Poppins", sans-serif;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.912);
+  transition: all 0.65s ease;
+}
+
+.area-complemento h7:hover {
+  color: white;
+  transform: scale(1.05);
+}
+
+.area-complemento h6 {
+  margin-top: -20px;
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.912);
+  transition: all 0.65s ease;
+}
+
+.area-complemento h6:hover {
+  color: white;
+  transform: scale(1.05);
+}
+
+.area-complemento p {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.912);
+  transition: all 0.65s ease;
+}
+
+.div-email,
+.div-name,
+.div-senha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.65s ease;
+}
+
+.div-email img,
+.div-name img,
+.div-senha img {
+  width: 15px;
+}
+
+.div-email:hover,
+.div-name:hover,
+.div-senha:hover {
+  transform: scale(1.05);
+}
+
+.cadrastar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  gap: 10px;
+  padding: 4px 6px;
+  color: #030013;
+  font-family: "Poppins", sans-serif;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.65s ease;
+  transform: scale(1);
+  margin-left: 35px;
+}
+
+.cadrastar:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+  color: rgba(0, 0, 0, 0.912);
+}
+
+/* SEÇÃO SOBRE */
+.main-sobre {
+  background-image: url("imgs/section2.png");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-color: black;
+}
+
+.container-sobre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.container-sobre h5 {
+  font-size: 3.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* MENSAGENS DE FEEDBACK DO BACKEND (RESPOSTAS DO NODE.JS) */
+#msg-login,
+#msg-cadastro {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 5px 0;
+  min-height: 20px;
+  transition: all 0.65s ease;
+}
+/* =========================================================
+   STOCK 2 — tema visual da página de estoque.
+   As regras ficam prefixadas para não alterar as outras páginas.
+   ========================================================= */
+.stock2-page {
+  --stock2-purple: #6f4bff; /* Tom principal usado em destaques e bordas. */
+  --stock2-purple-light: #a855f7; /* Tom claro usado em textos e realces. */
+  --stock2-purple-glow: rgb(111 75 255 / 35%); /* Cor translúcida para sombras roxas. */
+  --stock2-white: rgba(255, 255, 255, 0.92); /* Cor padrão dos textos claros. */
+  min-height: 100%; /* Garante que a raiz cubra ao menos a altura disponível. */
+  background: #000; /* Define o fundo preto da página. */
+}
+
+/* Define o tema, a tipografia e a altura mínima do corpo do stock2. */
+.stock2-page body,
+.stock2-page .body2 {
+  min-height: 100vh; /* Ocupa ao menos toda a altura da janela. */
+  background: #000; /* Mantém o fundo preto da interface. */
+  color: var(--stock2-white); /* Aplica o texto claro padrão. */
+  font-family: "Poppins", sans-serif; /* Usa Poppins com fonte reserva sem serifa. */
+}
+
+/* Empilha os elementos principais do corpo na vertical. */
+.stock2-page .body2 {
+  display: flex; /* Ativa o layout flexível do corpo. */
+  flex-direction: column; /* Organiza os filhos um abaixo do outro. */
+}
+
+/* Posiciona e centraliza a navegação no topo da tela. */
+.stock2-page .stoc2 {
+  position: fixed; /* Mantém o cabeçalho visível ao rolar a página. */
+  z-index: 100; /* Coloca a navegação acima do conteúdo. */
+  inset: 0 0 auto; /* Alinha o cabeçalho aos limites superiores e laterais. */
+  display: flex; /* Ativa o alinhamento flexível dos elementos. */
+  justify-content: center; /* Centraliza o menu horizontalmente. */
+  width: 100%; /* Faz o cabeçalho ocupar toda a largura. */
+  padding: 24px; /* Cria espaço ao redor do menu. */
+}
+
+/* Formata o fundo em formato de cápsula que contém as abas. */
+.stock2-page .menu2 {
+  display: flex; /* Coloca os itens do menu lado a lado. */
+  align-items: center; /* Alinha verticalmente os itens do menu. */
+  gap: 8px; /* Espaça cada item de navegação. */
+  margin: 0; /* Remove a margem padrão da lista. */
+  padding: 8px; /* Cria espaço interno ao redor dos botões. */
+  list-style: none; /* Remove os marcadores da lista. */
+  border: 1px solid rgb(255 255 255 / 8%); /* Desenha um contorno branco discreto. */
+  border-radius: 16px; /* Arredonda os cantos do menu. */
+  background: rgb(255 255 255 / 5%); /* Aplica um fundo branco quase transparente. */
+  backdrop-filter: blur(16px); /* Desfoca suavemente o conteúdo atrás do menu. */
+}
+
+/* Define dimensões, tipografia e aparência padrão de cada aba. */
+.stock2-page .btn-nav2 {
+  position: relative; /* Permite posicionar o indicador da aba ativa. */
+  display: block; /* Faz o botão ocupar a área definida pelo conteúdo e padding. */
+  padding: 10px 16px; /* Aumenta a área clicável ao redor do texto. */
+  border: 0; /* Remove a borda padrão do botão. */
+  border-radius: 10px; /* Arredonda o fundo do botão. */
+  background: transparent; /* Mantém o fundo transparente no estado normal. */
+  color: rgb(255 255 255 / 72%); /* Exibe o texto inativo em branco suave. */
+  cursor: pointer; /* Indica que o botão pode ser clicado. */
+  font: inherit; /* Herda a família e o estilo da fonte do menu. */
+  font-size: 0.85rem; /* Define o tamanho do texto da navegação. */
+  transition:
+    color 180ms ease, /* Suaviza a mudança de cor do texto. */
+    background-color 180ms ease; /* Suaviza a mudança do fundo. */
+}
+
+/* Realça uma aba sob o mouse, com foco de teclado ou já selecionada. */
+.stock2-page .btn-nav2:hover,
+.stock2-page .btn-nav2:focus-visible,
+.stock2-page .btn-nav2[aria-current="page"] {
+  background: rgb(111 75 255 / 14%); /* Aplica fundo roxo com baixa opacidade. */
+  color: #fff; /* Aumenta o contraste do texto. */
+}
+
+/* Desenha uma linha inferior para identificar a aba selecionada. */
+.stock2-page .btn-nav2[aria-current="page"]::after {
+  position: absolute; /* Posiciona o indicador em relação ao botão. */
+  right: 16px; /* Afasta o fim da linha da borda direita. */
+  bottom: 4px; /* Coloca a linha perto da base do botão. */
+  left: 16px; /* Afasta o início da linha da borda esquerda. */
+  height: 2px; /* Define a espessura do indicador. */
+  border-radius: 2px; /* Arredonda as pontas do indicador. */
+  background: var(--stock2-purple); /* Usa o roxo principal do tema. */
+  content: ""; /* Cria o pseudo-elemento que forma a linha. */
+}
+
+/* Mostra contorno visível ao navegar pelas abas e avatar com teclado. */
+.stock2-page .btn-nav2:focus-visible,
+.stock2-page .avatar-preview:focus-visible {
+  outline: 2px solid var(--stock2-purple-light); /* Destaca o elemento focado. */
+  outline-offset: 4px; /* Afasta o contorno para não cobrir o conteúdo. */
+}
+
+/* Esconde todos os painéis antes da seleção de uma aba. */
+.stock2-page .content2 {
+  display: none; /* Evita exibir vários painéis ao mesmo tempo. */
+}
+
+/* Exibe somente o painel marcado como ativo pela navegação. */
+.stock2-page .content2.active {
+  display: flex; /* Mostra e organiza o painel ativo como flex container. */
+}
+
+/* Define a altura, alinhamento e aparência padrão das áreas principais. */
+.stock2-page .sistema-inicial {
+  min-height: 100vh; /* Faz cada painel ocupar ao menos a altura da janela. */
+  align-items: center; /* Centraliza o conteúdo no eixo transversal. */
+  justify-content: center; /* Centraliza o conteúdo no eixo principal. */
+  background: #000; /* Mantém o fundo preto em cada painel. */
+  font-family: "Poppins", sans-serif; /* Aplica a tipografia da interface. */
+}
+
+/* Limita e centraliza a área de conteúdo da tela inicial. */
+.stock2-page .container2 {
+  display: flex; /* Ativa o alinhamento flexível do conteúdo. */
+  width: min(1120px, calc(100% - 64px)); /* Limita a largura e preserva margens laterais. */
+  align-items: center; /* Centraliza verticalmente os elementos filhos. */
+  justify-content: center; /* Centraliza horizontalmente os elementos filhos. */
+  margin: 0 auto; /* Centraliza o container na página. */
+  background: #000; /* Mantém a área com fundo preto. */
+}
+
+/* Monta o cartão inicial em duas colunas com acabamento discreto. */
+.stock2-page .card-perfil {
+  display: grid; /* Organiza foto e texto em colunas. */
+  width: 100%; /* Ocupa toda a largura disponível no container. */
+  min-height: 500px; /* Reserva altura suficiente para o cartão. */
+  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr); /* Define proporções mínimas e relativas das colunas. */
+  align-items: center; /* Centraliza cada coluna verticalmente. */
+  gap: clamp(40px, 8vw, 110px); /* Ajusta o espaço entre colunas conforme a tela. */
+  padding: clamp(24px, 5vw, 72px); /* Ajusta o espaço interno responsivamente. */
+  border: 1px solid rgb(255 255 255 / 9%); /* Cria contorno branco de baixa opacidade. */
+  border-radius: 28px; /* Arredonda o cartão. */
+  background:
+    radial-gradient(ellipse at 18% 50%, rgb(111 75 255 / 10%), transparent 42%), /* Cria um brilho roxo suave próximo à foto. */
+    linear-gradient(135deg, rgb(255 255 255 / 4%), rgb(255 255 255 / 1%)); /* Adiciona uma variação sutil ao fundo escuro. */
+  box-shadow: 0 24px 80px rgb(0 0 0 / 55%); /* Destaca o cartão do fundo. */
+}
+
+/* Centraliza a área da foto e serve de referência para os elementos sobrepostos. */
+.stock2-page .avatar {
+  position: relative; /* Cria referência local para a decoração da foto. */
+  display: grid; /* Ativa o layout de grade para centralização. */
+  min-height: 330px; /* Reserva altura para a foto em telas grandes. */
+  place-items: center; /* Centraliza a imagem nos dois eixos. */
+}
+
+/* Desenha o círculo roxo decorativo atrás da foto de perfil. */
+.stock2-page .avatar::before {
+  position: absolute; /* Coloca a decoração atrás da imagem. */
+  width: min(27vw, 320px); /* Limita o diâmetro de acordo com a tela. */
+  aspect-ratio: 1; /* Mantém a forma perfeitamente quadrada antes do arredondamento. */
+  border-radius: 50%; /* Transforma o elemento em círculo. */
+  background:
+    radial-gradient(circle at 35% 30%, var(--stock2-purple-light), transparent 68%), /* Cria um ponto de luz com o roxo claro. */
+    var(--stock2-purple); /* Preenche o restante com o roxo principal. */
+  box-shadow: 0 0 70px var(--stock2-purple-glow); /* Espalha um brilho em volta do círculo. */
+  content: ""; /* Gera o pseudo-elemento decorativo. */
+}
+
+/* Formata o controle visual clicável da foto de perfil. */
+.stock2-page .avatar-preview {
+  position: relative; /* Permite posicionar a mensagem sobre a foto. */
+  display: block; /* Faz o label agir como área visual completa. */
+  width: min(25vw, 290px); /* Define o tamanho responsivo do avatar. */
+  aspect-ratio: 1; /* Mantém a área da foto quadrada. */
+  overflow: hidden; /* Recorta a imagem e a sobreposição nos limites circulares. */
+  border: 4px solid rgb(255 255 255 / 82%); /* Cria uma borda clara em volta do avatar. */
+  border-radius: 50%; /* Recorta o avatar em formato circular. */
+  background: #171221; /* Fornece fundo caso a imagem ainda não esteja carregada. */
+  box-shadow: 0 16px 48px rgb(0 0 0 / 50%); /* Cria profundidade abaixo da imagem. */
+  cursor: pointer; /* Indica que clicar abre a seleção de arquivo. */
+}
+
+/* Faz a foto preencher o espaço sem deformar sua proporção. */
+.stock2-page .avatar-image {
+  display: block; /* Remove espaços de linha associados a imagens inline. */
+  width: 100%; /* Ocupa toda a largura do avatar. */
+  height: 100%; /* Ocupa toda a altura do avatar. */
+  object-fit: cover; /* Recorta a imagem para preencher sem distorcer. */
+}
+
+/* Cria a camada de texto inicialmente invisível sobre a foto. */
+.stock2-page .avatar-overlay {
+  position: absolute; /* Sobrepõe a área da imagem. */
+  inset: 0; /* Ocupa toda a área interna do avatar. */
+  display: flex; /* Ativa alinhamento flexível da mensagem. */
+  align-items: center; /* Centraliza verticalmente o texto. */
+  justify-content: center; /* Centraliza horizontalmente o texto. */
+  background: rgb(24 12 53 / 68%); /* Escurece a foto com uma camada roxa. */
+  color: #fff; /* Mantém o texto da ação legível. */
+  font-size: 0.9rem; /* Define o tamanho da mensagem. */
+  opacity: 0; /* Esconde a mensagem até o avatar receber interação. */
+  transition: opacity 180ms ease; /* Suaviza a aparição da mensagem. */
+}
+
+/* Revela a mensagem ao passar o mouse ou navegar até a foto com teclado. */
+.stock2-page .avatar-preview:hover .avatar-overlay,
+.stock2-page .avatar-preview:focus-visible .avatar-overlay {
+  opacity: 1; /* Torna a camada de ação visível. */
+}
+
+/* Limita a largura do bloco de texto do perfil. */
+.stock2-page .perfil-info {
+  max-width: 520px; /* Evita linhas excessivamente longas. */
+}
+
+/* Estiliza o texto pequeno de boas-vindas acima do nome. */
+.stock2-page .perfil-info .perfil-boas-vindas {
+  margin: 0 0 12px; /* Remove margens padrão e separa o título. */
+  color: var(--stock2-purple-light); /* Usa o roxo claro para o destaque. */
+  font-size: 0.9rem; /* Define o tamanho da linha de boas-vindas. */
+  font-weight: 600; /* Deixa o texto com peso seminegrito. */
+  letter-spacing: 0.16em; /* Espaça as letras do texto em caixa alta. */
+  text-align: left; /* Alinha o texto à esquerda. */
+  text-transform: uppercase; /* Exibe a frase em letras maiúsculas. */
+}
+
+/* Sobrescreve os estilos globais do título para o nome do perfil. */
+.stock2-page .perfil-info .nome {
+  display: block; /* Faz o título ocupar uma linha própria. */
+  margin: 0; /* Remove o espaçamento padrão do título. */
+  color: #fff; /* Exibe o nome em branco. */
+  font-size: clamp(2.5rem, 5vw, 4.5rem); /* Ajusta o tamanho do título conforme a tela. */
+  font-weight: 700; /* Aplica peso forte ao nome. */
+  line-height: 1.1; /* Mantém as linhas do título próximas. */
+  mix-blend-mode: normal; /* Evita a mistura de cores aplicada por estilos globais. */
+  text-align: left; /* Alinha o título com os demais textos do perfil. */
+  transform: none; /* Remove transformações globais do título. */
+  translate: none; /* Remove deslocamentos aplicados por animações globais. */
+  animation: none; /* Deixa o título disponível para animações futuras no GSAP. */
+  transition: none; /* Remove a transição CSS herdada do título global. */
+}
+
+/* Destaca em roxo claro o nome dentro do título. */
+.stock2-page .perfil-info .nome span {
+  color: var(--stock2-purple-light); /* Diferencia o nome do restante da saudação. */
+}
+
+/* Formata o texto explicativo abaixo do título do perfil. */
+.stock2-page .perfil-info .perfil-descricao {
+  max-width: 440px; /* Limita o comprimento de cada linha. */
+  margin: 20px 0 28px; /* Separa a descrição do título e do selo. */
+  color: rgb(255 255 255 / 68%); /* Reduz o contraste do texto secundário. */
+  font-size: 1rem; /* Define o tamanho da descrição. */
+  line-height: 1.8; /* Melhora a leitura entre linhas. */
+  text-align: left; /* Alinha a descrição à esquerda. */
+}
+
+/* Monta o selo com o estado da conexão. */
+.stock2-page .sis-cnct {
+  display: inline-flex; /* Mantém o selo do tamanho do conteúdo. */
+  min-height: 38px; /* Define altura mínima para facilitar a leitura. */
+  width: max-content; /* Evita que o selo se estenda além do conteúdo. */
+  align-items: center; /* Centraliza o ponto e o texto verticalmente. */
+  gap: 10px; /* Espaça o indicador do rótulo. */
+  margin: 0; /* Remove espaçamentos padrão. */
+  padding: 8px 14px; /* Cria espaço interno em volta do conteúdo. */
+  border: 1px solid rgb(111 75 255 / 45%); /* Contorna o selo com roxo translúcido. */
+  border-radius: 999px; /* Arredonda totalmente as extremidades. */
+  background: rgb(111 75 255 / 12%); /* Aplica um fundo roxo sutil. */
+  color: #e9e2ff; /* Define o texto em tom claro. */
+  font-size: 0.8rem; /* Mantém o rótulo menor que o conteúdo principal. */
+}
+
+/* Remove estilos herdados indevidamente para o texto do selo. */
+.stock2-page .sistema-inicial .sis-cnct > span:not(.status-indicador) {
+  border: 0; /* Remove bordas herdadas de estilos genéricos. */
+  box-shadow: none; /* Remove sombras que não pertencem ao texto. */
+  color: inherit; /* Usa a cor definida pelo selo. */
+  font-size: inherit; /* Usa o tamanho definido pelo selo. */
+}
+
+/* Desenha o ponto verde que representa conexão ativa. */
+.stock2-page .status-indicador {
+  width: 8px; /* Define a largura do ponto de status. */
+  height: 8px; /* Define a altura do ponto de status. */
+  border-radius: 50%; /* Transforma o ponto quadrado em círculo. */
+  background: #4ade80; /* Usa verde para indicar conexão ativa. */
+  box-shadow: 0 0 12px rgb(74 222 128 / 65%); /* Adiciona brilho sutil ao ponto. */
+}
+
+/* Reorganiza navegação e perfil quando a janela fica mais estreita. */
+@media (max-width: 840px) {
+  /* Reduz o espaço ao redor do menu em telas menores. */
+  .stock2-page .stoc2 {
+    padding: 16px 12px; /* Diminui as margens do cabeçalho. */
+  }
+
+  /* Faz o menu caber na largura disponível. */
+  .stock2-page .menu2 {
+    width: 100%; /* Permite que o menu use toda a largura disponível. */
+    justify-content: center; /* Mantém as opções centralizadas. */
+    gap: 0; /* Remove espaços que poderiam apertar os rótulos. */
+    padding: 6px; /* Reduz o espaço interno do menu. */
+  }
+
+  /* Reduz o espaçamento e a fonte dos botões de navegação. */
+  .stock2-page .btn-nav2 {
+    padding: 10px 9px; /* Reduz as margens laterais dos botões. */
+    font-size: 0.72rem; /* Diminui o texto para caber na tela. */
+  }
+
+  /* Limita a largura da área inicial e reserva espaço para a navegação fixa. */
+  .stock2-page .container2 {
+    width: min(100% - 32px, 520px); /* Mantém margens e limita a largura do cartão. */
+    padding: 100px 0 32px; /* Afasta o conteúdo do menu fixo e da borda inferior. */
+  }
+
+  /* Empilha foto e texto do perfil em uma coluna. */
+  .stock2-page .card-perfil {
+    min-height: 0; /* Deixa a altura acompanhar o conteúdo. */
+    grid-template-columns: 1fr; /* Transforma as duas colunas em uma. */
+    gap: 32px; /* Mantém distância entre a foto e os textos. */
+    padding: 28px 20px 36px; /* Reduz o espaço interno do cartão. */
+    text-align: center; /* Centraliza o conteúdo textual. */
+  }
+
+  /* Reduz a altura da área da foto em telas menores. */
+  .stock2-page .avatar {
+    min-height: 250px; /* Diminui o espaço vertical reservado para o avatar. */
+  }
+
+  /* Define o tamanho do círculo decorativo na versão compacta. */
+  .stock2-page .avatar::before {
+    width: 230px; /* Mantém o círculo decorativo em tamanho fixo. */
+  }
+
+  /* Define o tamanho da foto na versão compacta. */
+  .stock2-page .avatar-preview {
+    width: 210px; /* Reduz a foto para caber na coluna estreita. */
+  }
+
+  /* Centraliza o bloco do perfil dentro do cartão. */
+  .stock2-page .perfil-info {
+    margin: 0 auto; /* Centraliza horizontalmente o bloco de texto. */
+  }
+
+  /* Centraliza os textos principais na disposição de uma coluna. */
+  .stock2-page .perfil-info .perfil-boas-vindas,
+  .stock2-page .perfil-info .nome,
+  .stock2-page .perfil-info .perfil-descricao {
+    text-align: center; /* Centraliza cada texto no layout compacto. */
+  }
+}
+
+/* Reduz os efeitos de transição para usuários que preferem menos movimento. */
+@media (prefers-reduced-motion: reduce) {
+  /* Aplica a preferência aos elementos e seus pseudo-elementos. */
+  .stock2-page *,
+  .stock2-page *::before,
+  .stock2-page *::after {
+    scroll-behavior: auto !important; /* Remove rolagem animada. */
+    transition-duration: 0.01ms !important; /* Torna as transições praticamente instantâneas. */
+  }
+}
+
+/* Cadastro de produtos: interface estática, objetiva e responsiva. */
+.stock2-page #gerenciar.active {
+  display: flex; /* Mantém o painel visível como uma área flexível. */
+  min-height: 100vh; /* Faz o painel ocupar a altura da janela. */
+  align-items: stretch; /* Permite que o conteúdo use a largura do painel. */
+  justify-content: flex-start; /* Alinha o cadastro pelo topo, não pelo centro vertical. */
+  padding: 126px clamp(16px, 5vw, 64px) 48px; /* Reserva espaço para o menu fixo e margens responsivas. */
+}
+
+/* Centraliza o conteúdo e limita a largura do catálogo. */
+.stock2-page #gerenciar .gerenciar-container {
+  width: min(1180px, 100%); /* Impede que o conteúdo fique largo demais. */
+  margin: 0 auto; /* Centraliza o container. */
+}
+
+/* Alinha o cabeçalho da página e o cabeçalho da lista. */
+.stock2-page #gerenciar .gerenciar-heading,
+.stock2-page #gerenciar .produto-lista-heading {
+  display: flex; /* Ativa alinhamento horizontal dos grupos. */
+  align-items: center; /* Centraliza título e botão verticalmente. */
+  justify-content: space-between; /* Mantém os grupos nas extremidades opostas. */
+  gap: 20px; /* Evita que os grupos fiquem colados. */
+}
+
+/* Separa o título principal da lista de produtos. */
+.stock2-page #gerenciar .gerenciar-heading {
+  margin-bottom: 28px; /* Cria espaço abaixo do cabeçalho da página. */
+}
+
+/* Estiliza o pequeno rótulo acima do título principal. */
+.stock2-page #gerenciar .gerenciar-eyebrow {
+  margin: 0 0 8px; /* Remove margem superior e separa do título. */
+  color: #a855f7; /* Usa o roxo claro do tema. */
+  font-size: 0.72rem; /* Mantém o rótulo menor que o título. */
+  font-weight: 600; /* Dá destaque ao texto auxiliar. */
+  letter-spacing: 0.14em; /* Espaça as letras do rótulo. */
+}
+
+/* Formata o título da página de gerenciamento. */
+.stock2-page #gerenciar h1 {
+  display: block; /* Coloca o título em uma linha própria. */
+  margin: 0; /* Remove a margem padrão do título. */
+  color: #fff; /* Exibe o título em branco. */
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem); /* Ajusta o tamanho do título conforme a tela. */
+  line-height: 1.2; /* Mantém espaçamento confortável entre linhas. */
+  mix-blend-mode: normal; /* Evita o efeito de mistura de cores global. */
+  text-align: left; /* Alinha o título à esquerda. */
+  transform: none; /* Remove transformações herdadas de estilos globais. */
+  translate: none; /* Remove deslocamentos herdados de estilos globais. */
+  animation: none; /* Deixa o título disponível para animações futuras no GSAP. */
+  transition: none; /* Remove transições CSS herdadas do título. */
+}
+
+/* Padroniza os textos de descrição do cabeçalho e dos cartões. */
+.stock2-page #gerenciar .gerenciar-heading > div > p:last-child,
+.stock2-page #gerenciar .produto-form-heading p,
+.stock2-page #gerenciar .produto-lista-heading p {
+  display: block; /* Faz cada descrição ocupar sua própria linha. */
+  margin: 8px 0 0; /* Separa a descrição do título acima dela. */
+  color: rgb(255 255 255 / 58%); /* Usa uma cor secundária menos intensa. */
+  font-size: 0.88rem; /* Define tamanho menor que o título. */
+  line-height: 1.5; /* Melhora a leitura de descrições com mais de uma linha. */
+  text-align: left; /* Alinha os textos pelo início do bloco. */
+  transform: none; /* Remove transformações globais de parágrafos. */
+}
+
+/* Define a aparência e a área clicável dos botões do cadastro. */
+.stock2-page #gerenciar .produto-botao {
+  display: inline-flex; /* Permite alinhar o texto do botão. */
+  min-height: 42px; /* Define altura suficiente para interação confortável. */
+  align-items: center; /* Centraliza o conteúdo verticalmente. */
+  justify-content: center; /* Centraliza o conteúdo horizontalmente. */
+  gap: 8px; /* Espaça ícone e texto se forem adicionados. */
+  padding: 0 18px; /* Define espaço interno nas laterais. */
+  border: 1px solid transparent; /* Reserva borda sem mudar o tamanho entre estados. */
+  border-radius: 9px; /* Arredonda os cantos do botão. */
+  cursor: pointer; /* Indica que o botão pode ser acionado. */
+  font: inherit; /* Herda a família de fonte da interface. */
+  font-size: 0.84rem; /* Define o tamanho do texto do botão. */
+  font-weight: 600; /* Dá destaque ao texto da ação. */
+}
+
+/* Destaca o botão que abre e envia o cadastro. */
+.stock2-page #gerenciar .produto-botao-principal {
+  border-color: #7853ff; /* Contorna o botão com roxo. */
+  background: #6841e8; /* Preenche o botão com o roxo principal. */
+  color: #fff; /* Mantém o texto contrastante. */
+}
+
+/* Clareia o botão principal quando o ponteiro passa sobre ele. */
+.stock2-page #gerenciar .produto-botao-principal:hover {
+  background: #7653f2; /* Realça a ação sem adicionar movimento. */
+}
+
+/* Formata o botão de cancelar como ação secundária. */
+.stock2-page #gerenciar .produto-botao-secundario {
+  border-color: rgb(255 255 255 / 14%); /* Desenha um contorno neutro discreto. */
+  background: transparent; /* Deixa visível o fundo escuro do cartão. */
+  color: rgb(255 255 255 / 78%); /* Usa texto claro, mas menos destacado. */
+}
+
+/* Realça o botão secundário ao passar o ponteiro. */
+.stock2-page #gerenciar .produto-botao-secundario:hover {
+  background: rgb(255 255 255 / 6%); /* Aplica um fundo branco quase transparente. */
+}
+
+/* Define o fundo e o contorno dos cartões do formulário e da tabela. */
+.stock2-page #gerenciar .produto-form,
+.stock2-page #gerenciar .produto-lista {
+  border: 1px solid rgb(255 255 255 / 10%); /* Separa o cartão do fundo preto. */
+  border-radius: 16px; /* Arredonda os cantos dos cartões. */
+  background: #09080d; /* Usa um tom quase preto para destacar o cartão. */
+}
+
+/* Garante que itens ocultos pelo HTML ou JavaScript permaneçam escondidos. */
+.stock2-page #gerenciar .produto-form[hidden],
+.stock2-page #gerenciar .produto-lista-vazia[hidden],
+.stock2-page #gerenciar .produto-miniatura[hidden] {
+  display: none !important; /* Impede que regras de layout sobrescrevam o atributo hidden. */
+}
+
+/* Define o espaçamento interno e externo do formulário aberto. */
+.stock2-page #gerenciar .produto-form {
+  margin-bottom: 22px; /* Separa o formulário da tabela de produtos. */
+  padding: clamp(18px, 3vw, 28px); /* Ajusta o espaço interno à largura da tela. */
+}
+
+/* Formata os títulos internos do formulário e da listagem. */
+.stock2-page #gerenciar .produto-form-heading h2,
+.stock2-page #gerenciar .produto-lista-heading h2 {
+  margin: 0; /* Remove a margem padrão dos subtítulos. */
+  color: #fff; /* Exibe os subtítulos em branco. */
+  font-size: 1.05rem; /* Mantém o texto menor que o título da página. */
+  font-weight: 600; /* Dá destaque aos subtítulos. */
+  transform: none; /* Remove transformações herdadas de estilos globais. */
+  translate: none; /* Remove deslocamentos herdados de estilos globais. */
+  animation: none; /* Deixa os subtítulos disponíveis para animações futuras no GSAP. */
+  transition: none; /* Remove transições CSS herdadas dos subtítulos. */
+}
+
+/* Organiza os campos do formulário em três colunas inicialmente. */
+.stock2-page #gerenciar .produto-form-grid {
+  display: grid; /* Ativa o layout de grade para os campos. */
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Cria três colunas de mesma proporção. */
+  gap: 18px; /* Espaça linhas e colunas do formulário. */
+  margin-top: 22px; /* Separa os campos do cabeçalho do formulário. */
+}
+
+/* Define o alinhamento comum dos rótulos e campos. */
+.stock2-page #gerenciar .produto-foto-campo,
+.stock2-page #gerenciar .produto-campo {
+  display: flex; /* Ativa o alinhamento dos rótulos e controles. */
+  min-width: 0; /* Permite que o conteúdo encolha dentro da grade. */
+  flex-direction: column; /* Empilha o rótulo e o controle verticalmente. */
+  gap: 8px; /* Espaça o nome do campo e seu controle. */
+  color: rgb(255 255 255 / 78%); /* Define a cor dos rótulos. */
+  font-size: 0.78rem; /* Mantém os rótulos compactos. */
+  font-weight: 500; /* Dá peso médio aos rótulos. */
+}
+
+/* Reserva espaço vertical para a foto e alinha seu conteúdo à esquerda. */
+.stock2-page #gerenciar .produto-foto-campo {
+  grid-row: span 2; /* Faz o campo da foto ocupar duas linhas da grade. */
+  align-items: flex-start; /* Alinha o rótulo, a prévia e a dica à esquerda. */
+}
+
+/* Oculta visualmente o seletor de arquivo sem removê-lo da acessibilidade. */
+.stock2-page #gerenciar .produto-foto-campo input {
+  position: absolute; /* Retira o input do fluxo visual da página. */
+  width: 1px; /* Reduz a largura visual do input oculto. */
+  height: 1px; /* Reduz a altura visual do input oculto. */
+  overflow: hidden; /* Esconde qualquer conteúdo que ultrapasse a área. */
+  clip: rect(0, 0, 0, 0); /* Recorta o input para não aparecer na tela. */
+  white-space: nowrap; /* Evita que seu conteúdo quebre em linhas. */
+  clip-path: inset(50%); /* Mantém o controle inacessível visualmente, mas utilizável pelo label. */
+}
+
+/* Mostra foco na área da foto quando o input invisível é focado. */
+.stock2-page #gerenciar .produto-foto-campo:focus-within .produto-foto-preview {
+  outline: 2px solid #a855f7; /* Desenha um contorno roxo de foco. */
+  outline-offset: 3px; /* Afasta o contorno da área da prévia. */
+}
+
+/* Define o quadro vazio ou preenchido que representa a foto do produto. */
+.stock2-page #gerenciar .produto-foto-preview {
+  display: grid; /* Centraliza o sinal de adição quando não há foto. */
+  width: 124px; /* Define a largura da área de prévia. */
+  height: 124px; /* Define a altura da área de prévia. */
+  place-items: center; /* Centraliza o conteúdo nos dois eixos. */
+  overflow: hidden; /* Recorta a imagem aos limites do quadro. */
+  border: 1px dashed rgb(168 85 247 / 55%); /* Marca a área para envio de imagem. */
+  border-radius: 12px; /* Arredonda as bordas do quadro. */
+  background: rgb(111 75 255 / 7%); /* Usa um fundo roxo quase transparente. */
+  color: #b48aff; /* Colore o sinal de adição em roxo claro. */
+  font-size: 2rem; /* Deixa o sinal de adição visível. */
+}
+
+/* Faz a imagem de prévia preencher o quadro sem distorção. */
+.stock2-page #gerenciar .produto-foto-preview img {
+  width: 100%; /* Ocupa a largura da área de prévia. */
+  height: 100%; /* Ocupa a altura da área de prévia. */
+  object-fit: cover; /* Recorta a imagem sem alterar suas proporções. */
+}
+
+/* Estiliza a instrução para escolher uma imagem. */
+.stock2-page #gerenciar .produto-foto-ajuda {
+  color: rgb(255 255 255 / 48%); /* Exibe a instrução como texto auxiliar. */
+  font-size: 0.72rem; /* Mantém a instrução em tamanho compacto. */
+}
+
+/* Formata os campos de texto e número do formulário. */
+.stock2-page #gerenciar .produto-campo input {
+  width: 100%; /* Faz o campo preencher a coluna. */
+  min-height: 42px; /* Define altura confortável para digitação. */
+  padding: 0 12px; /* Cria espaço entre o texto e as bordas. */
+  border: 1px solid rgb(255 255 255 / 12%); /* Desenha borda discreta. */
+  border-radius: 8px; /* Arredonda os cantos do campo. */
+  outline: none; /* Remove o contorno padrão que será substituído por foco próprio. */
+  background: #050507; /* Mantém o campo quase preto. */
+  color: #fff; /* Exibe o valor digitado em branco. */
+  font: inherit; /* Herda a família de fonte da interface. */
+  font-size: 0.82rem; /* Define o tamanho do texto do campo. */
+}
+
+/* Reduz o destaque visual do texto de exemplo dos campos. */
+.stock2-page #gerenciar .produto-campo input::placeholder {
+  color: rgb(255 255 255 / 32%); /* Exibe o placeholder em cinza suave. */
+}
+
+/* Destaca o campo que está recebendo digitação ou teclado. */
+.stock2-page #gerenciar .produto-campo input:focus {
+  border-color: #865cf4; /* Muda a borda para roxo ao receber foco. */
+  box-shadow: 0 0 0 2px rgb(111 75 255 / 18%); /* Cria um anel de foco discreto. */
+}
+
+/* Reserva uma linha para feedback, evitando que o formulário salte de tamanho. */
+.stock2-page #gerenciar .produto-feedback {
+  display: block; /* Faz a mensagem ocupar uma linha própria. */
+  min-height: 1.25rem; /* Mantém espaço mesmo quando não há mensagem. */
+  margin: 14px 0 0; /* Separa a mensagem dos campos. */
+  color: #d7baff; /* Exibe feedback em roxo claro. */
+  font-size: 0.8rem; /* Mantém o feedback menor que os campos. */
+  text-align: left; /* Alinha a mensagem com o formulário. */
+  transform: none; /* Evita efeitos globais aplicados a parágrafos. */
+}
+
+/* Alinha à direita os botões de cancelar e salvar. */
+.stock2-page #gerenciar .produto-form-acoes {
+  display: flex; /* Coloca as ações lado a lado. */
+  justify-content: flex-end; /* Encosta as ações ao lado direito do formulário. */
+  gap: 10px; /* Mantém distância entre os botões. */
+  margin-top: 8px; /* Separa as ações do feedback. */
+}
+
+/* Recorta conteúdos que ultrapassem os cantos arredondados do cartão da lista. */
+.stock2-page #gerenciar .produto-lista {
+  overflow: hidden; /* Mantém bordas e conteúdo dentro do cartão. */
+}
+
+/* Define altura e espaçamento do cabeçalho da tabela de produtos. */
+.stock2-page #gerenciar .produto-lista-heading {
+  min-height: 84px; /* Reserva uma altura mínima ao cabeçalho. */
+  padding: 18px 22px; /* Afasta título e contador das bordas do cartão. */
+}
+
+/* Exibe a quantidade de produtos como um pequeno selo. */
+.stock2-page #gerenciar .produto-contagem {
+  padding: 6px 10px; /* Cria espaço interno ao redor da contagem. */
+  border: 1px solid rgb(168 85 247 / 25%); /* Desenha contorno roxo discreto. */
+  border-radius: 999px; /* Arredonda completamente o selo. */
+  background: rgb(111 75 255 / 10%); /* Usa fundo roxo suave. */
+  color: #cbb5ff; /* Exibe a contagem em roxo claro. */
+  font-size: 0.72rem; /* Mantém o número compacto. */
+  white-space: nowrap; /* Evita quebrar o texto do contador. */
+}
+
+/* Permite rolagem horizontal quando a tabela não couber na tela. */
+.stock2-page #gerenciar .produto-tabela-scroll {
+  overflow-x: auto; /* Adiciona rolagem horizontal em telas menores. */
+}
+
+/* Define tamanho, largura mínima e alinhamento da tabela. */
+.stock2-page #gerenciar .produto-tabela {
+  width: 100%; /* Ocupa a largura disponível do cartão. */
+  min-width: 680px; /* Preserva espaço suficiente para as colunas. */
+  border-collapse: collapse; /* Une bordas de células adjacentes. */
+  text-align: left; /* Alinha os valores à esquerda. */
+}
+
+/* Formata cabeçalhos da tabela. */
+.stock2-page #gerenciar .produto-tabela th {
+  padding: 12px 18px; /* Cria espaço interno nas células de cabeçalho. */
+  border-top: 1px solid rgb(255 255 255 / 7%); /* Separa o cabeçalho do título da tabela. */
+  border-bottom: 1px solid rgb(255 255 255 / 7%); /* Separa o cabeçalho das linhas. */
+  background: #0d0b12; /* Diferencia o fundo do cabeçalho. */
+  color: rgb(255 255 255 / 48%); /* Usa texto auxiliar menos intenso. */
+  font-size: 0.67rem; /* Mantém os nomes das colunas compactos. */
+  font-weight: 600; /* Destaca os nomes das colunas. */
+  letter-spacing: 0.04em; /* Espaça ligeiramente os caracteres. */
+  text-transform: uppercase; /* Exibe os nomes das colunas em caixa alta. */
+  white-space: nowrap; /* Evita quebrar os rótulos das colunas. */
+}
+
+/* Formata as células com os dados de cada produto. */
+.stock2-page #gerenciar .produto-tabela td {
+  padding: 12px 18px; /* Cria espaço interno ao redor dos valores. */
+  border-bottom: 1px solid rgb(255 255 255 / 6%); /* Separa as linhas da tabela. */
+  color: rgb(255 255 255 / 72%); /* Exibe os valores em branco suave. */
+  font-size: 0.78rem; /* Define tamanho legível e compacto para os dados. */
+  white-space: nowrap; /* Evita quebrar valores curtos em várias linhas. */
+}
+
+/* Realça discretamente a linha do produto sob o ponteiro. */
+.stock2-page #gerenciar .produto-linha:hover {
+  background: rgb(111 75 255 / 12%); /* Aplica um fundo roxo translúcido. */
+}
+
+/* Remove a borda inferior da última linha da listagem. */
+.stock2-page #gerenciar .produto-linha:last-child td {
+  border-bottom: 0; /* Evita uma borda duplicada no final do cartão. */
+}
+
+/* Alinha a foto do produto e seu nome na primeira coluna. */
+.stock2-page #gerenciar .produto-identificacao {
+  display: flex; /* Coloca miniatura e nome lado a lado. */
+  align-items: center; /* Centraliza ambos na vertical. */
+  gap: 11px; /* Espaça a miniatura do nome. */
+  color: #fff; /* Destaca o nome do produto. */
+  font-weight: 500; /* Aplica peso médio ao nome. */
+}
+
+/* Define o tamanho e o recorte das miniaturas da tabela. */
+.stock2-page #gerenciar .produto-miniatura {
+  width: 38px; /* Define a largura da miniatura. */
+  height: 38px; /* Define a altura da miniatura. */
+  flex: 0 0 38px; /* Impede que a miniatura encolha na linha. */
+  border: 1px solid rgb(255 255 255 / 10%); /* Desenha contorno leve na imagem. */
+  border-radius: 7px; /* Arredonda os cantos da miniatura. */
+  background: #15121c; /* Define fundo caso a imagem não carregue. */
+  object-fit: cover; /* Recorta a foto sem deformá-la. */
+}
+
+/* Define o formato do botão usado para remover um produto. */
+.stock2-page #gerenciar .produto-remover {
+  display: inline-flex; /* Mantém o botão do tamanho de seu conteúdo. */
+  min-height: 30px; /* Define a altura mínima da ação. */
+  padding: 0 10px; /* Cria espaço interno nas laterais do texto. */
+  border: 1px solid rgb(255 255 255 / 12%); /* Desenha borda neutra. */
+  border-radius: 7px; /* Arredonda os cantos do botão. */
+  background: transparent; /* Mantém o fundo escuro da linha. */
+  color: rgb(255 255 255 / 62%); /* Usa texto claro sem competir com o nome. */
+  cursor: pointer; /* Indica que a ação pode ser clicada. */
+  font: inherit; /* Herda a tipografia da interface. */
+  font-size: 0.7rem; /* Mantém o texto da ação compacto. */
+}
+
+/* Realça a ação de remoção ao passar o ponteiro sobre ela. */
+.stock2-page #gerenciar .produto-remover:hover {
+  border-color: rgb(168 85 247 / 45%); /* Muda a borda para roxo translúcido. */
+  color: #d7baff; /* Destaca o texto em roxo claro. */
+}
+
+/* Centraliza a mensagem que aparece quando não há produtos. */
+.stock2-page #gerenciar .produto-lista-vazia {
+  display: grid; /* Organiza título e descrição em uma coluna. */
+  min-height: 180px; /* Reserva altura para o estado vazio. */
+  align-content: center; /* Centraliza o conteúdo verticalmente. */
+  justify-items: center; /* Centraliza o conteúdo horizontalmente. */
+  gap: 8px; /* Separa o título da explicação. */
+  padding: 24px; /* Mantém distância do conteúdo para as bordas. */
+  text-align: center; /* Centraliza o texto do aviso. */
+}
+
+/* Destaca o título do aviso de lista vazia. */
+.stock2-page #gerenciar .produto-lista-vazia strong {
+  color: rgb(255 255 255 / 82%); /* Usa texto claro para a mensagem principal. */
+  font-size: 0.9rem; /* Define destaque moderado para o título. */
+}
+
+/* Formata a explicação abaixo do título do aviso vazio. */
+.stock2-page #gerenciar .produto-lista-vazia p {
+  display: block; /* Mantém a explicação em uma linha própria. */
+  color: rgb(255 255 255 / 48%); /* Exibe a explicação como texto secundário. */
+  font-size: 0.78rem; /* Mantém o texto auxiliar compacto. */
+  text-align: center; /* Centraliza a descrição no estado vazio. */
+  transform: none; /* Remove efeitos globais de parágrafo. */
+}
+
+/* Esconde texto visualmente, mas mantém a leitura por tecnologias assistivas. */
+.stock2-page #gerenciar .visually-hidden {
+  position: absolute; /* Retira o texto do fluxo normal da página. */
+  width: 1px; /* Reduz a largura visual do texto. */
+  height: 1px; /* Reduz a altura visual do texto. */
+  overflow: hidden; /* Esconde o conteúdo que ultrapassar o espaço. */
+  clip: rect(0, 0, 0, 0); /* Recorta o conteúdo para que não apareça na tela. */
+  white-space: nowrap; /* Evita que o texto escondido quebre em linhas. */
+  clip-path: inset(50%); /* Torna o texto invisível mantendo-o acessível. */
+}
+
+/* Ajusta o espaçamento e a grade do cadastro em telas médias e pequenas. */
+@media (max-width: 760px) {
+  /* Reduz a distância entre o menu fixo e o conteúdo. */
+  .stock2-page #gerenciar.active {
+    padding-top: 104px; /* Usa menos espaço superior em telas menores. */
+  }
+
+  /* Empilha o título e o botão principal no cabeçalho. */
+  .stock2-page #gerenciar .gerenciar-heading {
+    align-items: flex-start; /* Alinha os elementos pelo lado esquerdo. */
+    flex-direction: column; /* Coloca o botão abaixo do título. */
+  }
+
+  /* Reduz a grade do formulário para duas colunas. */
+  .stock2-page #gerenciar .produto-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Distribui os campos em duas colunas iguais. */
+  }
+}
+
+/* Empilha os campos e o cabeçalho da lista em celulares estreitos. */
+@media (max-width: 480px) {
+  /* Usa uma coluna para cada campo do formulário. */
+  .stock2-page #gerenciar .produto-form-grid {
+    grid-template-columns: 1fr; /* Aproveita toda a largura para cada controle. */
+  }
+
+  /* Impede que o campo da foto ocupe linhas extras nessa disposição. */
+  .stock2-page #gerenciar .produto-foto-campo {
+    grid-row: auto; /* Deixa o campo da foto seguir o fluxo de uma coluna. */
+  }
+
+  /* Empilha título, descrição e contador do cartão da lista. */
+  .stock2-page #gerenciar .produto-lista-heading {
+    align-items: flex-start; /* Alinha cada elemento à esquerda. */
+    flex-direction: column; /* Coloca os elementos um abaixo do outro. */
+  }
+}
+@view-transition {
+  navigation: auto;
+}
