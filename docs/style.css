@@ -1015,7 +1015,9 @@ section {
   mix-blend-mode: normal; /* Evita a mistura de cores aplicada por estilos globais. */
   text-align: left; /* Alinha o título com os demais textos do perfil. */
   transform: none; /* Remove transformações globais do título. */
-  animation: none; /* Mantém o título sem animações. */
+  translate: none; /* Remove deslocamentos aplicados por animações globais. */
+  animation: none; /* Deixa o título disponível para animações futuras no GSAP. */
+  transition: none; /* Remove a transição CSS herdada do título global. */
 }
 
 /* Destaca em roxo claro o nome dentro do título. */
@@ -1150,13 +1152,6 @@ section {
   padding: 126px clamp(16px, 5vw, 64px) 48px; /* Reserva espaço para o menu fixo e margens responsivas. */
 }
 
-/* Desativa efeitos de movimento em todo o painel de cadastro. */
-.stock2-page #gerenciar,
-.stock2-page #gerenciar * {
-  animation: none !important; /* Garante que não haja animações no gerenciamento. */
-  transition: none !important; /* Garante que as mudanças de estilo sejam imediatas. */
-}
-
 /* Centraliza o conteúdo e limita a largura do catálogo. */
 .stock2-page #gerenciar .gerenciar-container {
   width: min(1180px, 100%); /* Impede que o conteúdo fique largo demais. */
@@ -1196,6 +1191,9 @@ section {
   mix-blend-mode: normal; /* Evita o efeito de mistura de cores global. */
   text-align: left; /* Alinha o título à esquerda. */
   transform: none; /* Remove transformações herdadas de estilos globais. */
+  translate: none; /* Remove deslocamentos herdados de estilos globais. */
+  animation: none; /* Deixa o título disponível para animações futuras no GSAP. */
+  transition: none; /* Remove transições CSS herdadas do título. */
 }
 
 /* Padroniza os textos de descrição do cabeçalho e dos cartões. */
@@ -1279,7 +1277,10 @@ section {
   color: #fff; /* Exibe os subtítulos em branco. */
   font-size: 1.05rem; /* Mantém o texto menor que o título da página. */
   font-weight: 600; /* Dá destaque aos subtítulos. */
-  animation: none; /* Neutraliza animações definidas em regras globais. */
+  transform: none; /* Remove transformações herdadas de estilos globais. */
+  translate: none; /* Remove deslocamentos herdados de estilos globais. */
+  animation: none; /* Deixa os subtítulos disponíveis para animações futuras no GSAP. */
+  transition: none; /* Remove transições CSS herdadas dos subtítulos. */
 }
 
 /* Organiza os campos do formulário em três colunas inicialmente. */
