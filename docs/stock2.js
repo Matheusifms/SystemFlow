@@ -50,6 +50,28 @@ const configEmail = document.getElementById("config-usuario-email");
 if (configNome && currentUser) configNome.textContent = currentUser.nome;
 if (configEmail && currentUser) configEmail.textContent = currentUser.email;
 
+const configAviso = document.querySelector("#configuracoes .configuracoes-em-breve");
+const configAvisoTexto = document.querySelector("#configuracoes .configuracoes-em-breve span");
+if (configAvisoTexto && typeof gsap !== "undefined") {
+  gsap.set(configAvisoTexto, { opacity: 1, scale: 0.96 });
+  gsap.to(configAvisoTexto, {
+    color: "#37e1a5",
+    boxShadow: "0 0 34px rgba(55, 225, 165, 0.32)",
+    scale: 1,
+    duration: 1.1,
+    ease: "power2.inOut",
+    repeat: -1,
+    yoyo: true,
+  });
+}
+if (configAviso && typeof gsap !== "undefined") {
+  gsap.fromTo(
+    configAviso,
+    { opacity: 0 },
+    { opacity: 1, duration: 0.5, ease: "power2.out" }
+  );
+}
+
 const btnSairHome = document.getElementById("btn-sair-home");
 const btnSairConfig = document.getElementById("btn-sair-config");
 if (btnSairHome) btnSairHome.addEventListener("click", sairDaConta);
@@ -93,6 +115,7 @@ navs.forEach((nav) => {
     const content = document.getElementById(nav.dataset.contentId);
     if (!content || !content.classList.contains("content2")) return;
 
+    // Ativa o painel escolhido antes da animação para que o GSAP possa calculá-lo corretamente.
     contents.forEach((panel) => {
       panel.classList.toggle("active", panel === content);
     });
@@ -104,6 +127,25 @@ navs.forEach((nav) => {
         button.removeAttribute("aria-current");
       }
     });
+
+    // Anima suavemente a aba ativa para dar continuidade visual à navegação.
+    if (typeof gsap !== "undefined") {
+      gsap.killTweensOf(content);
+      gsap.fromTo(
+        content,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", clearProps: "transform" }
+      );
+
+      // Destaque suave dos cartões somente quando o painel Status é exibido.
+      if (nav.dataset.contentId === "status") {
+        gsap.fromTo(
+          "#status .status-card",
+          { opacity: 0, y: 8 },
+          { opacity: 1, y: 0, duration: 0.38, stagger: 0.06, ease: "power2.out", overwrite: "auto" }
+        );
+      }
+    }
   });
 });
 
@@ -185,8 +227,21 @@ async function loadMovementsFromServer() {
       const row = document.createElement("tr");
       row.className = "produto-linha";
 
+      // Cria uma etiqueta colorida: verde para venda, azul para compra e roxo para cadastro.
       const actionCell = document.createElement("td");
-      actionCell.textContent = mov.acao;
+      const actionBadge = document.createElement("span");
+      const actionText = String(mov.acao || "");
+      actionBadge.className = "movimentacao-acao";
+      actionBadge.textContent = actionText;
+
+      if (/venda/i.test(actionText)) {
+        actionBadge.classList.add("movimentacao-venda");
+      } else if (/compra/i.test(actionText)) {
+        actionBadge.classList.add("movimentacao-compra");
+      } else {
+        actionBadge.classList.add("movimentacao-purple");
+      }
+      actionCell.appendChild(actionBadge);
 
       const productCell = document.createElement("td");
       productCell.textContent = mov.produto;
@@ -307,7 +362,7 @@ function renderProducts() {
     const actionsWrapper = document.createElement("div");
     actionsWrapper.style.display = "flex";
     actionsWrapper.style.alignItems = "center";
-    actionsWrapper.style.gap = "0.4rem";
+    actionsWrapper.style.gap = "0.75rem";
     actionsWrapper.style.flexWrap = "wrap";
 
     const qtdInput = document.createElement("input");
@@ -342,6 +397,12 @@ function renderProducts() {
     sellButton.style.color = "#f59e0b";
     sellButton.addEventListener("click", () => movimentarEstoque(product.id, "saida", qtdInput.value));
 
+    const movementsWrapper = document.createElement("div");
+    movementsWrapper.style.display = "flex";
+    movementsWrapper.style.alignItems = "center";
+    movementsWrapper.style.gap = "0.65rem";
+    movementsWrapper.append(buyButton, sellButton);
+
     const deleteButton = document.createElement("button");
     deleteButton.className = "produto-remover";
     deleteButton.type = "button";
@@ -349,7 +410,7 @@ function renderProducts() {
     deleteButton.setAttribute("aria-label", `Remover ${product.nome}`);
     deleteButton.addEventListener("click", () => removeProduct(product.id));
 
-    actionsWrapper.append(qtdInput, buyButton, sellButton, deleteButton);
+    actionsWrapper.append(qtdInput, movementsWrapper, deleteButton);
     actionCell.append(actionsWrapper);
 
     row.append(productCell, categoryCell, brandCell, quantityCell, priceCell, actionCell);
@@ -471,3 +532,41 @@ productForm.addEventListener("submit", async (event) => {
 // Carrega os produtos e movimentações da conta ao abrir a página
 loadProductsFromServer();
 loadMovementsFromServer();
+
+// Divide o título em caracteres para animar cada letra com um pequeno atraso.
+gsap.registerPlugin(SplitText);
+const saudar = new SplitText(".nome", {
+  type: "chars",
+});
+gsap.set(saudar.chars, {
+  textShadow: "0 0 14px #000000",
+});
+gsap.to(saudar.chars, {
+  color: "#37e1a5",
+  y: -1,
+  duration: 5.9,
+  ease: "sine.inOut",
+  repeat: -1,
+  yoyo: true,
+  stagger: 0.07,
+});
+
+const frase = new SplitText(".perfil-descricao", {
+  type: "chars",
+});
+gsap.from(frase.chars, {
+  opacity: 0,
+  y: -4,
+  color: "blue",
+  duration: 4.8,
+  stagger: 0.03,
+  ease: "power2.out",
+  filter: "blur(5px)",
+  yoyo: true,
+});
+
+gsap.fromTo(
+  ".perfil-boas-vindas",
+  { opacity: 0, y: -4 },
+  { opacity: 1, y: 0, duration: 2.0, ease: "power2.out" }
+);
