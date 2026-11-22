@@ -8,28 +8,66 @@ const sqlite3 = require('sqlite3').verbose();
 // importa o cors para permitir a comunicação entre o frontend e o backend
 const cors = require('cors');
 
+// localizar arquivos e pastas do projeto
+const path = require('path');
+const fs = require('fs');
+
 // cria o servidor com o express e controla ele
 const app = express();
 
-// permite que o express entenda arquivos json enviados pelo navegador
-app.use(express.json());
+// permite que o express entenda arquivos json (limite de 10mb para suportar fotos dos produtos)
+app.use(express.json({ limit: '10mb' }));
 
-// libera o acesso das requisições vindas do frontend (Live Server / Codespaces)
+// libera o acesso das requisições
 app.use(cors({ origin: '*' }));
 
+// bloqueia o acesso direto à pasta do banco de dados pelo navegador por segurança
+app.use('/db', (req, res) => res.status(403).send('Acesso negado'));
+
+// procura automaticamente em qual pasta do projeto está o arquivo index.html
+function encontrarSite(diretorioAtual, profundidade = 0) {
+  if (profundidade > 3 || !fs.existsSync(diretorioAtual)) return null;
+
+  const itens = fs.readdirSync(diretorioAtual, { withFileTypes: true });
+  const arquivoIndex = itens.find(
+    (item) => item.isFile() && item.name.toLowerCase() === 'index.html'
+  );
+
+  if (arquivoIndex) {
+    return { pasta: diretorioAtual, arquivoIndex: arquivoIndex.name };
+  }
+
+  for (const item of itens) {
+    if (item.isDirectory() && !['node_modules', '.git', 'db'].includes(item.name)) {
+      const encontrado = encontrarSite(path.join(diretorioAtual, item.name), profundidade + 1);
+      if (encontrado) return encontrado;
+    }
+  }
+
+  return null;
+}
+
+const pastaRaiz = path.join(__dirname, '..');
+const siteInfo = encontrarSite(pastaRaiz);
+const pastaSite = siteInfo ? siteInfo.pasta : pastaRaiz;
+const arquivoIndex = siteInfo ? siteInfo.arquivoIndex : 'index.html';
+
+// deixa o navegador encontrar os arquivos do site (index.html, stock2.html, css e js) na porta 3000
+app.use(express.static(pastaSite));
+
 // cria/conecta o banco de dados único dentro da pasta db
-const db = new sqlite3.Database('./db/banco.db', (err) => {
+const caminhoBanco = path.join(__dirname, 'banco.db');
+const db = new sqlite3.Database(caminhoBanco, (err) => {
   if (err) {
     console.error("Erro ao conectar no banco SQLite:", err.message);
   } else {
-    console.log("Banco de dados SQLite unificado conectado com sucesso!");
+    console.log("Banco de dados SQLite unificado conectado em:", caminhoBanco);
   }
 });
 
-// db.serialize garante que as tabelas sejam criadas em ordem caso ainda não existam
-// integer = numero inteiro, primary key = identifica o registro (chave unica), autoincrement = aumenta automaticamente, text = texto, not null = não pode ficar vazio, real = numero decimal
+// Cria as tabelas caso ainda não existam
 db.serialize(() => {
-  // 1. Cria a tabela de usuários (Login e Cadastro)
+  // 1. Tabela de usuários (Login e Cadastro)
   db.run(`
     CREATE TABLE IF NOT EXISTS usuarios (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,56 +77,59 @@ db.serialize(() => {
     )
   `);
 
-  // 2. Cria a tabela de produtos (Estoque)
+  // 2. Tabela de produtos vinculada a cada usuário (usuario_id) e com suporte a foto
   db.run(`
     CREATE TABLE IF NOT EXISTS produtos (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      usuario_id INTEGER NOT NULL,
       nome TEXT NOT NULL,
       quantidade INTEGER NOT NULL,
       marca TEXT NOT NULL,
       categoria TEXT NOT NULL,
-      valor REAL NOT NULL
+      valor REAL NOT NULL,
+      foto TEXT
     )
   `);
 
-  // 3. Cria a tabela de movimentações (Histórico de entradas, edições e saídas)
+  // 3. Tabela de movimentações vinculada a cada usuário (usuario_id)
   db.run(`
     CREATE TABLE IF NOT EXISTS movimentacoes (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      usuario_id INTEGER NOT NULL,
       acao TEXT NOT NULL,
       produto TEXT NOT NULL,
       data_hora TEXT NOT NULL
     )
   `);
+
+  // Atualizações seguras caso o banco já tenha sido criado anteriormente
+  db.run(`ALTER TABLE produtos ADD COLUMN usuario_id INTEGER NOT NULL DEFAULT 0`, () => {});
+  db.run(`ALTER TABLE produtos ADD COLUMN foto TEXT`, () => {});
+  db.run(`ALTER TABLE movimentacoes ADD COLUMN usuario_id INTEGER NOT NULL DEFAULT 0`, () => {});
 });
 
 // ======================================================
 // ROTAS DE AUTENTICAÇÃO (CADASTRO E LOGIN)
 // ======================================================
 
-// Post é usado para enviar informações para o servidor, como dados de cadastro
 app.post('/api/registrar', (req, res) => {
-  // pega os dados enviados pelo navegador
   const { nome, email, senha } = req.body;
 
-  // verifica se algum dos campos obrigatórios não foi informado
   if (!email || !senha || !nome) {
     return res.status(400).json({ erro: "Nome, e-mail e senha são obrigatórios." });
   }
 
-  // prepara o comando SQL para inserir o usuário
   const inserirUsuario = `INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)`;
 
-  // executa e põe o usuário no db
   db.run(inserirUsuario, [nome, email, senha], function (err) {
     if (err) {
       if (err.message.includes("UNIQUE")) {
         return res.status(400).json({ erro: "Este e-mail já está cadastrado." });
       }
+      console.error("Erro SQL ao registrar:", err.message);
       return res.status(500).json({ erro: "Erro ao cadastrar usuário no banco de dados." });
     }
 
-    // resposta que o usuário foi cadastrado
     res.status(201).json({
       mensagem: "Usuário cadastrado com sucesso!",
       id: this.lastID
@@ -96,7 +137,6 @@ app.post('/api/registrar', (req, res) => {
   });
 });
 
-// Rota POST para validar o login do usuário
 app.post('/api/login', (req, res) => {
   const { email, senha } = req.body;
 
@@ -104,11 +144,11 @@ app.post('/api/login', (req, res) => {
     return res.status(400).json({ sucesso: false, mensagem: "Informe e-mail e senha." });
   }
 
-  // prepara o comando para buscar o usuário pelo e-mail e senha
   const buscarUsuario = `SELECT id, nome, email FROM usuarios WHERE email = ? AND senha = ?`;
 
   db.get(buscarUsuario, [email, senha], (err, usuario) => {
     if (err) {
+      console.error("Erro SQL no login:", err.message);
       return res.status(500).json({ sucesso: false, mensagem: "Erro interno no servidor." });
     }
 
@@ -125,35 +165,31 @@ app.post('/api/login', (req, res) => {
 });
 
 // ======================================================
-// ROTAS DO ESTOQUE (PRODUTOS E MOVIMENTAÇÕES)
+// ROTAS DO ESTOQUE (ISOLADAS POR USUÁRIO)
 // ======================================================
 
-// GET é usado para conseguir informações do servidor, como listar os produtos cadastrados.
-// cria uma rota GET para o caminho /api/produtos
+// Listar produtos apenas do usuário logado
 app.get('/api/produtos', (req, res) => {
-  // req (request) é o pedido do navegador/usuario
-  // res (response) é a resposta que o servidor envia de volta para o navegador/usuário.
+  const usuarioId = Number(req.query.usuario_id);
 
-  // prepara o comando para buscar os produtos
-  // select = busca, * = todas as colunas e from produtos = da tabela produtos
-  const buscarProdutos = `
-    SELECT * FROM produtos ORDER BY id DESC
-  `;
+  if (!usuarioId) {
+    return res.status(400).json({ erro: "Usuário não identificado." });
+  }
 
-  // executa e pega as linhas encontradas
-  db.all(buscarProdutos, [], (err, produtos) => {
+  const buscarProdutos = `SELECT * FROM produtos WHERE usuario_id = ? ORDER BY id DESC`;
+
+  db.all(buscarProdutos, [usuarioId], (err, produtos) => {
     if (err) {
+      console.error("Erro SQL ao buscar produtos:", err.message);
       return res.status(500).json({ erro: "Erro ao buscar produtos no banco de dados." });
     }
 
-    // calcula os totais para preencher os cartões de resumo e relatórios do painel
     const totalProdutos = produtos.length;
     const totalUnidades = produtos.reduce((soma, p) => soma + Number(p.quantidade), 0);
     const valorTotal = produtos.reduce((soma, p) => soma + (Number(p.quantidade) * Number(p.valor)), 0);
     const estoqueBaixo = produtos.filter((p) => Number(p.quantidade) <= 5).length;
     const categorias = [...new Set(produtos.map((p) => p.categoria))].length;
 
-    // envia produtos e resumo no formato json
     res.status(200).json({
       produtos,
       resumo: {
@@ -167,204 +203,214 @@ app.get('/api/produtos', (req, res) => {
   });
 });
 
-// Post é usado para enviar informações para o servidor, como por exemplo, enviar dados de um formulário.
-// cria uma rota POST para cadastrar um novo produto
+// Cadastrar novo produto vinculado ao usuário logado
 app.post('/api/produtos', (req, res) => {
-  // pega os dados enviados pelo navegador
-  const { nome, quantidade, marca, categoria, valor } = req.body;
+  const { usuario_id, nome, quantidade, marca, categoria, valor, foto } = req.body;
+  const usuarioId = Number(usuario_id);
 
-  // verifica se algum dos campos obrigatórios não foi informado
+  if (!usuarioId) {
+    return res.status(400).json({ erro: "Sessão expirada. Faça login novamente." });
+  }
+
   if (!nome || quantidade === undefined || !marca || !categoria || valor === undefined) {
-    // informa que todos os campos são obrigatórios
-    return res.status(400).json({
-      erro: "Todos os campos são obrigatórios."
-    });
+    return res.status(400).json({ erro: "Todos os campos são obrigatórios." });
   }
 
-  // verifica se a quantidade é menor que zero
   if (Number(quantidade) < 0) {
-    // informa que a quantidade não pode ser negativa
-    return res.status(400).json({
-      erro: "A quantidade não pode ser negativa."
-    });
+    return res.status(400).json({ erro: "A quantidade não pode ser negativa." });
   }
 
-  // verifica se o valor/preço é menor que zero
   if (Number(valor) < 0) {
-    // informa que o valor não pode ser negativo
-    return res.status(400).json({
-      erro: "O valor não pode ser negativo."
-    });
+    return res.status(400).json({ erro: "O valor não pode ser negativo." });
   }
 
-  // prepara o comando do sql para inserir o produto
   const inserirProduto = `
-    INSERT INTO produtos (nome, quantidade, marca, categoria, valor)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO produtos (usuario_id, nome, quantidade, marca, categoria, valor, foto)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  // executa e põe o produto no db
-  db.run(inserirProduto, [nome, Number(quantidade), marca, categoria, Number(valor)], function (err) {
-    if (err) {
-      return res.status(500).json({ erro: "Erro ao salvar produto no banco de dados." });
-    }
-
-    const novoId = this.lastID;
-    const dataHora = new Date().toLocaleString('pt-BR');
-
-    // registra automaticamente a entrada no histórico de movimentações
-    const inserirMovimentacao = `
-      INSERT INTO movimentacoes (acao, produto, data_hora)
-      VALUES (?, ?, ?)
-    `;
-    db.run(inserirMovimentacao, [`Cadastro (+${quantidade} un.)`, nome, dataHora]);
-
-    // resposta que o produto foi cadastrado
-    res.status(201).json({
-      mensagem: "Produto cadastrado com sucesso!",
-      id: novoId
-    });
-  });
-});
-
-// put é usado para atualizar informações no servidor, como por exemplo, atualizar dados de um produto.
-// cria uma rota PUT para atualizar um produto existente
-app.put('/api/produtos/:id', (req, res) => {
-  // pega o id do produto que veio da URL
-  const id = req.params.id;
-
-  // pega os novos dados enviados pelo navegador
-  const { nome, quantidade, marca, categoria, valor } = req.body;
-
-  // verifica se algum dos campos obrigatórios não foi informado
-  if (!nome || quantidade === undefined || !marca || !categoria || valor === undefined) {
-    // informa que todos os campos são obrigatórios
-    return res.status(400).json({
-      erro: "Todos os campos são obrigatórios."
-    });
-  }
-
-  // verifica se a quantidade é menor que zero
-  if (Number(quantidade) < 0) {
-    // informa que a quantidade não pode ser negativa
-    return res.status(400).json({
-      erro: "A quantidade não pode ser negativa."
-    });
-  }
-
-  // verifica se o valor/preço é menor que zero
-  if (Number(valor) < 0) {
-    // informa que o valor não pode ser negativo
-    return res.status(400).json({
-      erro: "O valor não pode ser negativo."
-    });
-  }
-
-  // prepara o comando e atualiza o produto
-  const atualizarProduto = `
-    UPDATE produtos
-    SET nome = ?,
-        quantidade = ?,
-        marca = ?,
-        categoria = ?,
-        valor = ?
-    WHERE id = ?
-  `;
-
-  // executa e atualiza o produto no db
-  db.run(atualizarProduto, [nome, Number(quantidade), marca, categoria, Number(valor), id], function (err) {
-    if (err) {
-      return res.status(500).json({ erro: "Erro ao atualizar produto no banco de dados." });
-    }
-
-    // verifica se algum produto foi atualizado
-    if (this.changes === 0) {
-      // informa que o produto não foi encontrado
-      return res.status(404).json({
-        mensagem: "Produto não encontrado."
-      });
-    }
-
-    // registra a atualização no histórico de movimentações
-    const dataHora = new Date().toLocaleString('pt-BR');
-    db.run(
-      `INSERT INTO movimentacoes (acao, produto, data_hora) VALUES (?, ?, ?)`,
-      [`Atualização (${quantidade} un.)`, nome, dataHora]
-    );
-
-    // informa que o produto foi atualizado com sucesso
-    res.json({
-      mensagem: "Produto atualizado com sucesso."
-    });
-  });
-});
-
-// DELETE é usado para deletar informações do servidor, como por exemplo, deletar um produto.
-// cria uma rota DELETE para deletar um produto existente
-app.delete('/api/produtos/:id', (req, res) => {
-  // pega o id do produto que veio da URL
-  const id = req.params.id;
-
-  // busca o nome do produto antes de excluir para registrar no histórico
-  db.get(`SELECT nome FROM produtos WHERE id = ?`, [id], (err, produto) => {
-    if (err || !produto) {
-      return res.status(404).json({
-        mensagem: "Produto não encontrado."
-      });
-    }
-
-    // prepara o comando para deletar o produto
-    const excluirProduto = `
-      DELETE FROM produtos
-      WHERE id = ?
-    `;
-
-    // executa e deleta o produto do db
-    db.run(excluirProduto, [id], function (errDelete) {
-      if (errDelete) {
-        return res.status(500).json({ erro: "Erro ao excluir produto." });
+  db.run(
+    inserirProduto,
+    [usuarioId, nome, Number(quantidade), marca, categoria, Number(valor), foto || ""],
+    function (err) {
+      if (err) {
+        console.error("Erro SQL ao inserir produto:", err.message);
+        return res.status(500).json({ erro: "Erro ao salvar produto no banco de dados." });
       }
 
-      // verifica se algum produto foi deletado
-      if (this.changes === 0) {
-        // informa que o produto não foi encontrado
-        return res.status(404).json({
-          mensagem: "Produto não encontrado."
+      const novoId = this.lastID;
+      const dataHora = new Date().toLocaleString('pt-BR');
+
+      const inserirMovimentacao = `
+        INSERT INTO movimentacoes (usuario_id, acao, produto, data_hora)
+        VALUES (?, ?, ?, ?)
+      `;
+
+      db.run(
+        inserirMovimentacao,
+        [usuarioId, `Cadastro (+${quantidade} un.)`, nome, dataHora],
+        (errMov) => {
+          if (errMov) console.error("Erro SQL ao inserir movimentação:", errMov.message);
+
+          res.status(201).json({
+            mensagem: "Produto cadastrado com sucesso!",
+            id: novoId
+          });
+        }
+      );
+    }
+  );
+});
+
+// Movimentar estoque: entrada (compra) ou saída (venda) de unidades
+app.patch('/api/produtos/:id/movimentar', (req, res) => {
+  const id = Number(req.params.id);
+  const { usuario_id, tipo, quantidade } = req.body;
+  const usuarioId = Number(usuario_id);
+  const qtd = Number(quantidade);
+
+  if (!usuarioId) {
+    return res.status(400).json({ erro: "Usuário não identificado." });
+  }
+
+  if (!['entrada', 'saida'].includes(tipo)) {
+    return res.status(400).json({ erro: "Tipo de movimentação inválido." });
+  }
+
+  if (!Number.isInteger(qtd) || qtd <= 0) {
+    return res.status(400).json({ erro: "Informe uma quantidade válida maior que zero." });
+  }
+
+  db.get(
+    `SELECT id, nome, quantidade FROM produtos WHERE id = ? AND usuario_id = ?`,
+    [id, usuarioId],
+    (err, produto) => {
+      if (err) {
+        console.error("Erro SQL ao buscar produto:", err.message);
+        return res.status(500).json({ erro: "Erro ao consultar produto no banco." });
+      }
+
+      if (!produto) {
+        return res.status(404).json({ erro: "Produto não encontrado." });
+      }
+
+      const estoqueAtual = Number(produto.quantidade);
+
+      if (tipo === 'saida' && qtd > estoqueAtual) {
+        return res.status(400).json({
+          erro: `Estoque insuficiente! Você possui apenas ${estoqueAtual} unidade(s) de "${produto.nome}".`
         });
       }
 
-      // registra a exclusão no histórico de movimentações
-      const dataHora = new Date().toLocaleString('pt-BR');
-      db.run(
-        `INSERT INTO movimentacoes (acao, produto, data_hora) VALUES (?, ?, ?)`,
-        ['Exclusão', produto.nome, dataHora]
-      );
+      const novaQuantidade = tipo === 'entrada' ? estoqueAtual + qtd : estoqueAtual - qtd;
+      const textoAcao =
+        tipo === 'entrada'
+          ? `Compra / Entrada (+${qtd} un.)`
+          : `Venda / Saída (-${qtd} un.)`;
 
-      // informa que o produto foi deletado com sucesso
-      res.json({
-        mensagem: "Produto excluído com sucesso."
-      });
-    });
-  });
+      db.run(
+        `UPDATE produtos SET quantidade = ? WHERE id = ? AND usuario_id = ?`,
+        [novaQuantidade, id, usuarioId],
+        function (errUpdate) {
+          if (errUpdate) {
+            console.error("Erro SQL ao atualizar quantidade:", errUpdate.message);
+            return res.status(500).json({ erro: "Erro ao atualizar quantidade no estoque." });
+          }
+
+          const dataHora = new Date().toLocaleString('pt-BR');
+          db.run(
+            `INSERT INTO movimentacoes (usuario_id, acao, produto, data_hora) VALUES (?, ?, ?, ?)`,
+            [usuarioId, textoAcao, produto.nome, dataHora]
+          );
+
+          res.status(200).json({
+            mensagem:
+              tipo === 'entrada'
+                ? `Compra registrada: +${qtd} un. de ${produto.nome}.`
+                : `Venda registrada: -${qtd} un. de ${produto.nome}.`,
+            novaQuantidade
+          });
+        }
+      );
+    }
+  );
 });
 
-// GET para listar o histórico de movimentações recentes
+// Excluir produto apenas se pertencer ao usuário logado
+app.delete('/api/produtos/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const usuarioId = Number(req.query.usuario_id);
+
+  if (!usuarioId) {
+    return res.status(400).json({ erro: "Usuário não identificado." });
+  }
+
+  db.get(
+    `SELECT nome FROM produtos WHERE id = ? AND usuario_id = ?`,
+    [id, usuarioId],
+    (err, produto) => {
+      if (err || !produto) {
+        return res.status(404).json({ mensagem: "Produto não encontrado." });
+      }
+
+      db.run(
+        `DELETE FROM produtos WHERE id = ? AND usuario_id = ?`,
+        [id, usuarioId],
+        function (errDelete) {
+          if (errDelete) {
+            console.error("Erro SQL ao excluir produto:", errDelete.message);
+            return res.status(500).json({ erro: "Erro ao excluir produto." });
+          }
+
+          if (this.changes === 0) {
+            return res.status(404).json({ mensagem: "Produto não encontrado." });
+          }
+
+          const dataHora = new Date().toLocaleString('pt-BR');
+          db.run(
+            `INSERT INTO movimentacoes (usuario_id, acao, produto, data_hora) VALUES (?, ?, ?, ?)`,
+            [usuarioId, 'Exclusão', produto.nome, dataHora]
+          );
+
+          res.json({ mensagem: "Produto excluído com sucesso." });
+        }
+      );
+    }
+  );
+});
+
+// Listar movimentações apenas do usuário logado
 app.get('/api/movimentacoes', (req, res) => {
+  const usuarioId = Number(req.query.usuario_id);
+
+  if (!usuarioId) {
+    return res.status(400).json({ erro: "Usuário não identificado." });
+  }
+
   const buscarMovimentacoes = `
-    SELECT * FROM movimentacoes ORDER BY id DESC
+    SELECT * FROM movimentacoes WHERE usuario_id = ? ORDER BY id DESC
   `;
 
-  db.all(buscarMovimentacoes, [], (err, movimentacoes) => {
+  db.all(buscarMovimentacoes, [usuarioId], (err, movimentacoes) => {
     if (err) {
+      console.error("Erro SQL ao buscar movimentações:", err.message);
       return res.status(500).json({ erro: "Erro ao buscar movimentações." });
     }
     res.status(200).json(movimentacoes);
   });
 });
 
-// inicia o servidor na porta 3000
+// Garante que a rota raiz "/" sempre abra o index.html encontrado
+app.get('/', (req, res) => {
+  const caminhoIndex = path.join(pastaSite, arquivoIndex);
+  if (!fs.existsSync(caminhoIndex)) {
+    return res.status(404).send('Arquivo index.html não encontrado no projeto.');
+  }
+  res.sendFile(caminhoIndex);
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
-  // mensagem simbólica
   console.log(`Servidor funcionando em http://localhost:${PORT}`);
+  console.log(`Servindo arquivos do site a partir de: ${pastaSite}`);
 });

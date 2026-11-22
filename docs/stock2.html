@@ -2,40 +2,28 @@
 <!-- Inicia o documento em português e ativa o conjunto de estilos exclusivo do stock2. -->
 <html lang="pt-BR" class="stock2-page">
   <head>
-    <!-- Define a codificação para caracteres acentuados. -->
     <meta charset="UTF-8" />
-    <!-- Ajusta a escala da página para a largura do dispositivo. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Resume o conteúdo da página para mecanismos de busca. -->
     <meta
       name="description"
       content="Página inicial do sistema de controle de estoque."
     />
-    <!-- Texto exibido na aba do navegador. -->
     <title>Estoque | System Flow</title>
 
-    <!-- Abre conexão antecipada para carregar a fonte com mais rapidez. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <!-- Abre conexão segura antecipada para os arquivos da fonte. -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Carrega os pesos da fonte Poppins usados pela interface. -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Aplica estilos globais e os estilos específicos da página stock2. -->
     <link rel="stylesheet" href="style.css" />
   </head>
-  <!-- Corpo da página; a classe identifica o layout desta tela no CSS. -->
   <body class="body2">
     <!-- Cabeçalho fixo com os botões que alternam as áreas da página. -->
     <header class="stoc2">
-      <!-- Agrupa os controles de navegação. -->
       <nav class="nav-2">
-        <!-- Lista de abas; o rótulo é anunciado por leitores de tela. -->
         <ul class="menu2" aria-label="Navegação principal">
           <li>
-            <!-- data-content-id informa ao JavaScript qual seção mostrar. -->
             <button
               class="btn-nav2"
               type="button"
@@ -43,43 +31,36 @@
               aria-controls="inicio"
               aria-current="page"
             >
-              <!-- Texto visível da aba inicial. -->
               <span>Home</span>
             </button>
           </li>
           <li>
-            <!-- Esta aba aponta para a seção status. -->
             <button
               class="btn-nav2"
               type="button"
               data-content-id="status"
               aria-controls="status"
             >
-              <!-- Texto visível da aba de status. -->
               <span>Status</span>
             </button>
           </li>
           <li>
-            <!-- Esta aba abre o cadastro e a listagem de produtos. -->
             <button
               class="btn-nav2"
               type="button"
               data-content-id="gerenciar"
               aria-controls="gerenciar"
             >
-              <!-- Texto visível da aba de gerenciamento. -->
               <span>Gerenciar</span>
             </button>
           </li>
           <li>
-            <!-- Esta aba aponta para a área de configurações. -->
             <button
               class="btn-nav2"
               type="button"
               data-content-id="configuracoes"
               aria-controls="configuracoes"
             >
-              <!-- Texto visível da aba de configurações. -->
               <span>Configurações</span>
             </button>
           </li>
@@ -87,175 +68,205 @@
       </nav>
     </header>
 
-    <!-- Primeira aba, visível ao abrir a página por ter a classe active. -->
+    <!-- ABA HOME -->
     <section id="inicio" class="content2 sistema-inicial active">
-      <!-- Limita a largura e centraliza o conteúdo de boas-vindas. -->
       <div class="container2">
-        <!-- Cartão com foto, saudação e estado de conexão. -->
         <div class="card-perfil">
-          <!-- Área da foto; o label abre o input de arquivo associado pelo id. -->
           <div class="avatar">
             <label
               for="input-foto"
               class="avatar-preview"
               title="Clique para alterar a foto"
             >
-              <!-- Imagem do perfil, atualizada pelo JavaScript quando uma foto é escolhida. -->
               <img
                 id="img-avatar"
                 class="avatar-image"
                 src="https://via.placeholder.com/150/1e1b2e/a855f7?text=Perfil"
                 alt="Avatar"
               />
-              <!-- Dica visual exibida sobre a foto quando recebe foco ou mouse. -->
               <div class="avatar-overlay">Alterar</div>
             </label>
-            <!-- Seletor de imagens; hidden deixa o label como controle visual. -->
             <input type="file" id="input-foto" accept="image/*" hidden />
           </div>
 
-          <!-- Texto de boas-vindas e indicador da conexão do sistema. -->
           <div class="perfil-info">
-            <!-- Pequeno texto de introdução sobre o título. -->
             <p class="perfil-boas-vindas">Bem-vindo de volta</p>
-            <!-- Nome exibido no destaque principal da página inicial. -->
-            <h1 class="nome">Olá, <span>Nome</span></h1>
-            <!-- Descrição curta das funções do sistema. -->
+            <h1 class="nome">Olá, <span id="usuario-nome-titulo">Nome</span></h1>
             <p class="perfil-descricao">
               Organize e acompanhe seu estoque em um só lugar.
             </p>
-            <!-- Selo de conexão com um ponto visual de status. -->
-            <div class="sis-cnct">
-              <!-- Ponto colorido decorativo, oculto para leitores de tela. -->
-              <span class="status-indicador" aria-hidden="true"></span>
-              <!-- Texto que comunica o estado da conexão. -->
-              <span>Sistema conectado</span>
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+              <div class="sis-cnct">
+                <span class="status-indicador" aria-hidden="true"></span>
+                <span>Sistema conectado</span>
+              </div>
+              <button
+                type="button"
+                class="produto-remover"
+                id="btn-sair-home"
+              >
+                Sair da conta
+              </button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Painel de status; permanece vazio até essa área ser implementada. -->
+    <!-- ABA STATUS (RESUMO DO ESTOQUE E MOVIMENTAÇÕES) -->
     <section
       class="content2 sistema-inicial"
       id="status"
       aria-label="Status"
-    ></section>
+    >
+      <div class="gerenciar-container">
+        <div class="gerenciar-heading">
+          <div>
+            <p class="gerenciar-eyebrow">VISÃO GERAL</p>
+            <h1>Status do estoque</h1>
+            <p>Acompanhe os totais e o histórico de compras, vendas e cadastros.</p>
+          </div>
+        </div>
 
-    <!-- Painel que contém o formulário e a tabela de produtos. -->
+        <div class="produto-lista" style="margin-bottom: 1.5rem;">
+          <div class="produto-lista-heading">
+            <div>
+              <h2>Resumo atual</h2>
+              <p>Indicadores calculados em tempo real da sua conta.</p>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; padding: 0.5rem 0;">
+            <div>
+              <small style="opacity: 0.75;">Produtos distintos</small>
+              <h3 id="status-total-produtos" style="margin-top: 0.25rem;">0</h3>
+            </div>
+            <div>
+              <small style="opacity: 0.75;">Unidades em estoque</small>
+              <h3 id="status-total-unidades" style="margin-top: 0.25rem;">0</h3>
+            </div>
+            <div>
+              <small style="opacity: 0.75;">Valor total</small>
+              <h3 id="status-valor-total" style="margin-top: 0.25rem;">R$ 0,00</h3>
+            </div>
+            <div>
+              <small style="opacity: 0.75;">Estoque baixo (até 5)</small>
+              <h3 id="status-estoque-baixo" style="margin-top: 0.25rem;">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="produto-lista">
+          <div class="produto-lista-heading">
+            <div>
+              <h2>Movimentações recentes</h2>
+              <p>Histórico exclusivo das operações realizadas nesta conta.</p>
+            </div>
+          </div>
+          <div class="produto-tabela-scroll">
+            <table class="produto-tabela">
+              <thead>
+                <tr>
+                  <th scope="col">Ação</th>
+                  <th scope="col">Produto</th>
+                  <th scope="col">Data e hora</th>
+                </tr>
+              </thead>
+              <tbody id="lista-movimentacoes"></tbody>
+            </table>
+            <div class="produto-lista-vazia" id="movimentacoes-lista-vazia">
+              <strong>Nenhuma movimentação registrada</strong>
+              <p>Cadastre, adicione ou retire unidades de produtos para registrar aqui.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA GERENCIAR (FORMULÁRIO E TABELA DE PRODUTOS) -->
     <section
       class="content2 sistema-inicial"
       id="gerenciar"
       aria-labelledby="gerenciar-titulo"
     >
-      <!-- Conteúdo centralizado e limitado para facilitar a leitura da tabela. -->
       <div class="gerenciar-container">
-        <!-- Título e ação principal da área de gerenciamento. -->
         <div class="gerenciar-heading">
           <div>
-            <!-- Identifica o assunto da tela acima do título principal. -->
             <p class="gerenciar-eyebrow">CONTROLE DE ESTOQUE</p>
-            <!-- Título acessível referenciado pelo aria-labelledby da seção. -->
             <h1 id="gerenciar-titulo">Produtos cadastrados</h1>
-            <!-- Explica a ação principal disponível nesta área. -->
-            <p>Cadastre e acompanhe os produtos do seu estoque.</p>
+            <p>Cadastre, registre entradas (compras) ou saídas (vendas) do seu estoque.</p>
           </div>
-          <!-- Abre o formulário de criação controlado pelo JavaScript. -->
           <button class="produto-botao produto-botao-principal" id="abrir-form-produto" type="button">
             + Adicionar produto
           </button>
         </div>
 
-        <!-- Formulário inicialmente oculto; é aberto pelo botão acima. -->
+        <!-- Formulário de criação -->
         <form class="produto-form" id="form-produto" hidden>
-          <!-- Cabeçalho e instrução para o preenchimento do cadastro. -->
           <div class="produto-form-heading">
             <div>
               <h2>Novo produto</h2>
               <p>Preencha os dados do produto. A foto é opcional.</p>
             </div>
           </div>
-          <!-- Campos organizados em grade, adaptada pelo CSS a telas menores. -->
           <div class="produto-form-grid">
-            <!-- Label inteiro é clicável e abre o seletor da foto opcional. -->
             <label class="produto-foto-campo" for="produto-foto">
               <span>Foto do produto</span>
-              <!-- Área em que o JavaScript mostra a prévia da foto escolhida. -->
               <span class="produto-foto-preview" id="produto-foto-preview" aria-hidden="true">+</span>
               <span class="produto-foto-ajuda">Adicionar imagem</span>
-              <!-- Aceita arquivos de imagem sem obrigar o usuário a selecioná-los. -->
               <input id="produto-foto" name="foto" type="file" accept="image/*" />
             </label>
-            <!-- Nome obrigatório, limitado a 100 caracteres. -->
             <label class="produto-campo produto-campo-nome" for="produto-nome">
               Nome do produto
               <input id="produto-nome" name="nome" type="text" maxlength="100" placeholder="Ex.: Teclado mecânico" required />
             </label>
-            <!-- Categoria obrigatória, limitada a 60 caracteres. -->
             <label class="produto-campo" for="produto-categoria">
               Categoria
               <input id="produto-categoria" name="categoria" type="text" maxlength="60" placeholder="Ex.: Periféricos" required />
             </label>
-            <!-- Marca obrigatória, limitada a 60 caracteres. -->
             <label class="produto-campo" for="produto-marca">
               Marca
               <input id="produto-marca" name="marca" type="text" maxlength="60" placeholder="Ex.: Logitech" required />
             </label>
-            <!-- Quantidade numérica obrigatória, em valores inteiros não negativos. -->
             <label class="produto-campo" for="produto-quantidade">
               Quantidade
               <input id="produto-quantidade" name="quantidade" type="number" min="0" step="1" placeholder="0" required />
             </label>
-            <!-- Preço unitário obrigatório, com suporte a centavos e sem valores negativos. -->
             <label class="produto-campo" for="produto-valor">
               Valor unitário (R$)
               <input id="produto-valor" name="valor" type="number" min="0" step="0.01" placeholder="0,00" required />
             </label>
           </div>
-          <!-- Região em que o JavaScript informa erros ou problemas ao salvar. -->
           <p class="produto-feedback" id="produto-feedback" role="status" aria-live="polite"></p>
-          <!-- Ações para descartar ou confirmar o cadastro do produto. -->
           <div class="produto-form-acoes">
             <button class="produto-botao produto-botao-secundario" id="cancelar-form-produto" type="button">Cancelar</button>
             <button class="produto-botao produto-botao-principal" type="submit">Salvar produto</button>
           </div>
         </form>
 
-        <!-- Cartão da listagem persistida localmente no navegador. -->
+        <!-- Listagem conectada ao SQLite -->
         <div class="produto-lista">
-          <!-- Título, descrição e contador atualizado pelo JavaScript. -->
           <div class="produto-lista-heading">
             <div>
               <h2>Estoque</h2>
-              <p>Produtos adicionados a este navegador.</p>
+              <p>Produtos salvos na sua conta.</p>
             </div>
             <span class="produto-contagem" id="produto-contagem">0 produtos</span>
           </div>
-          <!-- Permite rolagem horizontal da tabela em telas estreitas. -->
+          <p class="produto-feedback" id="tabela-feedback" role="status" aria-live="polite"></p>
           <div class="produto-tabela-scroll">
-            <!-- Tabela preenchida dinamicamente com os produtos salvos. -->
             <table class="produto-tabela">
               <thead>
                 <tr>
-                  <!-- Cabeçalho para nome e miniatura do produto. -->
                   <th scope="col">Produto</th>
-                  <!-- Cabeçalho da categoria registrada. -->
                   <th scope="col">Categoria</th>
-                  <!-- Cabeçalho da marca registrada. -->
                   <th scope="col">Marca</th>
-                  <!-- Cabeçalho da quantidade em estoque. -->
                   <th scope="col">Quantidade</th>
-                  <!-- Cabeçalho do preço individual. -->
                   <th scope="col">Valor unitário</th>
-                  <!-- Cabeçalho acessível da coluna de ação de remoção. -->
-                  <th scope="col"><span class="visually-hidden">Ações</span></th>
+                  <th scope="col">Ações</th>
                 </tr>
               </thead>
-              <!-- As linhas do catálogo são inseridas pelo JavaScript. -->
               <tbody id="lista-produtos"></tbody>
             </table>
-            <!-- Aviso exibido enquanto não houver produtos cadastrados. -->
             <div class="produto-lista-vazia" id="produto-lista-vazia">
               <strong>Nenhum produto cadastrado</strong>
               <p>Use “Adicionar produto” para incluir o primeiro item.</p>
@@ -264,13 +275,40 @@
         </div>
       </div>
     </section>
+
+    <!-- ABA CONFIGURAÇÕES (CONTA E LOGOUT) -->
     <section
       class="content2 sistema-inicial"
       id="configuracoes"
       aria-label="Configurações"
-    ></section>
+    >
+      <div class="gerenciar-container">
+        <div class="gerenciar-heading">
+          <div>
+            <p class="gerenciar-eyebrow">MINHA CONTA</p>
+            <h1>Configurações</h1>
+            <p>Informações da sessão conectada ao banco de dados.</p>
+          </div>
+        </div>
 
-    <!-- Carrega a troca da foto, a navegação e o cadastro dos produtos. -->
+        <div class="produto-lista">
+          <div class="produto-lista-heading">
+            <div>
+              <h2 id="config-usuario-nome">Usuário</h2>
+              <p id="config-usuario-email">email@exemplo.com</p>
+            </div>
+            <button
+              type="button"
+              class="produto-remover"
+              id="btn-sair-config"
+            >
+              Sair da conta
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <script src="stock2.js"></script>
   </body>
 </html>

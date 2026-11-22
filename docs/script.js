@@ -5,7 +5,7 @@ const navs = document.querySelectorAll('.btn-nav');
 
 const navClicked = (nav) => {
   const contentId = nav.getAttribute('content-id');
-  if (!contentId) return; // Mantém o link stock.html funcionando normalmente
+  if (!contentId) return;
 
   const contents = document.querySelectorAll('.content');
   contents.forEach((content) => content.classList.remove('active'));
@@ -45,8 +45,28 @@ function irParaPaginaInicial() {
 // ======================================================
 // 2. CONTROLE DE SESSÃO NO MENU (USUÁRIO LOGADO / SAIR)
 // ======================================================
+function obterUsuarioLogado() {
+  const raw = sessionStorage.getItem('usuarioLogado') || localStorage.getItem('usuarioLogado');
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function limparSessaoUsuario() {
+  const usuario = obterUsuarioLogado();
+  if (usuario && usuario.id) {
+    localStorage.removeItem(`system-flow-stock-profile-${usuario.id}`);
+  }
+  localStorage.removeItem('system-flow-stock-profile');
+  localStorage.removeItem('usuarioLogado');
+  sessionStorage.removeItem('usuarioLogado');
+}
+
 function atualizarMenuUsuario() {
-  const usuarioSalvo = localStorage.getItem('usuarioLogado');
+  const usuario = obterUsuarioLogado();
   const menu = document.querySelector('.menu');
   if (!menu) return;
 
@@ -58,14 +78,12 @@ function atualizarMenuUsuario() {
     itemUsuarioExistente.remove();
   }
 
-  if (usuarioSalvo) {
-    const usuario = JSON.parse(usuarioSalvo);
-
+  if (usuario) {
     // Oculta Login e Cadastro enquanto o usuário estiver logado
     if (btnLoginLi) btnLoginLi.style.display = 'none';
     if (btnCadastroLi) btnCadastroLi.style.display = 'none';
 
-    // Exibe o nome do usuário e botão de Sair no menu
+    // Exibe atalho direto para o estoque (stock2.html) e botão de Sair
     const liUsuario = document.createElement('li');
     liUsuario.id = 'menu-usuario-logado';
     liUsuario.style.display = 'flex';
@@ -73,14 +91,14 @@ function atualizarMenuUsuario() {
     liUsuario.style.gap = '12px';
 
     liUsuario.innerHTML = `
-      <span style="color: #00ff88; font-weight: 500;">Olá, ${usuario.nome}</span>
+      <a href="stock2.html" class="btn-nav" style="color: #00ff88; font-weight: 500;">Olá, ${usuario.nome} (Estoque)</a>
       <button type="button" id="btn-sair" class="btn-nav" style="cursor: pointer;">Sair</button>
     `;
 
     menu.appendChild(liUsuario);
 
     document.getElementById('btn-sair').addEventListener('click', () => {
-      localStorage.removeItem('usuarioLogado');
+      limparSessaoUsuario();
       atualizarMenuUsuario();
       irParaPaginaInicial();
     });
@@ -94,9 +112,9 @@ function atualizarMenuUsuario() {
 document.addEventListener('DOMContentLoaded', atualizarMenuUsuario);
 
 // ======================================================
-// 3. INTEGRAÇÃO COM O BACKEND (NODE.JS + SQLITE)
+// 3. INTEGRAÇÃO COM O BACKEND (MESMA ORIGEM / PORTA 3000)
 // ======================================================
-const API_URL = "https://shiny-computing-machine-wv9wj64qq45jf95rp-3000.app.github.dev";
+const API_URL = "";
 
 // --- ROTA DE LOGIN (/api/login) ---
 const formLogin = document.getElementById("form-login");
@@ -108,6 +126,7 @@ if (formLogin) {
 
     const email = document.getElementById("login-email").value;
     const senha = document.getElementById("login-senha").value;
+    const lembrar = document.getElementById("lembrar")?.checked;
 
     msgLogin.textContent = "Verificando...";
     msgLogin.style.color = "rgba(255, 255, 255, 0.8)";
@@ -122,17 +141,22 @@ if (formLogin) {
       const dados = await resposta.json();
 
       if (resposta.ok && dados.sucesso) {
-        msgLogin.textContent = `Bem-vindo, ${dados.usuario.nome}! Redirecionando...`;
+        msgLogin.textContent = `Bem-vindo, ${dados.usuario.nome}! Abrindo estoque...`;
         msgLogin.style.color = "#00ff88";
 
-        localStorage.setItem("usuarioLogado", JSON.stringify(dados.usuario));
+        limparSessaoUsuario();
+
+        if (lembrar) {
+          localStorage.setItem("usuarioLogado", JSON.stringify(dados.usuario));
+        } else {
+          sessionStorage.setItem("usuarioLogado", JSON.stringify(dados.usuario));
+        }
+
         formLogin.reset();
 
         setTimeout(() => {
-          atualizarMenuUsuario();
-          irParaPaginaInicial();
-          msgLogin.textContent = "";
-        }, 1000);
+          window.location.href = "stock2.html";
+        }, 800);
       } else {
         msgLogin.textContent = dados.mensagem || "E-mail ou senha incorretos.";
         msgLogin.style.color = "#ff4d4d";
