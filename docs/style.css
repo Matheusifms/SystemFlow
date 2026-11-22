@@ -895,6 +895,37 @@ section {
   align-items: center; /* Centraliza o conteúdo no eixo transversal. */
   justify-content: center; /* Centraliza o conteúdo no eixo principal. */
   background: #000; /* Mantém o fundo preto em cada painel. */
+}
+
+/* Sobrepõe um aviso visual a todas as informações da aba Configurações. */
+.stock2-page #configuracoes {
+  position: relative; /* Permite posicionar a camada de aviso dentro da aba. */
+  overflow: hidden; /* Mantém o efeito visual limitado ao painel. */
+}
+
+.stock2-page #configuracoes .configuracoes-em-breve {
+  position: absolute; /* Cobre toda a área da aba sobre as informações. */
+  z-index: 20; /* Mantém o aviso acima de título, dados e botão de sair. */
+  inset: 0; /* Estende o elemento pelas quatro bordas do painel. */
+  display: grid; /* Centraliza o texto em uma única área. */
+  place-items: center; /* Alinha o aviso ao centro vertical e horizontal. */
+  background: rgb(9 8 13 / 82%); /* Escurece as informações sem ocultá-las por completo. */
+  backdrop-filter: blur(12px); /* Embaça os dados que ficam abaixo da camada. */
+  cursor: default; /* Mostra que o painel permanece não interativo no momento. */
+}
+
+.stock2-page #configuracoes .configuracoes-em-breve span {
+  display: inline-flex; /* Define o tamanho visual do texto pelo seu conteúdo. */
+  padding: 14px 28px; /* Cria uma área espaçada ao redor do aviso. */
+  border: 1px solid rgb(168 85 247 / 38%); /* Delimita o selo com o roxo do tema. */
+  border-radius: 999px; /* Deixa o fundo do aviso arredondado. */
+  background: rgb(0 0 0 / 72%); /* Destaca o texto sobre o fundo desfocado. */
+  color: #a855f7; /* Define a cor inicial da alternância GSAP. */
+  box-shadow: 0 0 28px rgb(168 85 247 / 22%); /* Adiciona brilho ao aviso. */
+  font-size: clamp(1.3rem, 4vw, 2.4rem); /* Ajusta o tamanho do texto à tela. */
+  font-weight: 800; /* Destaca “Em breve” como título central. */
+  letter-spacing: 0.12em; /* Espaça as letras para reforçar o selo. */
+  text-transform: uppercase; /* Mantém o aviso em caixa alta. */
   font-family: "Poppins", sans-serif; /* Aplica a tipografia da interface. */
 }
 
@@ -1389,6 +1420,13 @@ section {
   transform: none; /* Evita efeitos globais aplicados a parágrafos. */
 }
 
+/* Mantém o aviso exibido após o cadastro alinhado à direita do cartão. */
+.stock2-page #gerenciar #tabela-feedback {
+  padding-right: 22px;
+  text-align: right;
+  transform: none;
+}
+
 /* Alinha à direita os botões de cancelar e salvar. */
 .stock2-page #gerenciar .produto-form-acoes {
   display: flex; /* Coloca as ações lado a lado. */
@@ -1488,21 +1526,24 @@ section {
 /* Define o formato do botão usado para remover um produto. */
 .stock2-page #gerenciar .produto-remover {
   display: inline-flex; /* Mantém o botão do tamanho de seu conteúdo. */
-  min-height: 30px; /* Define a altura mínima da ação. */
+  min-height: 40px; /* Define a altura mínima da ação. */
   padding: 0 10px; /* Cria espaço interno nas laterais do texto. */
   border: 1px solid rgb(255 255 255 / 12%); /* Desenha borda neutra. */
   border-radius: 7px; /* Arredonda os cantos do botão. */
   background: transparent; /* Mantém o fundo escuro da linha. */
-  color: rgb(255 255 255 / 62%); /* Usa texto claro sem competir com o nome. */
+  color: rgb(255 255 255 / 60%); /* Usa texto claro sem competir com o nome. */
   cursor: pointer; /* Indica que a ação pode ser clicada. */
   font: inherit; /* Herda a tipografia da interface. */
   font-size: 0.7rem; /* Mantém o texto da ação compacto. */
+  transition: all 2s ease;
+  transform: scale(1.00);
 }
 
 /* Realça a ação de remoção ao passar o ponteiro sobre ela. */
 .stock2-page #gerenciar .produto-remover:hover {
   border-color: rgb(168 85 247 / 45%); /* Muda a borda para roxo translúcido. */
   color: #d7baff; /* Destaca o texto em roxo claro. */
+  transform: scale(1.03);
 }
 
 /* Centraliza a mensagem que aparece quando não há produtos. */
@@ -1561,6 +1602,253 @@ section {
   }
 }
 
+/* Centraliza a aba Status com o mesmo limite de largura usado em Gerenciar. */
+.stock2-page #status .gerenciar-container {
+  width: min(1180px, 100%); /* Mantém o conteúdo alinhado e legível em telas largas. */
+  margin: 0 auto; /* Centraliza o painel dentro da aba. */
+}
+
+/* Organiza o cabeçalho da aba Status no padrão visual de Gerenciar. */
+.stock2-page #status .gerenciar-heading {
+  margin-bottom: 28px; /* Separa o título dos cartões de indicadores. */
+}
+
+.stock2-page #status .gerenciar-eyebrow {
+  margin: 0 0 8px; /* Remove espaços extras acima e abaixo do rótulo. */
+  color: #a855f7; /* Usa o roxo padrão do sistema no rótulo. */
+  font-size: 0.72rem; /* Mantém o rótulo compacto e informativo. */
+  font-weight: 600; /* Dá destaque ao texto secundário. */
+  letter-spacing: 0.14em; /* Melhora a identificação visual do rótulo. */
+}
+
+.stock2-page #status h1 {
+  margin: 0; /* Remove margens padrão do título principal. */
+  color: #fff; /* Mantém o título principal com contraste elevado. */
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem); /* Ajusta o título ao tamanho da tela. */
+  line-height: 1.2; /* Mantém uma altura de linha confortável. */
+}
+
+.stock2-page #status .gerenciar-heading > div > p:last-child {
+  margin: 8px 0 0; /* Separa a descrição do título. */
+  color: rgb(255 255 255 / 58%); /* Usa branco suave para texto auxiliar. */
+  font-size: 0.88rem; /* Mantém a descrição menor que o título. */
+  line-height: 1.5; /* Facilita a leitura da descrição. */
+}
+
+/* Separa visualmente o resumo e o histórico em cartões independentes. */
+.stock2-page #status .status-resumo,
+.stock2-page #status .status-movimentacoes {
+  overflow: hidden; /* Mantém bordas e conteúdo dentro dos cartões. */
+  border: 1px solid rgb(255 255 255 / 10%); /* Delimita cada seção sobre o fundo escuro. */
+  border-radius: 16px; /* Mantém o mesmo arredondamento dos cartões existentes. */
+  background: #09080d; /* Diferencia os cartões do fundo da página. */
+}
+
+.stock2-page #status .status-resumo {
+  margin-bottom: 22px; /* Cria o espaçamento entre resumo e movimentações. */
+}
+
+.stock2-page #status .produto-lista-heading {
+  display: flex; /* Organiza título e descrição em uma linha própria. */
+  align-items: center; /* Centraliza verticalmente os elementos do cabeçalho. */
+  min-height: 84px; /* Reserva uma área consistente para o cabeçalho. */
+  padding: 18px 22px; /* Afasta o conteúdo das bordas do cartão. */
+}
+
+.stock2-page #status .produto-lista-heading h2 {
+  margin: 0; /* Remove margem padrão do subtítulo. */
+  color: #fff; /* Destaca o nome da seção. */
+  font-size: 1.05rem; /* Mantém hierarquia abaixo do título da página. */
+}
+
+.stock2-page #status .produto-lista-heading p {
+  margin: 6px 0 0; /* Separa a descrição do subtítulo. */
+  color: rgb(255 255 255 / 58%); /* Mantém o texto auxiliar discreto. */
+  font-size: 0.82rem; /* Usa tamanho compacto para a descrição. */
+}
+
+/* Distribui os indicadores em quatro cartões responsivos. */
+.stock2-page #status .status-cards {
+  display: grid; /* Permite reorganizar os indicadores conforme a largura. */
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* Cria quatro blocos equivalentes. */
+  gap: 12px; /* Separa os cartões sem misturar suas informações. */
+  padding: 0 22px 22px; /* Mantém margem interna em relação ao cartão principal. */
+}
+
+.stock2-page #status .status-card {
+  display: flex; /* Alinha ícone e indicador horizontalmente. */
+  min-width: 0; /* Permite que valores longos respeitem o limite da coluna. */
+  align-items: center; /* Centraliza o conteúdo verticalmente. */
+  gap: 12px; /* Separa o ícone do texto do indicador. */
+  min-height: 92px; /* Padroniza a altura dos cartões. */
+  padding: 16px; /* Cria área interna confortável. */
+  border: 1px solid rgb(255 255 255 / 8%); /* Delimita cada indicador. */
+  border-radius: 12px; /* Suaviza os cantos dos cartões menores. */
+  background: rgb(255 255 255 / 3%); /* Adiciona leve contraste sobre o cartão escuro. */
+}
+
+.stock2-page #status .status-card-icon {
+  display: grid; /* Centraliza o símbolo dentro do círculo. */
+  flex: 0 0 38px; /* Mantém largura fixa para o ícone. */
+  width: 38px; /* Define tamanho horizontal do ícone. */
+  height: 38px; /* Define tamanho vertical do ícone. */
+  place-items: center; /* Centraliza o símbolo em ambas as direções. */
+  border-radius: 50%; /* Cria um marcador circular. */
+  font-size: 0.72rem; /* Mantém o símbolo legível e compacto. */
+  font-weight: 700; /* Destaca o ícone visualmente. */
+}
+
+.stock2-page #status .status-card small {
+  display: block; /* Mantém o rótulo acima do valor. */
+  color: rgb(255 255 255 / 58%); /* Usa contraste suave para o rótulo. */
+  font-size: 0.72rem; /* Reduz o rótulo sem perder legibilidade. */
+}
+
+.stock2-page #status .status-card h3 {
+  margin: 4px 0 0; /* Aproxima o valor do rótulo. */
+  color: #fff; /* Destaque máximo para o indicador principal. */
+  font-size: clamp(1.05rem, 2vw, 1.35rem); /* Ajusta o número ao espaço disponível. */
+  line-height: 1.2; /* Mantém o valor compacto. */
+  overflow-wrap: anywhere; /* Evita overflow quando o valor for longo. */
+}
+
+/* Usa três cores combinantes: roxo padrão, azul e verde. */
+.stock2-page #status .status-card-purple {
+  border-color: rgb(168 85 247 / 24%); /* Contorna o cartão com roxo suave. */
+  background: linear-gradient(135deg, rgb(168 85 247 / 13%), rgb(255 255 255 / 3%)); /* Cria leve profundidade roxa. */
+}
+
+.stock2-page #status .status-card-purple .status-card-icon {
+  background: rgb(168 85 247 / 18%); /* Destaca o marcador roxo. */
+  color: #c084fc; /* Usa roxo claro no símbolo. */
+}
+
+.stock2-page #status .status-card-blue {
+  border-color: rgb(59 130 246 / 24%); /* Contorna os cartões azuis discretamente. */
+  background: linear-gradient(135deg, rgb(59 130 246 / 13%), rgb(255 255 255 / 3%)); /* Adiciona brilho azul suave. */
+}
+
+.stock2-page #status .status-card-blue .status-card-icon {
+  background: rgb(59 130 246 / 18%); /* Destaca o marcador azul. */
+  color: #60a5fa; /* Usa azul claro no símbolo. */
+}
+
+.stock2-page #status .status-card-green {
+  border-color: rgb(16 185 129 / 24%); /* Contorna o cartão verde discretamente. */
+  background: linear-gradient(135deg, rgb(16 185 129 / 13%), rgb(255 255 255 / 3%)); /* Adiciona brilho verde suave. */
+}
+
+.stock2-page #status .status-card-green .status-card-icon {
+  background: rgb(16 185 129 / 18%); /* Destaca o marcador verde. */
+  color: #34d399; /* Usa verde claro no símbolo. */
+}
+
+/* Mantém a tabela do Status alinhada ao padrão visual de Gerenciar. */
+.stock2-page #status .produto-tabela-scroll {
+  overflow-x: auto; /* Permite rolagem horizontal em telas pequenas. */
+}
+
+.stock2-page #status .produto-tabela {
+  width: 100%; /* Ocupa toda a largura do cartão. */
+  min-width: 680px; /* Preserva espaço para as três colunas. */
+  border-collapse: collapse; /* Une as bordas das células. */
+  text-align: left; /* Alinha os dados à esquerda. */
+}
+
+.stock2-page #status .produto-tabela th {
+  padding: 12px 18px; /* Cria espaço interno no cabeçalho. */
+  border-top: 1px solid rgb(255 255 255 / 7%); /* Separa o cabeçalho do título. */
+  border-bottom: 1px solid rgb(255 255 255 / 7%); /* Separa o cabeçalho das linhas. */
+  background: #0d0b12; /* Diferencia o fundo do cabeçalho. */
+  color: rgb(255 255 255 / 48%); /* Usa texto secundário no cabeçalho. */
+  font-size: 0.67rem; /* Mantém os nomes das colunas compactos. */
+  letter-spacing: 0.04em; /* Melhora a leitura dos rótulos. */
+  text-transform: uppercase; /* Padroniza os cabeçalhos em caixa alta. */
+}
+
+.stock2-page #status .produto-tabela td {
+  padding: 14px 18px; /* Dá separação confortável às informações da linha. */
+  border-bottom: 1px solid rgb(255 255 255 / 6%); /* Separa uma movimentação da próxima. */
+  color: rgb(255 255 255 / 72%); /* Mantém os dados legíveis sobre o fundo escuro. */
+  font-size: 0.78rem; /* Usa tamanho compacto e consistente. */
+  white-space: nowrap; /* Evita quebra indesejada das informações. */
+}
+
+.stock2-page #status .produto-linha:hover {
+  background: rgb(255 255 255 / 3%); /* Realça apenas a linha sob o ponteiro. */
+}
+
+/* Cores das ações: verde para venda, azul para compra e roxo para cadastro. */
+.stock2-page #status .movimentacao-acao {
+  display: inline-flex; /* Mantém o texto dentro de uma etiqueta compacta. */
+  align-items: center; /* Centraliza o texto verticalmente. */
+  padding: 6px 10px; /* Dá espaço interno à etiqueta. */
+  border: 1px solid transparent; /* Reserva a borda usada por cada tipo. */
+  border-radius: 999px; /* Formata a ação como selo arredondado. */
+  font-size: 0.72rem; /* Mantém a ação legível e compacta. */
+  font-weight: 700; /* Dá destaque ao tipo de movimentação. */
+}
+
+.stock2-page #status .movimentacao-venda {
+  border-color: rgb(16 185 129 / 30%); /* Contorna a etiqueta de venda com verde. */
+  background: rgb(16 185 129 / 12%); /* Aplica fundo verde suave. */
+  color: #34d399; /* Exibe o texto em verde claro. */
+}
+
+.stock2-page #status .movimentacao-compra {
+  border-color: rgb(59 130 246 / 30%); /* Contorna a etiqueta de compra com azul. */
+  background: rgb(59 130 246 / 12%); /* Aplica fundo azul suave. */
+  color: #60a5fa; /* Exibe o texto em azul claro. */
+}
+
+.stock2-page #status .movimentacao-purple {
+  border-color: rgb(168 85 247 / 30%); /* Contorna ações neutras ou cadastro com roxo. */
+  background: rgb(168 85 247 / 12%); /* Aplica fundo roxo suave. */
+  color: #c084fc; /* Exibe o texto em roxo claro. */
+}
+
+.stock2-page #status .produto-lista-vazia {
+  display: grid; /* Centraliza título e descrição em uma única coluna. */
+  min-height: 180px; /* Mantém altura consistente no estado vazio. */
+  place-content: center; /* Centraliza o conteúdo vertical e horizontalmente. */
+  text-align: center; /* Alinha a mensagem no centro do cartão. */
+}
+
+.stock2-page #status .produto-lista-vazia strong {
+  color: rgb(255 255 255 / 82%); /* Destaca a mensagem principal. */
+  font-size: 0.9rem; /* Dá peso visual moderado ao título vazio. */
+}
+
+.stock2-page #status .produto-lista-vazia p {
+  margin: 6px 0 0; /* Separa a explicação do título vazio. */
+  color: rgb(255 255 255 / 48%); /* Usa texto auxiliar discreto. */
+  font-size: 0.78rem; /* Mantém o aviso compacto. */
+}
+
+.stock2-page #status .produto-lista-vazia[hidden] {
+  display: none !important; /* Oculta corretamente o estado vazio quando há dados. */
+}
+
+@media (max-width: 900px) {
+  /* Reduz os quatro indicadores para duas colunas em telas médias. */
+  .stock2-page #status .status-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Exibe os cartões em duas linhas. */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Empilha os indicadores em celulares estreitos. */
+  .stock2-page #status .status-cards {
+    grid-template-columns: 1fr; /* Usa toda a largura para cada indicador. */
+  }
+
+  /* Mantém o cabeçalho da seção com espaçamento adequado no celular. */
+  .stock2-page #status .produto-lista-heading {
+    min-height: 72px; /* Reduz apenas a altura mínima do cabeçalho. */
+    padding: 16px; /* Ajusta o espaço interno para telas menores. */
+  }
+}
+
 /* Empilha os campos e o cabeçalho da lista em celulares estreitos. */
 @media (max-width: 480px) {
   /* Usa uma coluna para cada campo do formulário. */
@@ -1579,6 +1867,14 @@ section {
     flex-direction: column; /* Coloca os elementos um abaixo do outro. */
   }
 }
+.stock2-page .perfil-info .perfil-descricao {
+  display: block;
+}
+
+.stock2-page .perfil-info .perfil-descricao * {
+  transition: none !important;
+}
+
 @view-transition {
   navigation: auto;
 }

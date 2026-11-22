@@ -119,6 +119,7 @@
       id="status"
       aria-label="Status"
     >
+      <!-- Usa o mesmo container largo do Gerenciar para manter o padrão visual da aplicação. -->
       <div class="gerenciar-container">
         <div class="gerenciar-heading">
           <div>
@@ -128,34 +129,49 @@
           </div>
         </div>
 
-        <div class="produto-lista" style="margin-bottom: 1.5rem;">
+        <!-- Organiza os indicadores em cartões separados para facilitar a leitura. -->
+        <div class="produto-lista status-resumo">
           <div class="produto-lista-heading">
             <div>
               <h2>Resumo atual</h2>
               <p>Indicadores calculados em tempo real da sua conta.</p>
             </div>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; padding: 0.5rem 0;">
-            <div>
-              <small style="opacity: 0.75;">Produtos distintos</small>
-              <h3 id="status-total-produtos" style="margin-top: 0.25rem;">0</h3>
-            </div>
-            <div>
-              <small style="opacity: 0.75;">Unidades em estoque</small>
-              <h3 id="status-total-unidades" style="margin-top: 0.25rem;">0</h3>
-            </div>
-            <div>
-              <small style="opacity: 0.75;">Valor total</small>
-              <h3 id="status-valor-total" style="margin-top: 0.25rem;">R$ 0,00</h3>
-            </div>
-            <div>
-              <small style="opacity: 0.75;">Estoque baixo (até 5)</small>
-              <h3 id="status-estoque-baixo" style="margin-top: 0.25rem;">0</h3>
-            </div>
+          <!-- Cada indicador recebe uma cor: roxo padrão, azul ou verde. -->
+          <div class="status-cards">
+            <article class="status-card status-card-purple">
+              <span class="status-card-icon" aria-hidden="true">P</span>
+              <div>
+                <small>Produtos cadastrados</small>
+                <h3 id="status-total-produtos">0</h3>
+              </div>
+            </article>
+            <article class="status-card status-card-blue">
+              <span class="status-card-icon" aria-hidden="true">U</span>
+              <div>
+                <small>Unidades em estoque</small>
+                <h3 id="status-total-unidades">0</h3>
+              </div>
+            </article>
+            <article class="status-card status-card-green">
+              <span class="status-card-icon" aria-hidden="true">R$</span>
+              <div>
+                <small>Valor total</small>
+                <h3 id="status-valor-total">R$ 0,00</h3>
+              </div>
+            </article>
+            <article class="status-card status-card-blue">
+              <span class="status-card-icon" aria-hidden="true">!</span>
+              <div>
+                <small>Estoque baixo (até 5)</small>
+                <h3 id="status-estoque-baixo">0</h3>
+              </div>
+            </article>
           </div>
         </div>
 
-        <div class="produto-lista">
+        <!-- Mantém o histórico dentro de um cartão próprio e separado do resumo. -->
+        <div class="produto-lista status-movimentacoes">
           <div class="produto-lista-heading">
             <div>
               <h2>Movimentações recentes</h2>
@@ -282,6 +298,9 @@
       id="configuracoes"
       aria-label="Configurações"
     >
+      <div class="configuracoes-em-breve" role="status" aria-label="Configurações em breve">
+        <span>Em breve</span>
+      </div>
       <div class="gerenciar-container">
         <div class="gerenciar-heading">
           <div>
@@ -309,6 +328,8 @@
       </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/SplitText.min.js"></script>
     <script src="stock2.js"></script>
   </body>
 </html>
